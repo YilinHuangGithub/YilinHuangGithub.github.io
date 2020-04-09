@@ -18,7 +18,7 @@
     <meta name="keywords" content="machine learning,deep learning,statistics,data science">
 
 
-<title>ia | Yilin&#39;s data science</title>
+<title>text | Yilin&#39;s data science</title>
 
 
 
@@ -58,11 +58,13 @@
                 
                     <a class="menu-item" href="/archives">Posts</a>
                 
-                    <a class="menu-item" href="/categories">Categories</a>
+                    <a class="menu-item" href="/category">Category</a>
                 
-                    <a class="menu-item" href="/tags">Tags</a>
+                    <a class="menu-item" href="/tag">Tag</a>
                 
                     <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/CV">Yilin&#39;CV</a>
                 
                 <input id="switch_default" type="checkbox" class="switch_default">
                 <label for="switch_default" class="toggleBtn"></label>
@@ -83,11 +85,13 @@
                 
                     <a class="menu-item" href="/archives">Posts</a>
                 
-                    <a class="menu-item" href="/categories">Categories</a>
+                    <a class="menu-item" href="/category">Category</a>
                 
-                    <a class="menu-item" href="/tags">Tags</a>
+                    <a class="menu-item" href="/tag">Tag</a>
                 
                     <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/CV">Yilin&#39;CV</a>
                 
             </div>
         </div>
@@ -111,73 +115,11 @@
             <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">ia</h1>
+            <h1 class="post-title">text</h1>
             
                 <div class="post-meta">
                     
@@ -190,16 +132,21 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/cat1/">cat1</a>
+                            
+                                <a href="/categories/cat1/cat2/">cat2</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>为什么他给一个不知道</p>
-<p>/Users/huangyilin/Desktop/Screen Shot 2020-04-09 at 5.07.01 PM.png</p>
+            <p>这只是个测试</p>
 
         </div>
 
@@ -214,7 +161,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://yoursite.com/2020/04/05/hello-world/">http://yoursite.com/2020/04/05/hello-world/</a></span>
+                        <span><a href="http://yoursite.com/2020/04/05/text/">http://yoursite.com/2020/04/05/text/</a></span>
                     </p>
                 
                 
@@ -253,6 +200,8 @@
         </section>
         <section class="post-nav">
             
+            
+            <a class="next" rel="next" href="/2020/04/05/hello-world%20copy/">idea</a>
             
         </section>
 
