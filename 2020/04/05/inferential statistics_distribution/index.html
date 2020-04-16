@@ -231,9 +231,10 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Inferential-Statistics-Statistical-Distribution"><a href="#Inferential-Statistics-Statistical-Distribution" class="headerlink" title="Inferential Statistics-Statistical Distribution:"></a>Inferential Statistics-Statistical Distribution:</h1><h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>In hypothesis testing, an analyst tests a statistical sample, with the goal of providing evidence on the plausibility of the null hypothesis. Statistical analysts test a hypothesis by measuring and examining a random sample of the population being analyzed. </p>
-<p>Before you learn more about the hypothesis testing, there are a few of mathematical concepts you better to understand in order to support you to comprehend hypothesis testing much deeply instead of superficially. I will list all of these mathematical concepts on the table of contents before the hypothesis testing part.</p>
-<h1 id="2-Table-of-Contents"><a href="#2-Table-of-Contents" class="headerlink" title="2. Table of Contents"></a>2. Table of Contents</h1><p><strong>•    Expected value<br>•    Probability distributions<br>•    Maximum likelihood<br>•    Central limited theory<br>•    Confidential interval</strong></p>
+            <h1 id="Inferential-Statistics-Statistical-Distribution"><a href="#Inferential-Statistics-Statistical-Distribution" class="headerlink" title="Inferential Statistics-Statistical Distribution:"></a>Inferential Statistics-Statistical Distribution:</h1><h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Probability distribution provides the probabilities of occurrence of different possible outcomes in an experiment. There are many statistics methods such as hypothesis testing and linear regression develop from the statistical distribution. Before you dig more into about other statistical methods, you better to have the understanding of these statistical distributions. For me, it this my beginning of learning process for the statistics. And there are other basic concepts related to probability distribution will also be introduced in this post to better prepare you to understand about more advanced statistical analysis such as linear regression and hypothesis testing in the next post.</p>
+<h1 id="2-Table-of-Contents"><a href="#2-Table-of-Contents" class="headerlink" title="2. Table of Contents"></a>2. Table of Contents</h1><p>Before the probability distribution part, the <strong>expected value</strong> will be introduced. It is a simple concepts, but it is important to understand the probability distribution and many people will confuse EV with mean value. </p>
+<p>After you learn about EV, there are two different types of probability distributions will be introduced which are <strong>continuous probability distribution</strong> and <strong>discrete probability distribution</strong>. There are some specific and classic probability distributions will be introduced for these two type of probability distribution famillies.</p>
+<p><strong>•    Expected value<br>•    Continuous Probability Distribution Family<br>•    Discrete Probability Distribution Family<br>•    Maximum likelihood<br>•    Central limited theory<br>•    Confidential interval</strong></p>
 <h1 id="3-Expected-value"><a href="#3-Expected-value" class="headerlink" title="3. Expected value"></a>3. Expected value</h1><p>Expected value (EV) is an anticipated value in the future based on the current dataset we have. People are confused about the difference between the EV and mean sometimes. Basically, EV will give the weight for each part of data and it has the probability meaning. However, mean value just divide the sum of value by amount without any probability meaning. there are two different EVs for discrete data and continuous data. </p>
 <p><strong>Formula:</strong></p>
 <p><strong>E(X)</strong>= x1<em>p1+x2</em>p2+…xn<em>pn<br>*</em>Mean:** (X1 + X2 + X3 + … + Xn) / n</p>
@@ -252,45 +253,15 @@
 <p><strong>Mean</strong> = 170+172+175+176+172+176+176+175+172+176）/10= 174</p>
 <h1 id="4-Distributions"><a href="#4-Distributions" class="headerlink" title="4. Distributions"></a>4. Distributions</h1><p>After you figure out what is the expected value, you could be better to understand the probability distribution. Basically, the probability distribution visualizes the likelihood of obtaining the possible values that a random variable can assume. For example, just like the case introduced in the EV for continuous data, for the probability distribution, the X axis will be the 170,172,175,176 and the Y axis will be the probability 1/10, 3/10, 2/10, 4/10.</p>
 <p><img src="/images/inferential_statistics_distributions/distribution.png" alt=""></p>
-<p>There are seven probability distributions will be introduced in the next part:</p>
-<p><strong>•    Normal distribution<br>•    Binomial distribution<br>•    Bernoulli distribution<br>•    Poison Distribution<br>•    T distribution<br>•    F distribution<br>•    Chi-square distribution</strong></p>
-<h2 id="4-1-Normal-distribution"><a href="#4-1-Normal-distribution" class="headerlink" title="4.1 Normal distribution"></a>4.1 Normal distribution</h2><p><strong>Definition</strong>: normal distribution (Gaussian or Gauss or Laplace-Gauss) is a type of continuous probability distribution for a real-value random variable.</p>
+<p>In this part there are two type of distribution famillies will be introduced which are <strong>continuous probability distribution</strong> and <strong>discrete probability distribution</strong>.</p>
+<h2 id="Continuous-Probability-Distribution-Family"><a href="#Continuous-Probability-Distribution-Family" class="headerlink" title="Continuous Probability Distribution Family"></a>Continuous Probability Distribution Family</h2><p><strong>•    Normal distribution<br>•    T distribution<br>•    F distribution<br>•    Chi-square distribution</strong></p>
+<h3 id="4-1-Normal-distribution"><a href="#4-1-Normal-distribution" class="headerlink" title="4.1 Normal distribution"></a>4.1 Normal distribution</h3><p><strong>Definition</strong>: normal distribution (Gaussian or Gauss or Laplace-Gauss) is a type of continuous probability distribution for a real-value random variable.</p>
 <p><strong>Density function:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/nd.png" alt=""></p>
 <p><strong>Distribution:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/nd2.png" alt=""></p>
 <p><strong>Appendix:</strong> There are other concepts (maximum likelihood, central limited theory, confidential interval) related to normal distribution would help you to understand more about how we apply normal distribution to solve problems. And these concepts I will introduce later after the distribution part.</p>
-<h2 id="4-2-Bernoulli-distribution"><a href="#4-2-Bernoulli-distribution" class="headerlink" title="4.2 Bernoulli distribution"></a>4.2 Bernoulli distribution</h2><p><strong>Definition:</strong> Unlike normal distribution, the Bernoulli distribution is a discrete distribution having two possible outcomes labelled by n=0 and n=1 in which n=1 (“success”) occurs with probability p and n=0 (“failure”) occurs with probability q=1-p, where 0&lt;p&lt;1. </p>
-<p><strong>Density function:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/bd.png" alt=""></p>
-<p><strong>Distribution:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/bd2.png" alt=""></p>
-<p><strong>Appendix:</strong></p>
-<p><strong>mean</strong> = p<br><strong>variance</strong> = p(1-p)<br><strong>EV</strong> = np</p>
-<p>If you want to know more about how to derive the mean, variance and expected value, you could take a look at <a href="https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/binomial-mean-standard-dev-formulas/v/mean-and-variance-of-bernoulli-distribution-example" target="_blank" rel="noopener">binomial online courses from Khanacademy</a></p>
-<h2 id="4-3-Binomial-distribution"><a href="#4-3-Binomial-distribution" class="headerlink" title="4.3 Binomial distribution"></a>4.3 Binomial distribution</h2><p><strong>Definition:</strong> In probability theory and statistics, the binomial distribution with parameters n and p is the discrete probability distribution of the number of successes in a sequence of n independent experiments, each asking a yes–no question, and each with its own boolean-valued outcome: success/yes/true/one (with probability p) or failure/no/false/zero (with probability q = 1 − p). A single success/failure experiment is also called a Bernoulli trial or Bernoulli experiment and a sequence of outcomes is called a Bernoulli process;</p>
-<p>Basically, Binomial distribution is a series of Bernoulli process. For Bernoulli distribution, the context will be like what is the probability to success/fail for one experiment? For binomial distribution, the context will be like what is the probability of 3 times success for a multiple experiment. </p>
-<p><strong>Density function:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/bid.png" alt=""></p>
-<p><strong>Example:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/bid2.png" alt=""> </p>
-<p><strong>Distribution:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/bid3.png" alt=""> </p>
-<p><strong>Appendix:</strong></p>
-<p>We could see from the density formula that includes the combinations instead of permutations. Which means the order of success for these experiments is important.</p>
-<p><img src="/images/inferential_statistics_distributions/bid4.png" alt=""> </p>
-<p><strong>EV</strong>= np<br><strong>Variance</strong> = np*(1-p).</p>
-<h2 id="4-4-Poisson-Distribution"><a href="#4-4-Poisson-Distribution" class="headerlink" title="4.4 Poisson Distribution"></a>4.4 Poisson Distribution</h2><p><strong>Definition:</strong> Poisson distribution is also a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space if these events occur with a known constant mean rate and independently of the time since the last event. The Poisson distribution can also be used for the number of events in other specified intervals such as distance, area or volume.</p>
-<p>Poisson distribution is based on the binomial distribution. But the context for poisson distribution will be like the number of car accidents in a day or the number of dandelions in a square metre plot of land. Basically, it changes the context that numbers of experiment for binomial distribution to an interval for poisson distribution.</p>
-<p><strong>Assumption:</strong></p>
-<p>•    Events are occurring independently</p>
-<p>•    The probability that an event occurs in a given length of time does not change through time.</p>
-<p>•    Events are occurring randomly and independently.</p>
-<p><strong>Density function:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/pd.png" alt=""> </p>
-<p><strong>Distribution:</strong></p>
-<p><img src="/images/inferential_statistics_distributions/pd2.png" alt=""> </p>
-<h2 id="4-5-T-distribution"><a href="#4-5-T-distribution" class="headerlink" title="4.5 T distribution"></a>4.5 T distribution</h2><p><strong>Definition:</strong> T distribution a type of continuous probability distribution comes from normal distribution. It will be applied when estimating the mean of a normally distributed population in situations where the sample size is small and the population standard deviation is unknown. It used mainly on the hypothesis testing which is T-test for assessing the statistical significance of the difference between two sample means. </p>
+<h3 id="4-2-T-distribution"><a href="#4-2-T-distribution" class="headerlink" title="4.2 T distribution"></a>4.2 T distribution</h3><p><strong>Definition:</strong> T distribution a type of continuous probability distribution comes from normal distribution. It will be applied when estimating the mean of a normally distributed population in situations where the sample size is small and the population standard deviation is unknown. It used mainly on the hypothesis testing which is T-test for assessing the statistical significance of the difference between two sample means. </p>
 <p><strong>Assumption:</strong></p>
 <p>•    The distribution of the data is normal distributed.</p>
 <p>•    The sample data is small n &lt; 30.</p>
@@ -305,7 +276,7 @@
 <p><strong>Distribution:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/td4.png" alt=""> </p>
 <p>The blue curves on these charts is normal distributed. We could observe from these charts that with the df higher, the curve of this T distribution will tend to normal distributed.</p>
-<h2 id="4-6-Z-distribution"><a href="#4-6-Z-distribution" class="headerlink" title="4.6 Z distribution"></a>4.6 Z distribution</h2><p><strong>Definition:</strong> Z-distribution (standard normal distribution) The standard normal distribution is centered at zero and the degree to which a given measurement deviates from the mean is given by the standard deviation. For the standard normal distribution, 68% of the observations lie within 1 standard deviation of the mean; 95% lie within two standard deviation of the mean; and 99.9% lie within 3 standard deviations of the mean. You need to calculate the Z-score and according to the Z table to get the probability that whether there is a significant difference between samples.</p>
+<h3 id="4-3-Z-distribution"><a href="#4-3-Z-distribution" class="headerlink" title="4.3 Z distribution"></a>4.3 Z distribution</h3><p><strong>Definition:</strong> Z-distribution (standard normal distribution) The standard normal distribution is centered at zero and the degree to which a given measurement deviates from the mean is given by the standard deviation. For the standard normal distribution, 68% of the observations lie within 1 standard deviation of the mean; 95% lie within two standard deviation of the mean; and 99.9% lie within 3 standard deviations of the mean. You need to calculate the Z-score and according to the Z table to get the probability that whether there is a significant difference between samples.</p>
 <p><strong>Assumption:</strong></p>
 <p>•    Data are independently sampled from a normal distribution.</p>
 <p>•    The sample data is large n &gt; 30.</p>
@@ -316,9 +287,40 @@
 <p>If you Z-score is 0.12. You need to separate this number into two parts which are 0.1 and 0.02.<br>From the first column, check where is 0.1 located. For the first row, check where is the 0.02. Then you will get 0.5478 which is your P value.</p>
 <p><strong>Distribution:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/zd3.png" alt="">   </p>
-<h2 id="4-7-F-distribution"><a href="#4-7-F-distribution" class="headerlink" title="4.7 F distribution"></a>4.7 F distribution</h2><p>Definition:<br>Assumption:<br>Density function:<br>Distribution:</p>
-<h2 id="4-8-Chi-square-distribution"><a href="#4-8-Chi-square-distribution" class="headerlink" title="4.8 Chi-square distribution"></a>4.8 Chi-square distribution</h2><p>Definition:<br>Assumption:<br>Density function:<br>Distribution:</p>
-<h1 id="5-Maximum-likelihood"><a href="#5-Maximum-likelihood" class="headerlink" title="5. Maximum likelihood"></a>5. Maximum likelihood</h1><h1 id="6-Central-Limited-theory"><a href="#6-Central-Limited-theory" class="headerlink" title="6. Central Limited theory"></a>6. Central Limited theory</h1><h1 id="7-Confidential-interval"><a href="#7-Confidential-interval" class="headerlink" title="7. Confidential interval"></a>7. Confidential interval</h1><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><p><a href="https://www.investopedia.com/terms/h/hypothesistesting.asp" target="_blank" rel="noopener">https://www.investopedia.com/terms/h/hypothesistesting.asp</a><br><a href="https://www.zhihu.com/question/52259830" target="_blank" rel="noopener">https://www.zhihu.com/question/52259830</a><br><a href="https://mathworld.wolfram.com/BernoulliDistribution.html" target="_blank" rel="noopener">https://mathworld.wolfram.com/BernoulliDistribution.html</a> </p>
+<h3 id="4-4-F-distribution"><a href="#4-4-F-distribution" class="headerlink" title="4.4 F distribution"></a>4.4 F distribution</h3><p>Definition:<br>Assumption:<br>Density function:<br>Distribution:</p>
+<h3 id="4-5-Chi-square-distribution"><a href="#4-5-Chi-square-distribution" class="headerlink" title="4.5 Chi-square distribution"></a>4.5 Chi-square distribution</h3><p>Definition:<br>Assumption:<br>Density function:<br>Distribution:</p>
+<h2 id="Discrete-Probability-Distribution-Family"><a href="#Discrete-Probability-Distribution-Family" class="headerlink" title="Discrete Probability Distribution Family"></a>Discrete Probability Distribution Family</h2><p><strong>•    Binomial distribution<br>•    Bernoulli distribution<br>•    Poison Distribution</strong></p>
+<h2 id="4-6-Bernoulli-distribution"><a href="#4-6-Bernoulli-distribution" class="headerlink" title="4.6 Bernoulli distribution"></a>4.6 Bernoulli distribution</h2><p><strong>Definition:</strong> Unlike normal distribution, the Bernoulli distribution is a discrete distribution having two possible outcomes labelled by n=0 and n=1 in which n=1 (“success”) occurs with probability p and n=0 (“failure”) occurs with probability q=1-p, where 0&lt;p&lt;1. </p>
+<p><strong>Density function:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/bd.png" alt=""></p>
+<p><strong>Distribution:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/bd2.png" alt=""></p>
+<p><strong>Appendix:</strong></p>
+<p><strong>mean</strong> = p<br><strong>variance</strong> = p(1-p)<br><strong>EV</strong> = np</p>
+<p>If you want to know more about how to derive the mean, variance and expected value, you could take a look at <a href="https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/binomial-mean-standard-dev-formulas/v/mean-and-variance-of-bernoulli-distribution-example" target="_blank" rel="noopener">binomial online courses from Khanacademy</a></p>
+<h2 id="4-7-Binomial-distribution"><a href="#4-7-Binomial-distribution" class="headerlink" title="4.7 Binomial distribution"></a>4.7 Binomial distribution</h2><p><strong>Definition:</strong> In probability theory and statistics, the binomial distribution with parameters n and p is the discrete probability distribution of the number of successes in a sequence of n independent experiments, each asking a yes–no question, and each with its own boolean-valued outcome: success/yes/true/one (with probability p) or failure/no/false/zero (with probability q = 1 − p). A single success/failure experiment is also called a Bernoulli trial or Bernoulli experiment and a sequence of outcomes is called a Bernoulli process;</p>
+<p>Basically, Binomial distribution is a series of Bernoulli process. For Bernoulli distribution, the context will be like what is the probability to success/fail for one experiment? For binomial distribution, the context will be like what is the probability of 3 times success for a multiple experiment. </p>
+<p><strong>Density function:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/bid.png" alt=""></p>
+<p><strong>Example:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/bid2.png" alt=""> </p>
+<p><strong>Distribution:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/bid3.png" alt=""> </p>
+<p><strong>Appendix:</strong></p>
+<p>We could see from the density formula that includes the combinations instead of permutations. Which means the order of success for these experiments is important.</p>
+<p><img src="/images/inferential_statistics_distributions/bid4.png" alt=""> </p>
+<p><strong>EV</strong>= np<br><strong>Variance</strong> = np*(1-p).</p>
+<h2 id="4-8-Poisson-Distribution"><a href="#4-8-Poisson-Distribution" class="headerlink" title="4.8 Poisson Distribution"></a>4.8 Poisson Distribution</h2><p><strong>Definition:</strong> Poisson distribution is also a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space if these events occur with a known constant mean rate and independently of the time since the last event. The Poisson distribution can also be used for the number of events in other specified intervals such as distance, area or volume.</p>
+<p>Poisson distribution is based on the binomial distribution. But the context for poisson distribution will be like the number of car accidents in a day or the number of dandelions in a square metre plot of land. Basically, it changes the context that numbers of experiment for binomial distribution to an interval for poisson distribution.</p>
+<p><strong>Assumption:</strong></p>
+<p>•    Events are occurring independently</p>
+<p>•    The probability that an event occurs in a given length of time does not change through time.</p>
+<p>•    Events are occurring randomly and independently.</p>
+<p><strong>Density function:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/pd.png" alt=""> </p>
+<p><strong>Distribution:</strong></p>
+<p><img src="/images/inferential_statistics_distributions/pd2.png" alt=""> </p>
+<h1 id="5-Maximum-likelihood"><a href="#5-Maximum-likelihood" class="headerlink" title="5. Maximum likelihood"></a>5. Maximum likelihood</h1><h1 id="6-Central-Limited-theory"><a href="#6-Central-Limited-theory" class="headerlink" title="6. Central Limited theory"></a>6. Central Limited theory</h1><h1 id="7-Confidential-interval"><a href="#7-Confidential-interval" class="headerlink" title="7. Confidential interval"></a>7. Confidential interval</h1><h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><p><a href="https://www.investopedia.com/terms/h/hypothesistesting.asp" target="_blank" rel="noopener">https://www.investopedia.com/terms/h/hypothesistesting.asp</a><br><a href="https://www.zhihu.com/question/52259830" target="_blank" rel="noopener">https://www.zhihu.com/question/52259830</a><br><a href="https://mathworld.wolfram.com/BernoulliDistribution.html" target="_blank" rel="noopener">https://mathworld.wolfram.com/BernoulliDistribution.html</a> </p>
 
         </div>
 
@@ -372,6 +374,8 @@
             
                 <a class="prev" rel="prev" href="/2020/04/05/Data_indicators/">Data Indicators</a>
             
+            
+            <a class="next" rel="next" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
             
         </section>
 
