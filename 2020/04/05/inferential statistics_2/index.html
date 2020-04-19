@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yilin">
+
+
+    <meta name="subtitle" content="I love data science">
+
+
+    <meta name="description" content="the blog used to share projects and focus on AI industry">
+
+
+    <meta name="keywords" content="machine learning,deep learning,statistics,data science">
+
+
+<title>Inferential Statistics-Statistical Distributions | Yilin&#39;s data science</title>
+
+
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yilin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yilin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Inferential Statistics-Statistical Distributions</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yilin</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 5, 2020&nbsp;&nbsp;18:28:19</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Statistics/">Statistics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>This post will introduce theories related to statistical distributions. After you have a basic understanding of statistical distribution, you still can’t apply them to solve problems in real world. For example, you want to know the real distribution of age for people. But it’ s impossible to collect the information from all of age for people in real world. And not all of the data is normal distributed, how you deal with this kind of problems? </p>
+<p>Real world is always complex. But there still have some other rules will help us to get a conclusion close to the truth. </p>
+<h1 id="2-Table-of-Contents"><a href="#2-Table-of-Contents" class="headerlink" title="2. Table of Contents"></a>2. Table of Contents</h1><p>•    Maximum likelihood estimation and Maximum a posteriori estimation<br>     - Bayesian theory<br>     - Parametric and non-parametric models<br>     - Maximum likelihood estimation (MLE)<br>     - Maximum a posteriori estimation (MAP)<br>     - Difference between MLE and MAP<br>     - Application of MLE and MAP<br>•    Central limit theorem<br>•    Confidence interval</p>
+<h1 id="3-Maximum-likelihood-estimation-and-Maximum-a-posteriori-estimation"><a href="#3-Maximum-likelihood-estimation-and-Maximum-a-posteriori-estimation" class="headerlink" title="3. Maximum likelihood estimation and Maximum a posteriori estimation"></a>3. Maximum likelihood estimation and Maximum a posteriori estimation</h1><h2 id="3-1-Bayes’-theorem-–-Bayesian-statistics"><a href="#3-1-Bayes’-theorem-–-Bayesian-statistics" class="headerlink" title="3.1 Bayes’ theorem – Bayesian statistics"></a>3.1 Bayes’ theorem – Bayesian statistics</h2><p>Before I introduce you about MLE and MAP which are point estimators, I would like you to learn about the Bayesian statistics. It is fundamental to the MAP.</p>
+<p><strong>Definition:</strong> Bayesian statistics is an application of Bayes’ theorem which describes the probability of an event, based on prior of conditions that might be related to the event. </p>
+<p><strong>Equation – Bayes’ theorem:</strong></p>
+<p><img src="/images/is_2/bt.png" alt="">  </p>
+<p>Where A and B are events and P(B) != 0.</p>
+<p><strong>Dependence:</strong></p>
+<p>P(A|B) is a <strong><em>conditional probability and posterior probability</em></strong>: the likelihood of an event A occurring given that B is true. This is the probability that you want to calculate based on the P(B|A), P(A) and P(B).</p>
+<p><strong>Independence:</strong></p>
+<p>P(B|A) is also a <strong><em>conditional probability</em></strong>: the likelihood of an event B occurring given that A is true.<br>P(A) and P(B) are <strong><em>prior probability</em></strong>. And they are also <strong><em>marginal independence</em></strong>. Which means that random variable A is marginally independent of random variable Y. That is, knowledge of Y’s value doesn’t affect your belief in value of X.</p>
+<p><strong>Example:</strong></p>
+<p><strong><em>Event A:</em></strong> the probability that people die because of cancer is 20%.<br><strong><em>Event B:</em></strong> the probability that people die because of smoke is 30%.<br><strong><em>Conditional probability (B|A):</em></strong> the probability that people who have cancer die with smoke habit is 10%.</p>
+<p><strong><em>Question:</em></strong> you want to know the conditional probability (A|B) which people who have smoke habit die with cancer.</p>
+<p>P(B|A) = P(B|A) * P(A)/P(B) = 10%*20%/30% ≈ 66%</p>
+<h2 id="3-2-Parametric-and-non-parametric-models"><a href="#3-2-Parametric-and-non-parametric-models" class="headerlink" title="3.2 Parametric and non-parametric models"></a>3.2 Parametric and non-parametric models</h2><p><strong>Definition:</strong> Parametric models are a kind of statistical models. Specifically, a parametric model is belonging to a family of probability distributions that has a finite number of parameters. Compare with parametric models, non-parametric models’ distributions are unknown and with infinite number of parameters.</p>
+<p>If you want dig more into about parametric and non-parametric models, you could take a look at <a href="https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/" target="_blank" rel="noopener">Parametric and Nonparametric Machine Learning Algorithms</a>.</p>
+<p>After you figure out the main difference between parametric and non-parametric models, you could start to learn about MLE and MAP. These two methods only apply to estimate the parameter for the parametric models with the probability distributions have already known.</p>
+<h2 id="3-3-Maximum-likelihood-estimation"><a href="#3-3-Maximum-likelihood-estimation" class="headerlink" title="3.3 Maximum likelihood estimation"></a>3.3 Maximum likelihood estimation</h2><p><strong>Definition:</strong> Maximum likelihood estimation (MLE) is a method of estimating the parameters of probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable.</p>
+<p><strong>Questions:</strong> </p>
+<p>When I learn about MLE, I have two question below:</p>
+<p>Q1: Why we need to maximize the probability of the sample data we currently have? </p>
+<p>Q2: If we got the different sample data, will we get totally different parameters for the model?</p>
+<p>A1: After I done a lot of research, it turns out that MLE is an assumption. MLE assumes that the sample data that could be selected from the total distribution just by the first time which means that these sample data may have the higher probability in the population’s probability distribution. Currently, we know sample’s distribution but don’t know the parameter. We could maximize the probability for the sample data we have and log the equation to get the parameters. </p>
+<p>A2: Yes, for different sample data we could get different parameters for probability distribution which means that we could generate different model for the general population based on the different sample from this general population.</p>
+<p><strong>Assumption:</strong></p>
+<p>•    Each sample data is exclusive and independent.</p>
+<p>•    The distribution has already known.</p>
+<p><strong>Equation:</strong></p>
+<p><img src="/images/is_2/3.3.1.png" alt="">  </p>
+<p><strong>Example – Normal distribution</strong></p>
+<p>The equation for normal distribution is below:</p>
+<p><img src="/images/is_2/3.3.2.png" alt="">  </p>
+<p>Assume we have the sample X1, X2, X3…, Xn. The parameters for the normal distribution is the mean value μ and standard deviation σ.</p>
+<p><img src="/images/is_2/3.3.3.png" alt="">  </p>
+<p>For the fixed data x1, . . . , xn, the likelihood and log likelihood are </p>
+<p><img src="/images/is_2/3.3.4.png" alt="">  </p>
+<p>Since ln(f(x1, . . . , xn|μ, σ)) is a function of the two variables μ, σ we use partial derivatives to find the MLE. The easy value to find is μˆ: </p>
+<p> <img src="/images/is_2/3.3.5.png" alt="">  </p>
+<p>To find σˆ we differentiate and solve for σ:</p>
+<p> <img src="/images/is_2/3.3.6.png" alt="">  </p>
+<p>Finally, we already know μˆ = x, so we use that as the value for μ in the formula for σˆ. We get the maximum likelihood estimates</p>
+<p><img src="/images/is_2/3.3.7.png" alt="">  </p>
+<p>This amazing example I found from <a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading10b.pdf" target="_blank" rel="noopener">Maximum Likelihood Estimates by Jeremy Orloff and Jonathan Bloom</a>. There are also examples for other distributions. You could take a look if you are interested in. </p>
+<h2 id="3-4-Maximum-a-posteriori-estimation"><a href="#3-4-Maximum-a-posteriori-estimation" class="headerlink" title="3.4 Maximum a posteriori estimation"></a>3.4 Maximum a posteriori estimation</h2><p><strong>Definition:</strong> MAP is an estimate of an unknown quantity. The MAP could apply to obtain a point estimate of an unobserved quantity on the basis of empirical data. It is closely related to the method of maximum likelihood estimation (MLE), but employs an augmented optimization objective which incorporates a prior distribution (that quantifies the additional information available through prior knowledge of a related event).</p>
+<p><strong>Equation:</strong></p>
+<p><img src="/images/is_2/3.4.1.png" alt="">  </p>
+<p>I got the screenshot from Wikipedia. It explains the process of MAP very well. Basically, MAP combines the method of Bayesian statistics and MLE.</p>
+<p>According to the Bayesian statistics, we know that if we want to get posterior probability, we need the prior probability. We could calculate the prior probability by using past samples and MLE to get P(theta). And combines the new samples X1,…,Xn, we could get the new theta for the new unobserved sample and generate a new model.</p>
+<p><strong>Example – Normal Distribution:</strong></p>
+<p>If you are interested in the complex inference process for MAP for normal distribution, you could check out the part B in the <a href="http://www.cs.cmu.edu/~aarti/Class/10601/homeworks/hw2Solutions.pdf" target="_blank" rel="noopener">homework from Machine Learning Department Carnegie Mellon University</a></p>
+<h2 id="3-5-Difference-between-MLE-and-MAP"><a href="#3-5-Difference-between-MLE-and-MAP" class="headerlink" title="3.5 Difference between MLE and MAP"></a>3.5 Difference between MLE and MAP</h2><p>Basically, the only difference between MLE and MAP is that MAP use Bayesian statistics thinking that considerate the prior knowledge of a related event.</p>
+<p><img src="/images/is_2/3.5.1.png" alt="">  </p>
+<h2 id="3-6-Application-of-MLE-and-MAP"><a href="#3-6-Application-of-MLE-and-MAP" class="headerlink" title="3.6 Application of MLE and MAP"></a>3.6 Application of MLE and MAP</h2><p>We could apply MLE and MAP in many cases. For example, continuous distribution models, discrete distribution models and regression models. We have already known what the model looks like and according to the MLE and MAP assumption, we could get the parameters which is unknown before based on the sample data.</p>
+<h1 id="4-Confidence-interval"><a href="#4-Confidence-interval" class="headerlink" title="4. Confidence interval"></a>4. Confidence interval</h1><p>After you know about MLE and MAP, you know how to predict parameters for a model. We could apply this model to make an assumption about the general population. But for the values have the lower probability we could assume that these values not in the general population. </p>
+<p><strong>Definition:</strong> Confidence interval (CI) is a type of estimate computed from the statistics of the observed data. </p>
+<p> <img src="/images/is_2/4.1.png" alt="">  </p>
+<p><strong>Example – Normal Distribution</strong></p>
+<p><img src="/images/is_2/4.2.png" alt="">  </p>
+<h1 id="5-Central-limit-theorem"><a href="#5-Central-limit-theorem" class="headerlink" title="5. Central limit theorem"></a>5. Central limit theorem</h1><p><strong>Definition:</strong> Central limit theorem (CLT) when independent random variables are added, the mean value for same size sample tends toward a normal distribution even if the original variables themselves are not normally distributed. This is so that important for the reason that we could transfer the other type distributions to normal distribution to solve problems by using any theories developed from normal distribution.  </p>
+<p><strong>Assumption:</strong></p>
+<p>•    The data should be random selected.</p>
+<p>•    Sample should be independent.</p>
+<p>•    The sample size better to larger than 30.</p>
+<p><strong>Formula:</strong></p>
+<p>Supposed we have sample D1 = {X1,X2,…,Xn} and random select n numbers in this sample each time and we could get D2 = {S1,S2,…SN}. And we by calculating, we get the final sample D3 = {S1/n,S2/n,…,SN/n}. By CLT, the distribution of D3 is normal distribution. </p>
+<p>After you get the mean values for each sample, you could also get a standard normal distribution by calculate Z-value to this D3.</p>
+<p><strong>Example:</strong></p>
+<p>I found an amazing post from Medium which is <a href="https://medium.com/analytics-vidhya/illustration-with-python-central-limit-theorem-aa4d81f7b570" target="_blank" rel="noopener">Illustration with Python: Central Limit Theorem</a>. This post illustrates the process of CLT by python. You could get a clear understanding about how to apply CLT to convert un normal distribution to normal distribution and also standardize normal distribution.</p>
+<h1 id="6-Summary"><a href="#6-Summary" class="headerlink" title="6. Summary"></a>6. Summary</h1><p>In the last post, you have the basic understanding about statistical probability distributions. But the problem in this world is always been complex. In real world, you can’t collect all the information from general population. But you could apply MLE and MAP to make an assumption about the parameters for the probability distribution and also apply CI to make assumption about the range for the general population. </p>
+<p>Also, not all of the probability distributions are normal distribution and it is difficult for you to get a clue to solve the problem about this kind of strange distribution. But you could apply CLT to convert these strange distributions to normal distribution to solve the problem.</p>
+<p>In the real world, nothing is perfect. But sometimes you could sacrifice something and assist by other rules to get the answer tend to the truth. Just like MLE, MAP, CI and CLT, sacrifice some accuracy to get the models close to the general population.</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Bayes%27_theorem</a><br><a href="https://blog.csdn.net/sinat_27652257/article/details/80543604" target="_blank" rel="noopener">https://blog.csdn.net/sinat_27652257/article/details/80543604</a><br><a href="https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/" target="_blank" rel="noopener">https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/</a><br><a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading10b.pdf" target="_blank" rel="noopener">https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading10b.pdf</a><br><a href="https://blog.csdn.net/weixin_41697507/article/details/89819474" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41697507/article/details/89819474</a><br><a href="https://www.zhihu.com/question/22913867" target="_blank" rel="noopener">https://www.zhihu.com/question/22913867</a><br><a href="https://blog.csdn.net/liangzuojiayi/article/details/77967782" target="_blank" rel="noopener">https://blog.csdn.net/liangzuojiayi/article/details/77967782</a><br><a href="https://www.jianshu.com/p/05c15b9f16f1" target="_blank" rel="noopener">https://www.jianshu.com/p/05c15b9f16f1</a> </p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yilin</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2020/04/05/inferential%20statistics_2/">http://yoursite.com/2020/04/05/inferential%20statistics_2/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I love <strong>Data Science</strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Inferential-Statistics/"># Inferential Statistics</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/04/05/Data_indicators/">Data Indicators</a>
+            
+            
+            <a class="next" rel="next" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yilin | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
