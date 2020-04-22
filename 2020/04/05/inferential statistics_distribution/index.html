@@ -18,7 +18,7 @@
     <meta name="keywords" content="machine learning,deep learning,statistics,data science">
 
 
-<title>Inferential Statistics - 2 Distributions | Yilin&#39;s data science</title>
+<title>Inferential Statistics - 1 Distributions | Yilin&#39;s data science</title>
 
 
 
@@ -206,7 +206,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Inferential Statistics - 2 Distributions</h1>
+            <h1 class="post-title">Inferential Statistics - 1 Distributions</h1>
             
                 <div class="post-meta">
                     
@@ -262,10 +262,11 @@
 <p><img src="/images/inferential_statistics_distributions/nd2.png" alt=""></p>
 <p><strong>Appendix:</strong> There are other concepts (maximum likelihood, central limited theory, confidential interval) related to normal distribution would help you to understand more about how we apply normal distribution to solve problems. And these concepts I will introduce later after the distribution part.</p>
 <h3 id="4-2-T-distribution"><a href="#4-2-T-distribution" class="headerlink" title="4.2 T distribution"></a>4.2 T distribution</h3><p><strong>Definition:</strong> T distribution a type of continuous probability distribution comes from normal distribution. It will be applied when estimating the mean of a normally distributed population in situations where the sample size is small and the population standard deviation is unknown. It used mainly on the hypothesis testing which is T-test for assessing the statistical significance of the difference between two sample means. </p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    The distribution of the data is normal distributed.</p>
 <p>•    The sample data is small n &lt; 30.</p>
 <p>•    The standard deviation for population is unknown.</p>
+<p>•    The μ for population is already known.</p>
 <p><strong>Density function:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/td.png" alt=""> </p>
 <p><img src="/images/inferential_statistics_distributions/td2.png" alt=""> </p>
@@ -278,7 +279,7 @@
 <p><img src="/images/inferential_statistics_distributions/td4.png" alt=""> </p>
 <p>The blue curves on these charts is normal distributed. We could observe from these charts that with the df higher, the curve of this T distribution will tend to normal distributed.</p>
 <h3 id="4-3-Z-distribution"><a href="#4-3-Z-distribution" class="headerlink" title="4.3 Z distribution"></a>4.3 Z distribution</h3><p><strong>Definition:</strong> Z-distribution (standard normal distribution) The standard normal distribution is centered at zero and the degree to which a given measurement deviates from the mean is given by the standard deviation. For the standard normal distribution, 68% of the observations lie within 1 standard deviation of the mean; 95% lie within two standard deviation of the mean; and 99.9% lie within 3 standard deviations of the mean. You need to calculate the Z-score and according to the Z table to get the probability that whether there is a significant difference between samples.</p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    Data are independently sampled from a normal distribution.</p>
 <p>•    The sample data is large n &gt; 30.</p>
 <p>•    The standard deviation and mean value for population is already known.</p>
@@ -293,7 +294,7 @@
 <p> The purpose for Z-score is to standardize the data from two different distributions and make them comparable.</p>
 <h3 id="4-6-F-distribution"><a href="#4-6-F-distribution" class="headerlink" title="4.6 F distribution"></a>4.6 F distribution</h3><p><strong>Definition:</strong> F distribution also comes from normal distribution to determine the probability of a set of events instead T distribution with just 2 cases. </p>
 <p>Unlike T distribution, F distribution is a skewed distribution of probabilities similar to a chi-squared distribution. But where the chi-squared distribution deals with the degree of freedom with one set of variables, the F-distribution deals with multiple levels of events having different degrees of freedom. This means that there are several versions of the F-distribution for differing levels of degrees of freedom. </p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    The populations from which the two samples are drawn are normally distributed.</p>
 <p>•    F-tests also assume that data points are independent from one another. For example, you are studying a population of giraffes and you want to know how body size and sex are related. You find that females are larger than males, but you didn’t take into consideration that substantially more of the adults in the population are female than male. Thus, in your dataset, sex is not independent from age.</p>
 <p><strong>Density function:</strong></p>
@@ -305,7 +306,7 @@
 <p><img src="/images/inferential_statistics_distributions/fd2.png" alt="">   </p>
 <p><strong>Appendix:</strong> You could observe from the distribution above that the distribution is totally different with different pairs of df. The larger of the df, the distribution will tend to be like a normal distribution. And for each distribution, if the F score (check on the x-axis) is larger will be with lower P value.</p>
 <h3 id="4-7-Chi-square-distribution"><a href="#4-7-Chi-square-distribution" class="headerlink" title="4.7 Chi-square distribution"></a>4.7 Chi-square distribution</h3><p><strong>Definition:</strong> The Chi-square statistic is a non-parametric (distribution free) tool designed to analyze group differences when the dependent variable is measured at a nominal level.<br>It usually used to compare different groups instead of continues data for T distribution or F distribution. The level of measurement of all the variables is <strong>nominal or ordinal.</strong></p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    The levels (or categories) of the variables are mutually exclusive and independent. </p>
 <p>•    There are 2 variables, and both are measured as categories, usually at the nominal level. However, data may be ordinal data. Interval or ratio data that have been collapsed into ordinal categories may also be used. While Chi-square has no rule about limiting the number of cells (by limiting the number of categories for each variable), a very large number of cells (over 20) can make it difficult to meet assumption.</p>
 <p><strong>Density function:</strong></p>
@@ -341,7 +342,7 @@
 <p><strong>EV</strong>= np<br><strong>Variance</strong> = np*(1-p).</p>
 <h2 id="4-8-Poisson-Distribution"><a href="#4-8-Poisson-Distribution" class="headerlink" title="4.8 Poisson Distribution"></a>4.8 Poisson Distribution</h2><p><strong>Definition:</strong> Poisson distribution is also a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space if these events occur with a known constant mean rate and independently of the time since the last event. The Poisson distribution can also be used for the number of events in other specified intervals such as distance, area or volume.</p>
 <p>Poisson distribution is based on the binomial distribution. But the context for poisson distribution will be like the number of car accidents in a day or the number of dandelions in a square metre plot of land. Basically, it changes the context that numbers of experiment for binomial distribution to an interval for poisson distribution.</p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    Events are occurring independently</p>
 <p>•    The probability that an event occurs in a given length of time does not change through time.</p>
 <p>•    Events are occurring randomly and independently.</p>
@@ -408,10 +409,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/04/05/datatype/">Data Types</a>
+                <a class="prev" rel="prev" href="/2020/04/05/inferential%20statistics_2/">Inferential Statistics - 2 MLE/MAP/CI/CLT</a>
             
-            
-            <a class="next" rel="next" href="/2020/04/05/inferential%20statistics_2/">Inferential Statistics - 1 MLE/MAP/CI/CLT</a>
             
         </section>
 

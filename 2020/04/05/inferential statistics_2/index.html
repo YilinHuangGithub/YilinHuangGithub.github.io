@@ -18,7 +18,7 @@
     <meta name="keywords" content="machine learning,deep learning,statistics,data science">
 
 
-<title>Inferential Statistics - 1 MLE/MAP/CI/CLT | Yilin&#39;s data science</title>
+<title>Inferential Statistics - 2 MLE/MAP/CI/CLT | Yilin&#39;s data science</title>
 
 
 
@@ -206,7 +206,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Inferential Statistics - 1 MLE/MAP/CI/CLT</h1>
+            <h1 class="post-title">Inferential Statistics - 2 MLE/MAP/CI/CLT</h1>
             
                 <div class="post-meta">
                     
@@ -231,7 +231,7 @@
         </header>
 
         <div class="post-content">
-            <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>This post will introduce theories related to statistical distributions. After you have a basic understanding of statistical distribution, you still can’t apply them to solve problems in real world. For example, you want to know the real distribution of age for people. But it’ s impossible to collect the information from all of age for people in real world. And not all of the data is normal distributed, how you deal with this kind of problems? </p>
+            <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>This post will introduce theories related to statistical distributions. After you have a basic understanding of statistical distribution, you still can’t apply them to solve problems in real world. For example, you want to know the real distribution of age for people. But it’ s impossible to collect the information from all of age for people in real to know its mean value and standard deviation. And not all of the data is normal distributed. How you deal with this kind of problems? </p>
 <p>Real world is always complex. But there still have some other rules will help us to get a conclusion close to the truth. </p>
 <h2 id="2-Table-of-Contents"><a href="#2-Table-of-Contents" class="headerlink" title="2. Table of Contents"></a>2. Table of Contents</h2><p>•    Maximum likelihood estimation and Maximum a posteriori estimation<br>     - Bayesian theory<br>     - Parametric and non-parametric models<br>     - Maximum likelihood estimation (MLE)<br>     - Maximum a posteriori estimation (MAP)<br>     - Difference between MLE and MAP<br>     - Application of MLE and MAP</p>
 <p>•    Central limit theorem</p>
@@ -251,7 +251,7 @@
 <p>P(B|A) = P(B|A) * P(A)/P(B) = 10%*20%/30% ≈ 66%</p>
 <h3 id="3-2-Parametric-and-non-parametric-models"><a href="#3-2-Parametric-and-non-parametric-models" class="headerlink" title="3.2 Parametric and non-parametric models"></a>3.2 Parametric and non-parametric models</h3><p><strong>Definition:</strong> Parametric models are a kind of statistical models. Specifically, a parametric model is belonging to a family of probability distributions that has a finite number of parameters. Compare with parametric models, non-parametric models’ distributions are unknown and with infinite number of parameters.</p>
 <p>If you want dig more into about parametric and non-parametric models, you could take a look at <a href="https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/" target="_blank" rel="noopener">Parametric and Nonparametric Machine Learning Algorithms</a>.</p>
-<p>After you figure out the main difference between parametric and non-parametric models, you could start to learn about MLE and MAP. These two methods only apply to estimate the parameter for the parametric models with the probability distributions have already known.</p>
+<p>After you figure out the main difference between parametric and non-parametric models, you could start to learn about MLE and MAP. These two methods only apply to estimate the parameter for the parametric models <strong><em>with the probability distributions have already known</em></strong>.</p>
 <h3 id="3-3-Maximum-likelihood-estimation"><a href="#3-3-Maximum-likelihood-estimation" class="headerlink" title="3.3 Maximum likelihood estimation"></a>3.3 Maximum likelihood estimation</h3><p><strong>Definition:</strong> Maximum likelihood estimation (MLE) is a method of estimating the parameters of probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable.</p>
 <p><strong>Questions:</strong> </p>
 <p>When I was learning about MLE, I have two question below:</p>
@@ -259,7 +259,7 @@
 <p>Q2: If we got the different sample data, will we get totally different parameters for the model?</p>
 <p>A1: After I done a lot of research, it turns out that MLE is an assumption. MLE assumes that the sample data that could be selected from the total distribution just by the first time which means that these sample data may have the higher probability in the population’s probability distribution. Currently, we know sample’s distribution but don’t know the parameter. We could maximize the probability for the sample data we have and log the equation to get the parameters. </p>
 <p>A2: Yes, for different sample data we could get different parameters for probability distribution which means that we could generate different model for the general population based on the different samples from this general population.</p>
-<p><strong>Assumption:</strong></p>
+<p><strong>Premise:</strong></p>
 <p>•    Each sample data is exclusive and independent.</p>
 <p>•    The distribution has already known.</p>
 <p><strong>Equation:</strong></p>
@@ -281,15 +281,18 @@
 <p> <img src="/images/is_2/4.1.png" alt="">  </p>
 <p><strong>Example – Normal Distribution</strong></p>
 <p><img src="/images/is_2/4.2.png" alt="">  </p>
-<h2 id="5-Central-limit-theorem"><a href="#5-Central-limit-theorem" class="headerlink" title="5. Central limit theorem"></a>5. Central limit theorem</h2><p><strong>Definition:</strong> Central limit theorem (CLT) when independent random variables are added, the mean value for same size sample tends toward a normal distribution even if the original variables themselves are not normally distributed. This is so that important for the reason that we could transfer the other type distributions to normal distribution to solve problems by using any theories developed from normal distribution.  </p>
-<p><strong>Assumption:</strong></p>
+<h2 id="5-Central-limit-theorem"><a href="#5-Central-limit-theorem" class="headerlink" title="5. Central limit theorem"></a>5. Central limit theorem</h2><p><strong>Definition:</strong> Central limit theorem (CLT) when independent random variables are added, the mean value for same size sample tends toward a normal distribution. This fact allows you to use these hypothesis tests such as T test and F test even when your data are nonnormally distributed—as long as your sample size is large enough. </p>
+<p><strong>Premise:</strong></p>
 <p>•    The data should be random selected.</p>
 <p>•    Sample should be independent.</p>
 <p>•    The sample size better to larger than 30.</p>
+<p><strong>Premise:</strong></p>
+<p>•    The mean value for the mean value for randomly select data are extremely close to mean value for general distribution.</p>
+<p>•    The standard deviation for randomly select data are extremely close to standard deviation for general distribution.</p>
 <p><strong>Formula:</strong></p>
-<p>Supposed we have sample D1 = {X1,X2,…,Xn} and random select n numbers in this sample each time and we could get D2 = {S1,S2,…SN}. And we by calculating, we get the final sample D3 = {S1/n,S2/n,…,SN/n}. By CLT, the distribution of D3 is normal distribution. </p>
+<p>Supposed we have sample D1 = {X1,X2,…,Xn} and random select n numbers in this sample each time and we could get D2 = {S1,S2,…SN}. And by calculating, we get the final sample D3 = {S1/n,S2/n,…,SN/n}. By CLT, the distribution of D3 is normal distribution. </p>
 <p>After you get the mean values for each sample, you could also get a standard normal distribution by calculate Z-value to this D3.</p>
-<p><strong>Example:</strong></p>
+<p><strong>Application:</strong></p>
 <p>I found an amazing post from Medium which is <a href="https://medium.com/analytics-vidhya/illustration-with-python-central-limit-theorem-aa4d81f7b570" target="_blank" rel="noopener">Illustration with Python: Central Limit Theorem</a>. This post illustrates the process of CLT by python. You could get a clear understanding about how to apply CLT to convert un normal distribution to normal distribution and also standardize normal distribution.</p>
 <h2 id="6-Summary"><a href="#6-Summary" class="headerlink" title="6. Summary"></a>6. Summary</h2><p>In the last post, you have the basic understanding about statistical probability distributions. But the problem in this world is always been complex. In real world, you can’t collect all the information from general population. But you could apply MLE and MAP to make an assumption about the parameters for the probability distribution and also apply CI to make assumption about the range for the general population. </p>
 <p>Also, not all of the probability distributions are normal distribution and it is difficult for you to get a clue to solve the problem about this kind of strange distribution. But you could apply CLT to convert these strange distributions to normal distribution to solve the problem.</p>
@@ -346,10 +349,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/04/05/inferential%20statistics_distribution/">Inferential Statistics - 2 Distributions</a>
+                <a class="prev" rel="prev" href="/2020/04/05/datatype/">Data Types</a>
             
             
-            <a class="next" rel="next" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
+            <a class="next" rel="next" href="/2020/04/05/inferential%20statistics_distribution/">Inferential Statistics - 1 Distributions</a>
             
         </section>
 
