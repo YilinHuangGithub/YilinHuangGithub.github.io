@@ -285,7 +285,7 @@
 <p>•    The standard deviation and mean value for population is already known.</p>
 <p><strong>Density function:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/zd.png" alt="">  </p>
-<p>You could check your probability according to the Z-score you calculate from the dataset.</p>
+<p>You could check your probability according to the <strong>Z-score</strong> you calculate from the dataset.</p>
 <p><img src="/images/inferential_statistics_distributions/zd2.png" alt="">   </p>
 <p>If your Z-score is 0.12. You need to separate this number into two parts which are 0.1 and 0.02.<br>From the first column, check which row is 0.1 located. For that row, check where is the 0.02. Then you will get 0.5478 which is your P value.</p>
 <p><strong>Distribution:</strong></p>
@@ -299,9 +299,12 @@
 <p>•    F-tests also assume that data points are independent from one another. For example, you are studying a population of giraffes and you want to know how body size and sex are related. You find that females are larger than males, but you didn’t take into consideration that substantially more of the adults in the population are female than male. Thus, in your dataset, sex is not independent from age.</p>
 <p><strong>Density function:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/fd.png" alt="">   </p>
-<p>As a data scientist, you don’t have to know how this density distribution infer. What you need to know with different α which is threshold of P value has different F table. And according to the data you have, calculate the F value, df1 and df2 in order to find P value from the α’ F Table. </p>
+<p>As a data scientist, you don’t have to know how this density distribution infer. What you need to know with different α which is threshold of P value has different F table. And according to the data you have, calculate the <strong>F statistic, df1 and df2</strong> in order to find P value from the α’ F Table. </p>
 <p>You could take a look at <a href="https://www.khanacademy.org/math/statistics-probability/analysis-of-variance-anova-library" target="_blank" rel="noopener">Analysis of variance (ANOVA) from Khan Academy</a> to know how to calculate the F value, df1 and df2. </p>
 <p>You could also take a look from this <a href="http://www.socr.ucla.edu/Applets.dir/F_Table.html" target="_blank" rel="noopener">F-table</a> to get an insight of F distribution.</p>
+<p>After you got your <strong>F statistic, df, df2 and set the significant value α</strong>, you could find the F value for this case. If you F statistic lower than α means that you get a lower probability that you could accept the Null hypothesis in this case.</p>
+<p><img src="/images/inferential_statistics_distributions/fd3.png" alt="">   </p>
+<p>For example, F statistic = (SSB/m-1)/(SSW/m<em>(n-1)) = 12, the df1 = m -1 = 2, df2 = m</em>(n-1) = 6. In this case, you got the F value which is 3.46330. but the F statistics is more larger than 3.46330 which means that the probability in this case is an extreme low. You could reject the Null hypothesis for this case.</p>
 <p><strong>Distribution:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/fd2.png" alt="">   </p>
 <p><strong>Appendix:</strong> You could observe from the distribution above that the distribution is totally different with different pairs of df. The larger of the df, the distribution will tend to be like a normal distribution. And for each distribution, if the F score (check on the x-axis) is larger will be with lower P value.</p>
@@ -311,9 +314,10 @@
 <p>•    There are 2 variables, and both are measured as categories, usually at the nominal level. However, data may be ordinal data. Interval or ratio data that have been collapsed into ordinal categories may also be used. While Chi-square has no rule about limiting the number of cells (by limiting the number of categories for each variable), a very large number of cells (over 20) can make it difficult to meet assumption.</p>
 <p><strong>Density function:</strong></p>
 <p><img src="/images/inferential_statistics_distributions/cd.png" alt="">   </p>
+<p><img src="/images/inferential_statistics_distributions/cd4.png" alt="">   </p>
 <p><strong>Degree of freedom</strong> = (row number – 1)*(column number – 1)</p>
 <p>A is actual number and T is theoretical number. </p>
-<p>If you want to get a clue about the example of chi-square and why use A and T, you could take a look at <a href="https://www.khanacademy.org/math/statistics-probability/inference-categorical-data-chi-square-tests/chi-square-goodness-of-fit-tests/v/chi-square-distribution-introduction" target="_blank" rel="noopener">Chi-square tests from Khan Academy</a>.</p>
+<p>If you want to get a clue about the example of chi-square and why use A and T and get the <strong>degree of freedom</strong> and <strong>χ2</strong>,  you could take a look at <a href="https://www.khanacademy.org/math/statistics-probability/inference-categorical-data-chi-square-tests/chi-square-goodness-of-fit-tests/v/chi-square-distribution-introduction" target="_blank" rel="noopener">Chi-square tests from Khan Academy</a>.</p>
 <p><img src="/images/inferential_statistics_distributions/cd2.png" alt="">  </p>
 <p>After you get the df and square of x, you could get the P value from the first row of chi-square table.</p>
 <p><strong>Distribution:</strong></p>
@@ -409,10 +413,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/04/05/Data_indicators/">Data Indicators</a>
+                <a class="prev" rel="prev" href="/2020/04/05/inferential%20statistics_2/">Inferential Statistics - 2 MLE/MAP/CI/CLT</a>
             
-            
-            <a class="next" rel="next" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
             
         </section>
 
