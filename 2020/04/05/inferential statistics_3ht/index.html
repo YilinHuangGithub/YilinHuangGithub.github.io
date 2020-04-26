@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yilin">
+
+
+    <meta name="subtitle" content="I love data science">
+
+
+    <meta name="description" content="the blog used to share projects and focus on AI industry">
+
+
+    <meta name="keywords" content="machine learning,deep learning,statistics,data science">
+
+
+<title>Inferential Statistics - 2 MLE/MAP/CI/CLT | Yilin&#39;s data science</title>
+
+
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yilin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yilin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Inferential Statistics - 2 MLE/MAP/CI/CLT</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yilin</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 5, 2020&nbsp;&nbsp;18:28:19</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Statistics/">Statistics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Inferential-Statistics-3-–-Hypothesis-Testing"><a href="#Inferential-Statistics-3-–-Hypothesis-Testing" class="headerlink" title="Inferential Statistics 3 – Hypothesis Testing"></a>Inferential Statistics 3 – Hypothesis Testing</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>Statistical hypothesis testing assumes that hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. Commonly, two statistical data sets are compared. Two hypotheses will be involved in the testing which are <strong>null hypothesis</strong> and <strong>alternative hypothesis</strong>. It will be determined by threshold for the statistical probability whether the null hypothesis will be rejected and to accept the alternative hypothesis.</p>
+<p>Four classical hypothesis testing will be introduced which are <strong>T test, Z test, F test and Chi-square test</strong>.</p>
+<h2 id="2-Why-we-need-hypothesis-testing-–-problems-solved-by-hypothesis-testing"><a href="#2-Why-we-need-hypothesis-testing-–-problems-solved-by-hypothesis-testing" class="headerlink" title="2. Why we need hypothesis testing – problems solved by hypothesis testing"></a>2. Why we need hypothesis testing – problems solved by hypothesis testing</h2><p>In the real world, we want to evaluate but it is very hard to get all the data for the general population. But we could collect and utilize samples from this population to infer the general population. </p>
+<p>For example, we have two versions for an APP and we want to know that which version will have higher conversion rate. We could conduct an A/B testing experiment to collect sample from APP for a period of time. From this experiment result generates from these sample, we know version A have the better performance. Based on the hypothesis testing, we could assume that the conversion rate for this APP will show the same result which is version A have the better conversion rate than version B.</p>
+<h2 id="3-The-process-of-hypothesis-testing"><a href="#3-The-process-of-hypothesis-testing" class="headerlink" title="3. The process of hypothesis testing"></a>3. The process of hypothesis testing</h2><p>•    State null hypothesis and alternative hypothesis.</p>
+<p>•    Specify which α level (significance level) according to the equation setting for null and alternative hypothesis. Usually which between 1% and 5%.</p>
+<p>•    Collect sample data.</p>
+<p>•    Compute the P-value based on α level.</p>
+<p>•    Draw a conclusion about H0 based on P value.</p>
+<h2 id="4-What-you-should-know-about-the-hypothesis-testing"><a href="#4-What-you-should-know-about-the-hypothesis-testing" class="headerlink" title="4. What you should know about the hypothesis testing"></a>4. What you should know about the hypothesis testing</h2><p><strong><em>Null hypothesis and alternative hypothesis</em></strong></p>
+<p>For the hypothesis testing, there will have two type hypothesis which are null hypothesis and alternative hypothesis. </p>
+<p>Usually, we want to get the P value lowers than the significant level or α level to reject the Null hypothesis and accept the alternative hypothesis.</p>
+<p>The equation setting for the <strong>Null hypothesis</strong> usually will be =, &gt;=, &lt;=.<br>The equation setting for the <strong>Alternative hypothesis</strong> usually will be !=, &lt;=, &gt;=.</p>
+<p><strong><em>Single and two population hypothesis testing</em></strong></p>
+<p>For the hypothesis testing, we want to figure out the problems by using data for one population or two different population. For example, we want to figure out the conversion rate for an App in two period and we did not separate the users into different group. The population for this experiment is single hypothesis testing. Another example for two population hypothesis testing is that we separate user into two group for different version of App and conduct testing to figure out whether the mean value for these two group is significant different.</p>
+<p><strong><em>The assumptions for these two hypotheses are</em></strong>:</p>
+<p>•    The random values are all independent and not influence each other.</p>
+<p>•    No outlier in the sample data.</p>
+<p>•    Close to normal distribution.</p>
+<p>But two sample t test requires variances of the two distributions are the same which is quoted as homogeneity of variance or homoscedasticity.</p>
+<p><img src="/images/inferential_statistics_3ht/4-1.png" alt=""></p>
+<p><strong><em>One-tailed and two-tailed hypothesis testing</em></strong></p>
+<p> <img src="/images/inferential_statistics_3ht/4-2.png" alt=""></p>
+<p>Two-tailed hypothesis testing: a</p>
+<p>One-tailed hypothesis testing: b and c</p>
+<p><strong><em>Significant level</em></strong></p>
+<p><strong>Definition</strong>: The result of significant level is given you a probability which is denoted by<br>α of the study to reject the null hypothesis give the null hypothesis is to be true. According to the α, you could determine by the P value whether or not the mean value for two sample are statistically significant different.</p>
+<p><strong>The difference between significance level, confidence level and confidence interval</strong></p>
+<p><strong>Significance level</strong>: In a hypothesis test, the significance level, alpha, is the probability of making the wrong decision when the null hypothesis is true.</p>
+<p><strong>Confidence level</strong>: The probability that if a poll/test/survey were repeated over and over again, the results obtained would be the same. A confidence level =  1 - alpha. </p>
+<p>  <img src="/images/inferential_statistics_3ht/4-3.png" alt=""></p>
+<p><strong>Confidence interval</strong>: A range of results from a poll, experiment, or survey that would be expected to contain the population parameter of interest. For example, an average response. Confidence intervals are constructed using significance levels / confidence levels. </p>
+<p><strong><em>P value</em></strong></p>
+<p><strong>Definition</strong>: P-value or probability value is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct.</p>
+<p><strong>Differences between P value and significant level</strong>:</p>
+<p> <img src="/images/inferential_statistics_3ht/4-4.png" alt=""></p>
+<h2 id="5-Tests-introduction"><a href="#5-Tests-introduction" class="headerlink" title="5. Tests introduction"></a>5. Tests introduction</h2><h3 id="T-Test"><a href="#T-Test" class="headerlink" title="T-Test"></a>T-Test</h3><p><strong><em>Why we need T-test?</em></strong> :</p>
+<p><strong><em>Definition</em></strong>: T-test is a statistical hypothesis test in which test statistic follow student’s t-distribution under the null hypothesis. The t-test can be used to determine if the means of two sets of data are significant different from each other.</p>
+<p><strong><em>Assumptions</em></strong>:</p>
+<p>•    The means of the two populations being compared should follow normal distributions. </p>
+<p>•    The two populations being compared should have the same variance. </p>
+<p>•    The data used to carry out the test should either be sampled independently from the two populations being compared or be fully paired.</p>
+<p><strong><em>Distribution</em></strong>:</p>
+<p>The distribution for t-test is t distribution. t-distribution is a member of continuous probability distributions family that arises when estimating the mean of a normally distributed population in situations where the sample size is small with degree of freedom and the population standard deviation is unknown.</p>
+<p>For t-test, the T-distribution is to assess the statistical significance of the difference between two sample mean. And t-distribution also arises from Bayesian analysis of data from a normal family.</p>
+<p> <img src="/images/inferential_statistics_3ht/T-1.png" alt=""></p>
+<p>If you want to more detail, you could check out my another post about <a href="http://www.yilinhuang.cool/2020/04/05/inferential%20statistics_distribution/" target="_blank" rel="noopener">statistical distributions</a>. </p>
+<p><strong><em>Types</em></strong>:</p>
+<p>The graph below is different types of T-test, you could check out <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Assumptions" target="_blank" rel="noopener">Student’s t-test Wiki</a> for more details.</p>
+<p> <img src="/images/inferential_statistics_3ht/T-2.png" alt=""></p>
+<p><strong><em>Hypotheses</em></strong>:</p>
+<p><strong>Null hypothesis</strong> usually will be Group A = Group B, Group A &gt;= Group B, Group A &lt;= Group B.<br><strong>Alternative hypothesis</strong> usually will be Group A != Group B, Group A &lt;= Group B, Group A &gt;= Group B.</p>
+<p><strong><em>Examples</em></strong></p>
+<p><strong>One-sample t-test</strong>:</p>
+<p>Your company wants to improve sales. Past sales data indicate that the average sale was $100 per transaction. After training your sales force, recent sales data (taken from a sample of 25 salesmen) indicates an average sale of $130, with a standard deviation of $15. Did the training work?</p>
+<p>𝐻0: The training not works.<br>𝐻𝑎: The training works.</p>
+<p>We could see from the example that the sample (25 salesmen) come from a population(all salesmen in the company).</p>
+<p><strong>Two-sample t-test</strong>:</p>
+<ol>
+<li>independent samples</li>
+</ol>
+<p>Has the quality of life improved for patients who took drug A as opposed to patients who took drug B? (patients for drug A and B are randomly selected and with the same/different size and the variance are equal/unequal for these two group) </p>
+<p>𝐻0: Drug B did not improve the quality of life compare with A.<br>𝐻𝑎: Drug B did improve the quality of life compare with A.</p>
+<p>Group A and Group B are independent.</p>
+<ol start="2">
+<li>paired sample</li>
+</ol>
+<p>We wish to determine if the cholesterol levels of the men in Dixon and Massey study changed from 1952 to 1962.</p>
+<p>𝐻0: The cholesterol level did not change.<br>𝐻𝑎: The cholesterol level did change.</p>
+<p>Two samples are come from the same group of people but in different period.</p>
+<h3 id="Z-Test"><a href="#Z-Test" class="headerlink" title="Z Test"></a>Z Test</h3><p><strong><em>Why we need Z-test?</em></strong> : </p>
+<p><strong><em>Definition</em></strong>: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. </p>
+<p><strong><em>Assumptions</em></strong>:</p>
+<p>•    Distributions of the two populations are normal. </p>
+<p>•    The variances of the two distributions are known and are the same.</p>
+<p>•    we already know the population variance σ (Because of the central limit theorem, many test statistics are approximately normally distributed for large samples).</p>
+<p>•    sample data larger than 30.</p>
+<p><strong><em>Distribution</em></strong></p>
+<p>Z-distribution (standard normal distribution) The standard normal distribution is centered at zero and the degree to which a given measurement deviates from the mean is given by the standard deviation.</p>
+<p> <img src="/images/inferential_statistics_3ht/Z-1.png" alt=""></p>
+<p>You could learn more details about Z-distribution from my another post <a href="http://www.yilinhuang.cool/2020/04/05/inferential%20statistics_distribution/#4-3-Z-distribution" target="_blank" rel="noopener">statistical distribution</a>. </p>
+<p><strong><em>Type</em></strong></p>
+<p>The term “Z-test” is often used to refer specifically to the <strong>one-sample</strong> location test comparing the mean of a set of measurements to a given constant when the sample variance is known.</p>
+<p><strong><em>Hypotheses</em></strong>:</p>
+<p>The hypotheses depend on the assumption that you want to test for this experiment.</p>
+<p><strong>Null hypothesis</strong> usually will be Group A = Group B, Group A &gt;= Group B, Group A &lt;= Group B.<br><strong>Alternative hypothesis</strong> usually will be Group A != Group B, Group A &lt;= Group B, Group A &gt;= Group B.</p>
+<p><strong><em>Example</em></strong></p>
+<p>Researchers observed a random sample of drivers and recorded data about their phone usage while driving. The researchers saw 160 of the 800 women in the sample using phones, while<br>300 of the1200 men were seen using phones.</p>
+<h3 id="Chi-square-Test"><a href="#Chi-square-Test" class="headerlink" title="Chi-square Test"></a>Chi-square Test</h3><p><strong><em>Why we need Chi-square test?</em></strong> :</p>
+<p><strong><em>Definition</em></strong>: Chi-square test is a statistical hypothesis test that is valid to perform when the test statistic is chi-squared distributed under the null hypothesis. It is used to determine whether there is a statistical difference between the <strong>expected frequencies</strong> and the <strong>observed frequencies</strong> in on or more categories of a so-called contingency table.</p>
+<p><strong><em>Assumptions</em></strong>:</p>
+<p>•    The observations are independent and normally distributed.</p>
+<p><strong><em>Distribution</em></strong>: </p>
+<p>The chi-square distribution is used in the common chi-square tests for goodness of fit of an observed distribution to a theoretical one; The independence of two criteria of classification of qualitative data; And in confidence interval estimation for a population standard deviation of a normal distribution from a sample standard deviation.</p>
+<p>  <img src="/images/inferential_statistics_3ht/C-1.png" alt=""></p>
+<p>You could learn more details about chi-square distribution from my another post <a href="http://www.yilinhuang.cool/2020/04/05/inferential%20statistics_distribution/#4-3-Z-distribution" target="_blank" rel="noopener">statistical distribution</a>. </p>
+<p><strong><em>Hypotheses</em></strong>:</p>
+<p><strong>Null hypothesis</strong> assumes that Variable A and Variable B are independent.</p>
+<p><strong>Alternative hypothesis</strong> assumes that Variable A and Variable B are not independent.</p>
+<p><strong><em>Types</em></strong>:</p>
+<p>Chi-square test likes T-test has one sample test and two sample test. And for two sample test includes independent sample and paired sample. If the variable has more than 2 classification, we need to apply different method in two-sample chi-square test.</p>
+<p>  <img src="/images/inferential_statistics_3ht/C-2.png" alt=""></p>
+<p><strong><em>Examples</em></strong></p>
+<p><strong>One-sample</strong>:</p>
+<p>Suppose we wish to determine if an ordinary-looking six-sided die is fair, or balanced, meaning that every face has probability 1/6 of landing on top when the die is tossed. We could toss the die dozens, maybe hundreds, of times and compare the actual number of times each face landed on top to the expected number, which would be 1/6 of the total number of tosses. We wouldn’t expect each number to be exactly 1/6 of the total, but it should be close.</p>
+<p>𝐻0: The die is fair.<br>𝐻𝑎: The die is not fair.</p>
+<p> <img src="/images/inferential_statistics_3ht/C-3.png" alt=""></p>
+<p>If you want to check out much more detail about this example, you could take a look at <a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Book%3A_Introductory_Statistics_(Shafer_and_Zhang)/11%3A_Chi-Square_Tests_and_F-Tests/11.02%3A_Chi-Square_One-Sample_Goodness-of-Fit_Tests" target="_blank" rel="noopener">Chi-Square One-Sample Goodness-of-Fit Tests</a>. </p>
+<p><strong>Two-sample</strong>:</p>
+<ol>
+<li>independent samples</li>
+</ol>
+<p>A public opinion poll surveyed a simple random sample of 1000 voters. Respondents were classified by gender (male or female) and by voting preference (Republican, Democrat, or Independent). Results are shown in the contingency table below. Is there a gender gap? Do the men’s voting preferences differ significantly from the women’s preferences?</p>
+<p><img src="/images/inferential_statistics_3ht/C-4.png" alt=""></p>
+<p>Ho: Gender and voting preferences are independent.<br>Ha: Gender and voting preferences are not independent.</p>
+<p>If you want to check out much more detail about this example, you could take a look at <a href="https://stattrek.com/chi-square-test/independence.aspx" target="_blank" rel="noopener">Chi-Square Test for Independence</a>. </p>
+<ol start="2">
+<li>paired sample</li>
+</ol>
+<p>We’re comparing whether someone experiences joint pain before and after some treatment. We want to test whether the treatment worked to change people or not.</p>
+<p><img src="/images/inferential_statistics_3ht/C-5.png" alt=""> </p>
+<p>Ho: The joint pain not works after treatment.<br>Ha: The joint pain works after treatment.</p>
+<p>If you want to check out much more detail about this example, you could take a look at <a href="https://www.theanalysisfactor.com/difference-between-chi-square-test-and-mcnemar-test/" target="_blank" rel="noopener">The Difference Between a Chi-Square Test and a McNemar Test</a>. </p>
+<h3 id="F-Test"><a href="#F-Test" class="headerlink" title="F-Test"></a>F-Test</h3><p><strong><em>Why we need F-test?</em></strong> :</p>
+<p><strong><em>Definition</em></strong>: An F-test is conducted by the researcher on the basis of the F statistic. The F statistic is defined as the ratio between the two independent chi square variates that are divided by their respective degree of freedom.</p>
+<p>The F-test is designed to test if multiple population variances are equal to identify whether these populations are come from the same population. It does this by comparing the ratio of multiple variances. So, if the variances are equal, the ratio of the variances will be 1. Another application of Exact “F-tests” mainly arise when the models have been fitted to the data using least squares for linear regression.</p>
+<p><strong><em>Assumptions</em></strong>:</p>
+<p>•    The populations from which the samples were obtained must be normal.<br>•    The samples must be independent</p>
+<p><strong><em>Distribution</em></strong>:</p>
+<p>In probability theory and statistics, the F-distribution, also known as Snedecor’s F distribution or the Fisher–Snedecor distribution (after Ronald Fisher and George W. Snedecor) is a continuous probability distribution that arises frequently as the null distribution of a test statistic, most notably in the analysis of variance (ANOVA), or F test.</p>
+<p><img src="/images/inferential_statistics_3ht/F-1.png" alt=""> </p>
+<p>You could learn more details about F test distribution from my another post <a href="http://www.yilinhuang.cool/2020/04/05/inferential%20statistics_distribution/#4-3-Z-distribution" target="_blank" rel="noopener">statistical distribution</a>. </p>
+<p><strong><em>Hypotheses</em></strong>:</p>
+<p><strong>Null hypothesis</strong> assumes that no difference in variances.</p>
+<p><strong>Alternative hypothesis</strong> assumes that there is difference in variances.</p>
+<p><strong><em>Types</em></strong>:</p>
+<p>Base on two different types of main application, there are two formula for F statistics.</p>
+<p><img src="/images/inferential_statistics_3ht/F-2.png" alt=""> </p>
+<p>You could check more detail about these two type of F statistics on <a href="https://en.wikipedia.org/wiki/F-test" target="_blank" rel="noopener">Wiki</a>. </p>
+<ol>
+<li>Multiple-comparison ANOVA problem: </li>
+</ol>
+<p>The F-test in one-way analysis of variance is used to assess whether the expected values of a quantitative variable within several pre-defined groups differ from each other. For example, suppose that a medical trial compares four treatments. The ANOVA F-test can be used to assess whether any of the treatments is on average superior, or inferior, to the others versus the null hypothesis that all four treatments yield the same mean response. </p>
+<p><strong>The advantage</strong> of the ANOVA F-test is that we do not need to pre-specify which treatments are to be compared, and we do not need to adjust for making multiple comparisons. </p>
+<p><strong>The disadvantage</strong> of the ANOVA F-test is that if we reject the null hypothesis, we do not know which treatments can be said to be significantly different from the others, nor, if the F-test is performed at level α, can we state that the treatment pair with the greatest mean difference is significantly different at level α.</p>
+<p>You could also check on <a href="https://www.khanacademy.org/math/statistics-probability/analysis-of-variance-anova-library" target="_blank" rel="noopener">Analysis of Variance (ANOVA)</a> to know how to calculate the F statistics for Multiple-comparison ANOVA problem.</p>
+<ol start="2">
+<li>Regression problems: </li>
+</ol>
+<p>The F-test for linear regression tests whether any of the independent variables in a multiple linear regression model are significant.</p>
+<p>H0:   β1 = β2 = … = βp-1 = 0 (which means that that the model with no independent variables fits the data as well as your model.)</p>
+<p>Ha:   βj ≠ 0, for at least one value of j (which means that your model fits the data better than the intercept-only model.)</p>
+<p>You could also check on <a href="http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm" target="_blank" rel="noopener">The F-test for Linear Regression</a> to know how to calculate the F statistics or <a href="https://online.stat.psu.edu/stat501/lesson/6/6.2" target="_blank" rel="noopener">The General Linear F-Test</a> for regression problem.</p>
+<p><strong><em>Example</em></strong>:</p>
+<ol>
+<li>Multiple-comparison ANOVA problem: </li>
+</ol>
+<p>The young bank manager in Example 1 is still struggling with finding the best way to staff her branch. She knows that she needs to have more tellers on Fridays than on other days, but she is trying to find if the need for tellers is constant across the rest of the week.</p>
+<p>Mondays: 276, 323, 298, 256, 277, 309, 312, 265, 311<br>Tuesdays: 243, 279, 301, 285, 274, 243, 228, 298, 255<br>Wednesdays: 288, 292, 310, 267, 243, 293, 255, 273<br>Thursdays: 254, 279, 241, 227, 278, 276, 256, 262</p>
+<p>Ho: mm=mtu=mw=mth<br>Ha: At least one day is not constant.</p>
+<ol start="2">
+<li>Regression problems: </li>
+</ol>
+<p>You build a multiple linear regression model and want to check whether this model is meaningful compare with model only with intercept.</p>
+<p>H0:   β1 = β2 = … = βp-1 = 0<br>Ha:   βj ≠ 0, for at least one value of j</p>
+<h2 id="6-Differences-between-tests"><a href="#6-Differences-between-tests" class="headerlink" title="6. Differences between tests"></a>6. Differences between tests</h2><ol>
+<li>Differences between T test and Z test.</li>
+</ol>
+<p>•    T-test have the degree of freedom to calculate t value and without knowing the variance.</p>
+<p>•    Z-test with larger sample larger than 30 and with the population variance have already known.</p>
+<ol start="2">
+<li>Differences between T test (Z test) and F test.</li>
+</ol>
+<p>•    T and Z tests  </p>
+<p>•    F test for </p>
+<ol start="3">
+<li>Differences between T test (Z test) and Chi-square test.</li>
+</ol>
+<p>•    T and Z tests for </p>
+<p>•    Chi-square test for </p>
+<ol start="4">
+<li>Differences between F test and Chi-square test.</li>
+</ol>
+<p>•    F tests for </p>
+<p>•    Chi-square test for </p>
+<h2 id="7-Summary"><a href="#7-Summary" class="headerlink" title="7. Summary"></a>7. Summary</h2><p>This post</p>
+<p>If you could understand Chinese, I highly recommend this post which is <a href="https://zhuanlan.zhihu.com/p/86178674" target="_blank" rel="noopener">假设检验——这一篇文章就够了</a>. </p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a href="http://www-math.mit.edu/~dav/05.dir/class18-slides-all.pdf" target="_blank" rel="noopener">http://www-math.mit.edu/~dav/05.dir/class18-slides-all.pdf</a><br><a href="https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/hypothesis-test-for-a-difference-in-two-population-means-1-of-2/" target="_blank" rel="noopener">https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/hypothesis-test-for-a-difference-in-two-population-means-1-of-2/</a><br><a href="https://researchbasics.education.uconn.edu/confidence-intervals-and-levels/" target="_blank" rel="noopener">https://researchbasics.education.uconn.edu/confidence-intervals-and-levels/</a><br><a href="https://www.youtube.com/watch?v=1HR1ccYV3zI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=1HR1ccYV3zI</a><br><a href="https://zhuanlan.zhihu.com/p/44580486" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/44580486</a><br><a href="https://www.shuxuele.com/data/chi-square-test.html" target="_blank" rel="noopener">https://www.shuxuele.com/data/chi-square-test.html</a><br><a href="http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm" target="_blank" rel="noopener">http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm</a><br><a href="https://zhuanlan.zhihu.com/p/71132595" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/71132595</a><br><a href="https://people.richland.edu/james/lecture/m170/ch13-f.html" target="_blank" rel="noopener">https://people.richland.edu/james/lecture/m170/ch13-f.html</a> </p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yilin</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2020/04/05/inferential%20statistics_3ht/">http://yoursite.com/2020/04/05/inferential%20statistics_3ht/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I love <strong>Data Science</strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Inferential-Statistics/"># Inferential Statistics</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
+            
+            
+            <a class="next" rel="next" href="/2020/04/05/inferential%20statistics_distribution/">Inferential Statistics - 1 Distributions</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yilin | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
