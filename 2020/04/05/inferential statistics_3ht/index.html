@@ -246,7 +246,9 @@
 <p>•    Collect sample data.</p>
 <p>•    Compute the P-value based on α level.</p>
 <p>•    Draw a conclusion about H0 based on P value.</p>
-<h2 id="5-What-you-should-know-about-the-hypothesis-testing"><a href="#5-What-you-should-know-about-the-hypothesis-testing" class="headerlink" title="5. What you should know about the hypothesis testing"></a>5. What you should know about the hypothesis testing</h2><p>1.<strong><em>Null hypothesis and alternative hypothesis</em></strong></p>
+<h2 id="5-What-you-should-know-about-the-hypothesis-testing"><a href="#5-What-you-should-know-about-the-hypothesis-testing" class="headerlink" title="5. What you should know about the hypothesis testing"></a>5. What you should know about the hypothesis testing</h2><ol>
+<li><strong><em>Null hypothesis and alternative hypothesis</em></strong></li>
+</ol>
 <p>For the hypothesis testing, there will have two type hypothesis which are null hypothesis and alternative hypothesis. </p>
 <p>Usually, we want to get the P value lowers than the significant level or α level to reject the Null hypothesis and accept the alternative hypothesis.</p>
 <p>The equation setting for the <strong>Null hypothesis</strong> usually will be =, &gt;=, &lt;=.<br>The equation setting for the <strong>Alternative hypothesis</strong> usually will be !=, &lt;=, &gt;=.</p>
@@ -262,31 +264,34 @@
 <p>•    Close to normal distribution.</p>
 <p>But two sample t test requires variances of the two distributions are the same which is quoted as homogeneity of variance or homoscedasticity.</p>
 <p><img src="/images/inferential_statistics_3ht/4-1.png" alt=""></p>
-<p><strong><em>One-tailed and two-tailed hypothesis testing</em></strong></p>
-<p> <img src="/images/inferential_statistics_3ht/4-2.png" alt=""></p>
+<ol start="4">
+<li><p><strong><em>One-tailed and two-tailed hypothesis testing</em></strong></p>
+<p><img src="/images/inferential_statistics_3ht/4-2.png" alt=""></p>
+</li>
+</ol>
 <p>Two-tailed hypothesis testing: a</p>
 <p>One-tailed hypothesis testing: b and c</p>
-<ol start="4">
+<ol start="5">
 <li><strong><em>Significant level</em></strong></li>
 </ol>
 <p><strong>Definition</strong>: The result of significant level is given you a probability which is denoted by<br>α of the study to reject the null hypothesis give the null hypothesis is to be true. According to the α, you could determine by the P value whether or not the mean value for two sample are statistically significant different.</p>
-<ol start="5">
+<ol start="6">
 <li><strong>The difference between significance level, confidence level and confidence interval</strong></li>
 </ol>
 <p><strong>Significance level</strong>: In a hypothesis test, the significance level, alpha, is the probability of making the wrong decision when the null hypothesis is true.</p>
 <p><strong>Confidence level</strong>: The probability that if a poll/test/survey were repeated over and over again, the results obtained would be the same. A confidence level =  1 - alpha. </p>
 <p>  <img src="/images/inferential_statistics_3ht/4-3.png" alt=""></p>
 <p><strong>Confidence interval</strong>: A range of results from a poll, experiment, or survey that would be expected to contain the population parameter of interest. For example, an average response. Confidence intervals are constructed using significance levels / confidence levels. </p>
-<ol start="6">
+<ol start="7">
 <li><strong><em>P value</em></strong></li>
 </ol>
 <p><strong>Definition</strong>: P-value or probability value is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct.</p>
-<ol start="7">
+<ol start="8">
 <li><strong>Differences between P value and significant level</strong>:</li>
 </ol>
 <p> <img src="/images/inferential_statistics_3ht/4-4.png" alt=""></p>
 <h2 id="6-Classical-Hypothesis-Testing"><a href="#6-Classical-Hypothesis-Testing" class="headerlink" title="6. Classical Hypothesis Testing"></a>6. Classical Hypothesis Testing</h2><h3 id="T-Test"><a href="#T-Test" class="headerlink" title="T-Test"></a>T-Test</h3><ol>
-<li><strong><em>Why we need T-test?</em></strong> :</li>
+<li><strong><em>Why we need T-test?</em></strong> : If you want to check whether or not two means from a population or two population are significant different between each other. You could apply T-test to infer from sample data to the general population since it is difficult to collect the data from the population.</li>
 </ol>
 <ol start="2">
 <li><strong><em>Definition</em></strong>: T-test is a statistical hypothesis test in which test statistic follow student’s t-distribution under the null hypothesis. The t-test can be used to determine if the means of two sets of data are significant different from each other.</li>
@@ -334,7 +339,7 @@
 <p>𝐻0: The cholesterol level did not change.<br>𝐻𝑎: The cholesterol level did change.</p>
 <p>Two samples are come from the same group of people but in different period.</p>
 <h3 id="Z-Test"><a href="#Z-Test" class="headerlink" title="Z Test"></a>Z Test</h3><ol>
-<li><strong><em>Why we need Z-test?</em></strong> : </li>
+<li><strong><em>Why we need Z-test?</em></strong> : Z-test is formed from T-test. It would apply when the test statistics would follow a standard normal distribution. Unlike T-test, the Z-test calculate when the deviation for the population has already known.</li>
 </ol>
 <ol start="2">
 <li><strong><em>Definition</em></strong>: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. </li>
@@ -370,7 +375,7 @@
 <p>The question is, are these students’ SAT scores (M = 536) significantly greater than a population mean of 500 with a population standard deviation of 100?</p>
 <p>𝐻0: These students’ SAT scores are different with the population with mean of 500.<br>𝐻𝑎: These students’ SAT scores are no different with the population with mean of 500.</p>
 <h3 id="Chi-square-Test"><a href="#Chi-square-Test" class="headerlink" title="Chi-square Test"></a>Chi-square Test</h3><ol>
-<li><strong><em>Why we need Chi-square test?</em></strong> :</li>
+<li><strong><em>Why we need Chi-square test?</em></strong> : Unlike T-test and Z-test for continuous data, Chi-square applys to the <strong>categorical data</strong> to test whether there is statistically significant difference between the variance for the observed frequencies and expected frequencies. </li>
 </ol>
 <ol start="2">
 <li><strong><em>Definition</em></strong>: Chi-square test is a statistical hypothesis test that is valid to perform when the test statistic is chi-squared distributed under the null hypothesis. It is used to determine whether there is a statistical difference between the <strong>expected frequencies</strong> and the <strong>observed frequencies</strong> in on or more categories of a so-called contingency table.</li>
@@ -419,7 +424,7 @@
 <p>Ho: The joint pain not works after treatment.<br>Ha: The joint pain works after treatment.</p>
 <p>If you want to check out much more detail about this example, you could take a look at <a href="https://www.theanalysisfactor.com/difference-between-chi-square-test-and-mcnemar-test/" target="_blank" rel="noopener">The Difference Between a Chi-Square Test and a McNemar Test</a>. </p>
 <h3 id="F-Test"><a href="#F-Test" class="headerlink" title="F-Test"></a>F-Test</h3><ol>
-<li><strong><em>Why we need F-test?</em></strong> :</li>
+<li><strong><em>Why we need F-test?</em></strong> : Unlike T and Z test only for 2 samples, F-test could apply to multiple groups of data (2 or more than 2 groups). F-test is usually applied to check that whether there is statistically significant difference between this group by their variance.</li>
 </ol>
 <ol start="2">
 <li><strong><em>Definition</em></strong>: An F-test is conducted by the researcher on the basis of the F statistic. The F statistic is defined as the ratio between the two independent chi square variates that are divided by their respective degree of freedom.</li>
@@ -428,7 +433,8 @@
 <ol start="3">
 <li><strong><em>Assumptions</em></strong>:</li>
 </ol>
-<p>•    The populations from which the samples were obtained must be normal.<br>•    The samples must be independent</p>
+<p>•    The populations from which the samples were obtained must be normal.</p>
+<p>•    The samples must be independent</p>
 <ol start="4">
 <li><strong><em>Distribution</em></strong>:</li>
 </ol>
@@ -474,28 +480,23 @@
 </ol>
 <p>You build a multiple linear regression model and want to check whether this model is meaningful compare with model only with intercept.</p>
 <p>H0:   β1 = β2 = … = βp-1 = 0<br>Ha:   βj ≠ 0, for at least one value of j</p>
-<h2 id="7-Differences-between-tests"><a href="#7-Differences-between-tests" class="headerlink" title="7. Differences between tests"></a>7. Differences between tests</h2><ol>
+<h2 id="7-Differences-between-hypothesis-testing"><a href="#7-Differences-between-hypothesis-testing" class="headerlink" title="7. Differences between hypothesis testing"></a>7. Differences between hypothesis testing</h2><ol>
 <li>Differences between T test and Z test.</li>
 </ol>
-<p>•    T-test have the degree of freedom to calculate t value and without knowing the variance.</p>
-<p>•    Z-test with larger sample larger than 30 and with the population variance have already known.</p>
+<p>•    T-test have the <strong>degree of freedom</strong> to calculate t value and <strong>without knowing the variance</strong>. Usually the sample size is <strong>smaller 30</strong>.</p>
+<p>•    Z-test with larger sample <strong>larger than 30</strong> and with the population variance have <strong>already known</strong>.</p>
 <ol start="2">
 <li>Differences between T test (Z test) and F test.</li>
 </ol>
-<p>•    T and Z tests  </p>
-<p>•    F test for </p>
+<p>•    T and Z tests apply to <strong>only two group of sample</strong>  and check their <strong>mean value</strong> whether or nor have the statistically significant difference.</p>
+<p>•    F test applys to <strong>multiple groups</strong> (2 or more than 2 group) and check their <strong>variance</strong> whether or not come from same population.</p>
 <ol start="3">
 <li>Differences between T test (Z test) and Chi-square test.</li>
 </ol>
-<p>•    T and Z tests for </p>
-<p>•    Chi-square test for </p>
-<ol start="4">
-<li>Differences between F test and Chi-square test.</li>
-</ol>
-<p>•    F tests for </p>
-<p>•    Chi-square test for </p>
-<h2 id="8-Summary"><a href="#8-Summary" class="headerlink" title="8. Summary"></a>8. Summary</h2><p>This post</p>
-<p>If you could understand Chinese, I highly recommend this post which is <a href="https://zhuanlan.zhihu.com/p/86178674" target="_blank" rel="noopener">假设检验——这一篇文章就够了</a>. </p>
+<p>•    T and Z tests for <strong>continuous data</strong> to check <strong>their mean value</strong>.</p>
+<p>•    Chi-square test for <strong>categorical data</strong> to check the <strong>observed frequencies</strong> and <strong>expected frequencies</strong>.</p>
+<h2 id="8-Summary"><a href="#8-Summary" class="headerlink" title="8. Summary"></a>8. Summary</h2><p>Hope this post will help you get a clue about hypothesis testing. Basically the hypothesis testing is to infer the conclusion to the general population from the samples based on the statistical assumption. Because it is difficult to collect all the data from the general population. In general, the assumption for the hypotheis testing requires the sample to be independent and normal distribution and then you could do the hypothesis testing. For different hypothesis testing, the purpose and the data type could apply to the hypothesis testing are different. Before you conduct the hypothesis, it is important for you to understand very detail about the problem you want to solve firstly and what type of data you have.</p>
+<p>Excep these four classical hypothesis testing which are T-test, Z-test, Chi-square test and F-test, there are also others hypothesis testing to solve different problem. However if you learn these four hypothesis testing well, it will be very easy for to understand other ones. </p>
 <h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a href="http://www-math.mit.edu/~dav/05.dir/class18-slides-all.pdf" target="_blank" rel="noopener">http://www-math.mit.edu/~dav/05.dir/class18-slides-all.pdf</a><br><a href="https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/hypothesis-test-for-a-difference-in-two-population-means-1-of-2/" target="_blank" rel="noopener">https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/hypothesis-test-for-a-difference-in-two-population-means-1-of-2/</a><br><a href="https://researchbasics.education.uconn.edu/confidence-intervals-and-levels/" target="_blank" rel="noopener">https://researchbasics.education.uconn.edu/confidence-intervals-and-levels/</a><br><a href="https://www.youtube.com/watch?v=1HR1ccYV3zI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=1HR1ccYV3zI</a><br><a href="https://zhuanlan.zhihu.com/p/44580486" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/44580486</a><br><a href="https://www.shuxuele.com/data/chi-square-test.html" target="_blank" rel="noopener">https://www.shuxuele.com/data/chi-square-test.html</a><br><a href="http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm" target="_blank" rel="noopener">http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm</a><br><a href="https://zhuanlan.zhihu.com/p/71132595" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/71132595</a><br><a href="https://people.richland.edu/james/lecture/m170/ch13-f.html" target="_blank" rel="noopener">https://people.richland.edu/james/lecture/m170/ch13-f.html</a><br><a href="https://sites.berry.edu/vbissonnette/index/stats-homework/documentation/one-sample-z-test/one-sample-z-test-solution/" target="_blank" rel="noopener">https://sites.berry.edu/vbissonnette/index/stats-homework/documentation/one-sample-z-test/one-sample-z-test-solution/</a> </p>
 
         </div>
