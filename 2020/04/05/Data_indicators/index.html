@@ -220,7 +220,17 @@
                     
                         <span class="post-time">
                         Date: <a href="#">April 5, 2020&nbsp;&nbsp;18:28:19</a>
-                        </span>
+                        </span> 
+                        
+                        {%if post.updated and post.updated > post.date%}
+  <span class="post-updated">
+    &nbsp; | &nbsp; {{ __('post.updated') }}
+    <time itemprop="dateUpdated" datetime="{{ moment(post.updated).format() }}" content="{{ date(post.updated, config.date_format) }}">
+      {{ date(post.updated, config.date_format) }}
+    </time>
+  </span>
+{% endif %} 
+
                     
                     
                         <span class="post-category">
@@ -320,10 +330,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/04/05/datatype/">Data Types</a>
             
-            
-            <a class="next" rel="next" href="/2020/04/05/descriptive%20statistics/">Descriptive Statistics</a>
+            <a class="next" rel="next" href="/2020/04/05/inferential%20statistics_2/">Inferential Statistics - 2 MLE/MAP/CI/CLT</a>
             
         </section>
 
