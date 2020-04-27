@@ -18,7 +18,7 @@
     <meta name="keywords" content="machine learning,deep learning,statistics,data science">
 
 
-<title>Inferential Statistics 3 – Hypothesis Testing | Yilin&#39;s data science</title>
+<title>Inferential Statistics 3 - Hypothesis Testing | Yilin&#39;s data science</title>
 
 
 
@@ -206,7 +206,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Inferential Statistics 3 – Hypothesis Testing</h1>
+            <h1 class="post-title">Inferential Statistics 3 - Hypothesis Testing</h1>
             
                 <div class="post-meta">
                     
@@ -248,50 +248,25 @@
 <p>•    Collect sample data.</p>
 <p>•    Compute the P-value based on α level.</p>
 <p>•    Draw a conclusion about H0 based on P value.</p>
-<h2 id="5-What-you-should-know-about-the-hypothesis-testing"><a href="#5-What-you-should-know-about-the-hypothesis-testing" class="headerlink" title="5. What you should know about the hypothesis testing"></a>5. What you should know about the hypothesis testing</h2><ol>
-<li><strong><em>Null hypothesis and alternative hypothesis</em></strong></li>
-</ol>
-<p>For the hypothesis testing, there will have two type hypothesis which are null hypothesis and alternative hypothesis. </p>
+<h2 id="5-What-you-should-know-about-the-hypothesis-testing"><a href="#5-What-you-should-know-about-the-hypothesis-testing" class="headerlink" title="5. What you should know about the hypothesis testing"></a>5. What you should know about the hypothesis testing</h2><h4 id="Null-hypothesis-and-alternative-hypothesis"><a href="#Null-hypothesis-and-alternative-hypothesis" class="headerlink" title="Null hypothesis and alternative hypothesis"></a><strong><em>Null hypothesis and alternative hypothesis</em></strong></h4><p>For the hypothesis testing, there will have two type hypothesis which are null hypothesis and alternative hypothesis. </p>
 <p>Usually, we want to get the P value lowers than the significant level or α level to reject the Null hypothesis and accept the alternative hypothesis.</p>
 <p>The equation setting for the <strong>Null hypothesis</strong> usually will be =, &gt;=, &lt;=.<br>The equation setting for the <strong>Alternative hypothesis</strong> usually will be !=, &lt;=, &gt;=.</p>
-<ol start="2">
-<li><strong><em>Single and two population hypothesis testing</em></strong></li>
-</ol>
-<p>For the hypothesis testing, we want to figure out the problems by using data for one population or two different population. For example, we want to figure out the conversion rate for an App in two period and we did not separate the users into different group. The population for this experiment is single hypothesis testing. Another example for two population hypothesis testing is that we separate user into two group for different version of App and conduct testing to figure out whether the mean value for these two group is significant different.</p>
-<ol start="3">
-<li><strong><em>The assumptions for these two hypotheses are</em></strong>:</li>
-</ol>
-<p>•    The random values are all independent and not influence each other.</p>
+<h4 id="Single-and-two-population-hypothesis-testing"><a href="#Single-and-two-population-hypothesis-testing" class="headerlink" title="Single and two population hypothesis testing"></a><strong><em>Single and two population hypothesis testing</em></strong></h4><p>For the hypothesis testing, we want to figure out the problems by using data for one population or two different population. For example, we want to figure out the conversion rate for an App in two period and we did not separate the users into different group. The population for this experiment is single hypothesis testing. Another example for two population hypothesis testing is that we separate user into two group for different version of App and conduct testing to figure out whether the mean value for these two group is significant different.</p>
+<h4 id="The-assumptions-for-these-two-hypotheses-are"><a href="#The-assumptions-for-these-two-hypotheses-are" class="headerlink" title="The assumptions for these two hypotheses are:"></a><strong><em>The assumptions for these two hypotheses are</em></strong>:</h4><p>•    The random values are all independent and not influence each other.</p>
 <p>•    No outlier in the sample data.</p>
 <p>•    Close to normal distribution.</p>
 <p>But two sample t test requires variances of the two distributions are the same which is quoted as homogeneity of variance or homoscedasticity.</p>
 <p><img src="/images/inferential_statistics_3ht/4-1.png" alt=""></p>
-<ol start="4">
-<li><p><strong><em>One-tailed and two-tailed hypothesis testing</em></strong></p>
-<p><img src="/images/inferential_statistics_3ht/4-2.png" alt=""></p>
-</li>
-</ol>
+<h4 id="One-tailed-and-two-tailed-hypothesis-testing"><a href="#One-tailed-and-two-tailed-hypothesis-testing" class="headerlink" title="One-tailed and two-tailed hypothesis testing"></a><strong><em>One-tailed and two-tailed hypothesis testing</em></strong></h4><p> <img src="/images/inferential_statistics_3ht/4-2.png" alt=""></p>
 <p>Two-tailed hypothesis testing: a</p>
 <p>One-tailed hypothesis testing: b and c</p>
-<ol start="5">
-<li><strong><em>Significant level</em></strong></li>
-</ol>
-<p><strong>Definition</strong>: The result of significant level is given you a probability which is denoted by<br>α of the study to reject the null hypothesis give the null hypothesis is to be true. According to the α, you could determine by the P value whether or not the mean value for two sample are statistically significant different.</p>
-<ol start="6">
-<li><strong>The difference between significance level, confidence level and confidence interval</strong></li>
-</ol>
-<p><strong>Significance level</strong>: In a hypothesis test, the significance level, alpha, is the probability of making the wrong decision when the null hypothesis is true.</p>
+<h4 id="Significant-level"><a href="#Significant-level" class="headerlink" title="Significant level"></a><strong><em>Significant level</em></strong></h4><p><strong>Definition</strong>: The result of significant level is given you a probability which is denoted by<br>α of the study to reject the null hypothesis give the null hypothesis is to be true. According to the α, you could determine by the P value whether or not the mean value for two sample are statistically significant different.</p>
+<h4 id="The-difference-between-significance-level-confidence-level-and-confidence-interval"><a href="#The-difference-between-significance-level-confidence-level-and-confidence-interval" class="headerlink" title="The difference between significance level, confidence level and confidence interval"></a><strong>The difference between significance level, confidence level and confidence interval</strong></h4><p><strong>Significance level</strong>: In a hypothesis test, the significance level, alpha, is the probability of making the wrong decision when the null hypothesis is true.</p>
 <p><strong>Confidence level</strong>: The probability that if a poll/test/survey were repeated over and over again, the results obtained would be the same. A confidence level =  1 - alpha. </p>
 <p>  <img src="/images/inferential_statistics_3ht/4-3.png" alt=""></p>
 <p><strong>Confidence interval</strong>: A range of results from a poll, experiment, or survey that would be expected to contain the population parameter of interest. For example, an average response. Confidence intervals are constructed using significance levels / confidence levels. </p>
-<ol start="7">
-<li><strong><em>P value</em></strong></li>
-</ol>
-<p><strong>Definition</strong>: P-value or probability value is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct.</p>
-<ol start="8">
-<li><strong>Differences between P value and significant level</strong>:</li>
-</ol>
-<p> <img src="/images/inferential_statistics_3ht/4-4.png" alt=""></p>
+<h4 id="P-value"><a href="#P-value" class="headerlink" title="P value"></a><strong><em>P value</em></strong></h4><p><strong>Definition</strong>: P-value or probability value is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct.</p>
+<h4 id="Differences-between-P-value-and-significant-level"><a href="#Differences-between-P-value-and-significant-level" class="headerlink" title="Differences between P value and significant level:"></a><strong>Differences between P value and significant level</strong>:</h4><p> <img src="/images/inferential_statistics_3ht/4-4.png" alt=""></p>
 <h2 id="6-Classical-Hypothesis-Testing"><a href="#6-Classical-Hypothesis-Testing" class="headerlink" title="6. Classical Hypothesis Testing"></a>6. Classical Hypothesis Testing</h2><h3 id="T-Test"><a href="#T-Test" class="headerlink" title="T-Test"></a>T-Test</h3><h4 id="Why-we-need-T-test"><a href="#Why-we-need-T-test" class="headerlink" title="Why we need T-test?"></a><strong><em>Why we need T-test?</em></strong></h4><p>If you want to check whether or not two means from a population or two population are significant different between each other. You could apply T-test to infer from sample data to the general population since it is difficult to collect the data from the population.</p>
 <h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a><strong><em>Definition</em></strong></h4><p>T-test is a statistical hypothesis test in which test statistic follow student’s t-distribution under the null hypothesis. The t-test can be used to determine if the means of two sets of data are significant different from each other.</p>
 <h4 id="Assumptions"><a href="#Assumptions" class="headerlink" title="Assumptions"></a><strong><em>Assumptions</em></strong></h4><p>•    The means of the two populations being compared should follow normal distributions. </p>
