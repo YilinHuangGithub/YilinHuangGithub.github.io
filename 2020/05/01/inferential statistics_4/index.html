@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yilin">
+
+
+    <meta name="subtitle" content="I love data science">
+
+
+    <meta name="description" content="the blog used to share projects and focus on AI industry">
+
+
+    <meta name="keywords" content="machine learning,deep learning,statistics,data science">
+
+
+<title>Inferential Statistics 4 - Regression analysis - Part 1 - Theory and definition about regression analysis | Yilin&#39;s data science</title>
+
+
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yilin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yilin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Inferential Statistics 4 - Regression analysis - Part 1 - Theory and definition about regression analysis</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yilin</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 1, 2020&nbsp;&nbsp;17:43:34</a>
+                        </span> 
+                        
+
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Statistics/">Statistics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="1-Introduction-–-about-regression-analysis"><a href="#1-Introduction-–-about-regression-analysis" class="headerlink" title="1. Introduction – about regression analysis"></a>1. Introduction – about regression analysis</h2><p>In statistical modeling, regression analysis is a set of statistical processes for estimating the relationships between a depend variable and one or more independent variables. Regression analysis is also a part of machine learning and it is very basic in the ML field. However there still has many concepts relevant to regression analysis you should know before you build a specific regression model.</p>
+<p>In this post, I will introduce you about assumptions, the process to build a regression model and many concepts relevant to regression analysis. After you have a basic understanding about regression analysis, I will introduce you more specific types of regression models in the next post.</p>
+<h2 id="2-Table-of-contents"><a href="#2-Table-of-contents" class="headerlink" title="2.Table of contents"></a>2.Table of contents</h2><p>•    The purposes of regression analysis</p>
+<p>•    Assumptions</p>
+<p>•    Process to conduct regression analysis</p>
+<p>•    Theory and definition that you should know about regression analysis</p>
+<p>•    Example</p>
+<p>•    The process to evaluate the regression model</p>
+<p>•    Summary</p>
+<h2 id="3-The-purposes-of-regression-analysis"><a href="#3-The-purposes-of-regression-analysis" class="headerlink" title="3. The purposes of regression analysis"></a>3. The purposes of regression analysis</h2><p>The regression analysis is primary used for two conceptually distinct purposes:</p>
+<ol>
+<li><p><strong>Prediction</strong> which has substantial overlap with the field of machine learning.</p>
+</li>
+<li><p><strong>Causal relationship</strong> between the independent and dependent variables.</p>
+</li>
+</ol>
+<h2 id="4-Assumptions"><a href="#4-Assumptions" class="headerlink" title="4. Assumptions"></a>4. Assumptions</h2><p><strong>Linearity</strong>: The relationship between X and the mean of Y is linear. - Correlation analysis</p>
+<p><strong>Homoscedasticity</strong>: The variance of residual is the same for any value of X. – F test</p>
+<p><strong>Independence</strong>: Observations are independent of each other.<br>                                Predictors are independent of each other. - multicollinearity problems</p>
+<p><strong>Normality</strong>: For any fixed value of X, Y is normally distributed.<br>                        Errors are independent and normally distributed with mean zero and standard<br>                          variance. </p>
+<h2 id="5-Process-to-conduct-regression-analysis"><a href="#5-Process-to-conduct-regression-analysis" class="headerlink" title="5. Process to conduct regression analysis"></a>5. Process to conduct regression analysis</h2><p>Basically, there are five steps to complete the regression analysis. Some of definition you maybe not familiar with in this part. No worries. I will introduce all of them in next few points.</p>
+<ol>
+<li>Identify problems for dataset</li>
+</ol>
+<p>•    <strong><a href="https://en.wikipedia.org/wiki/Noisy_data" target="_blank" rel="noopener">Noisy data</a>, <a href="https://en.wikipedia.org/wiki/Missing_data" target="_blank" rel="noopener">missing value</a> and <a href="https://en.wikipedia.org/wiki/Outlier" target="_blank" rel="noopener">outlier</a> problems</strong></p>
+<p>•    <strong>multicollinearity problems</strong> between independences</p>
+<ol start="2">
+<li><p>Build Regression model</p>
+</li>
+<li><p>Evaluate model by measurements</p>
+</li>
+</ol>
+<p>•    Most important measurements: <em>R-square, Adjust R-square and Multiple R</em></p>
+<p>•    Measurements for reference: <em>residual, error, standard error, mean absolute error, mean square error, root mean square error</em></p>
+<ol start="4">
+<li><p>Determine the statistical significance of overall model by F test and T test</p>
+</li>
+<li><p>Make conclusion according to the evaluation</p>
+</li>
+</ol>
+<h2 id="6-Theories-and-definitions-you-should-know-about-regression-analysis"><a href="#6-Theories-and-definitions-you-should-know-about-regression-analysis" class="headerlink" title="6. Theories and definitions you should know about regression analysis"></a>6. Theories and definitions you should know about regression analysis</h2><h3 id="1-Independent-and-dependent-variable"><a href="#1-Independent-and-dependent-variable" class="headerlink" title="1. Independent and dependent variable"></a>1. <strong>Independent and dependent variable</strong></h3><h4 id="1-Definition-In-statistical-modeling-regression-analysis-is-a-set-of-statistical-processes-for-estimating-the-relationships-between-one-or-more-independent-variables-often-called-‘predictors’-‘covariates’-or-‘features’-and-a-dependent-variable-often-called-the-‘outcome-variable’"><a href="#1-Definition-In-statistical-modeling-regression-analysis-is-a-set-of-statistical-processes-for-estimating-the-relationships-between-one-or-more-independent-variables-often-called-‘predictors’-‘covariates’-or-‘features’-and-a-dependent-variable-often-called-the-‘outcome-variable’" class="headerlink" title="1. Definition: In statistical modeling, regression analysis is a set of statistical processes for estimating the relationships between one or more independent variables (often called ‘predictors’, ‘covariates’, or ‘features’) and a dependent variable (often called the ‘outcome variable’)."></a>1. <strong>Definition</strong>: In statistical modeling, regression analysis is a set of statistical processes for estimating the relationships between one or more <strong>independent variables</strong> (often called ‘predictors’, ‘covariates’, or ‘features’) and a <strong>dependent variable</strong> (often called the ‘outcome variable’).</h4><p>Independent are controlled input. Dependent variables represent the output or outcome resulting from altering these inputs.</p>
+<h4 id="2-Independent-and-dependent-variables-for-regression-analysis"><a href="#2-Independent-and-dependent-variables-for-regression-analysis" class="headerlink" title="2. Independent and dependent variables for regression analysis"></a>2. <strong>Independent and dependent variables for regression analysis</strong></h4><p><strong>Independent variables</strong>: Continuous (ps. If the independent variable is categorical variable, you need to change the model to logistic regression instead of linear regression)</p>
+<p><strong>Dependent variable</strong>: Continuous (e.g., gestational age) or ordinal (e.g., increasing categories of cigarettes per day). Regression analysis can also accommodate dichotomous independent variables (e.g., categorical data – gender, you could transfer them into <a href="https://stattrek.com/multiple-regression/dummy-variables.aspx" target="_blank" rel="noopener">dummy variables</a>).)</p>
+<h3 id="2-Regression-analysis-model"><a href="#2-Regression-analysis-model" class="headerlink" title="2. Regression analysis model"></a>2. <strong>Regression analysis model</strong></h3><h4 id="Simple-linear-regression"><a href="#Simple-linear-regression" class="headerlink" title="Simple linear regression"></a><strong>Simple linear regression</strong></h4><p><img src="/images/inferential_statistics_4/6-2-1.png" alt=""></p>
+<p>In simple linear regression, there is only on independent variable.</p>
+<h4 id="Multiple-linear-regression"><a href="#Multiple-linear-regression" class="headerlink" title="Multiple linear regression"></a><strong>Multiple linear regression</strong></h4><p><img src="/images/inferential_statistics_4/6-2-2.png" alt=""></p>
+<p>In multiple linear regression, there are several independent variables or functions of independent variables.</p>
+<h4 id="General-Linear-model"><a href="#General-Linear-model" class="headerlink" title="General Linear model"></a><strong>General Linear model</strong></h4><p><img src="/images/inferential_statistics_4/6-2-3.png" alt=""></p>
+<p>From equations above, we could observe that there are four important components form the regression equation which are <strong>unknown parameters, independent variables, dependent variables and error terms</strong>.</p>
+<p><img src="/images/inferential_statistics_4/6-2-4.png" alt=""> </p>
+<p>For more details about the equation, check <a href="https://en.wikipedia.org/wiki/Regression_analysis" target="_blank" rel="noopener">Wiki for regression analysis</a>. </p>
+<h3 id="3-Multicollinearity-problems"><a href="#3-Multicollinearity-problems" class="headerlink" title="3. Multicollinearity problems"></a>3. <strong>Multicollinearity problems</strong></h3><h4 id="1-Definition-In-statistics-multicollinearity-also-collinearity-is-a-phenomenon-in-which-one-predictor-variable-in-a-multiple-regression-model-can-be-linearly-predicted-from-the-others-with-a-substantial-degree-of-accuracy-In-this-situation-the-coefficient-estimates-of-the-multiple-regression-may-change-erratically-in-response-to-small-changes-in-the-model"><a href="#1-Definition-In-statistics-multicollinearity-also-collinearity-is-a-phenomenon-in-which-one-predictor-variable-in-a-multiple-regression-model-can-be-linearly-predicted-from-the-others-with-a-substantial-degree-of-accuracy-In-this-situation-the-coefficient-estimates-of-the-multiple-regression-may-change-erratically-in-response-to-small-changes-in-the-model" class="headerlink" title="1. Definition: In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted from the others with a substantial degree of accuracy. In this situation, the coefficient estimates of the multiple regression may change erratically in response to small changes in the model."></a>1. <strong>Definition</strong>: In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted from the others with a substantial degree of accuracy. In this situation, the coefficient estimates of the multiple regression may change erratically in response to small changes in the model.</h4><h4 id="2-What-cause-this-multicollinearity-problem"><a href="#2-What-cause-this-multicollinearity-problem" class="headerlink" title="2. What cause this multicollinearity problem"></a>2. <strong>What cause this multicollinearity problem</strong></h4><p>Generally, multicollinearity occurs when the variables are highly correlated to each other.</p>
+<p>•    You fallen into the dummy <a href="https://www.algosome.com/articles/dummy-variable-trap-regression.html" target="_blank" rel="noopener">variable trap</a>. </p>
+<p>•    It is caused by the inclusion of a variable which is computed from other variables in the dataset.</p>
+<p>•    Multicollinearity can also result from the repetition of the same kind of variable.</p>
+<h4 id="3-Consequences-of-multicollinearity"><a href="#3-Consequences-of-multicollinearity" class="headerlink" title="3. Consequences of multicollinearity:"></a>3. <strong>Consequences of multicollinearity</strong>:</h4><p>The purpose for linear regression is to figure out the relationship between dependence (Y) and independences (Xs). If the relationship between independences are too strong, it will influence the model to find out the relationship between Y and Xs.</p>
+<p>Although the accuracy of the model may be influenced not too much, the redundancy of the unnecessary predictors will make the model more complex and to increase the computing costs for the future model deployment. </p>
+<h4 id="4-How-to-identify-the-multicollinearity-problem"><a href="#4-How-to-identify-the-multicollinearity-problem" class="headerlink" title="4. How to identify the multicollinearity problem:"></a>4. <strong>How to identify the multicollinearity problem</strong>:</h4><p>•    Many regression analysts often rely on what are called variance inflation factors (VIF) to help detect multicollinearity.</p>
+<p>You could know more detail about VIF and why usually we apply this method to identify   multicollinearity problem from <a href="https://online.stat.psu.edu/stat462/node/180/" target="_blank" rel="noopener">Detecting Multicollinearity Using Variance Inflation    Factors</a>. </p>
+<p>•    The analysis exhibits the signs of multicollinearity — such as, estimates of the coefficients vary excessively from model to model.</p>
+<p>•    The t-tests for each of the individual slopes are non-significant (P &gt; 0.05), but the overall F-test for testing all of the slopes are simultaneously 0 is significant (P &lt; 0.05).</p>
+<p>•    The correlations among pairs of predictor variables are large.</p>
+<h4 id="5-How-to-solve-multicollinearity-problem"><a href="#5-How-to-solve-multicollinearity-problem" class="headerlink" title="5. How to solve multicollinearity problem:"></a>5. <strong>How to solve multicollinearity problem</strong>:</h4><p>•    Remove independences with high correlation with many other independences based on the correlation analysis manually.</p>
+<p>•    Obtain more data, if possible. This is the preferred solution. More data can produce more precise parameter estimates (with lower standard errors), as seen from the formula in variance inflation factor for the variance of the estimate of a regression coefficient in terms of the sample size and the degree of multicollinearity.</p>
+<p>•    Apply <a href="https://en.wikipedia.org/wiki/Stepwise_regression" target="_blank" rel="noopener">Stepwise regression</a>, principle component regression(<a href="https://en.wikipedia.org/wiki/Principal_component_regression" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Principal_component_regression</a>), <a href="https://en.wikipedia.org/wiki/Partial_least_squares_regression" target="_blank" rel="noopener">Partial least squares regression</a> or <a href="https://en.wikipedia.org/wiki/Tikhonov_regularization" target="_blank" rel="noopener">Ridge regression</a> to build the model.</p>
+<h3 id="4-Covariance-Pearson-correlation-coefficient-and-Regression-coefficient"><a href="#4-Covariance-Pearson-correlation-coefficient-and-Regression-coefficient" class="headerlink" title="4. Covariance, Pearson correlation coefficient and Regression coefficient"></a>4. <strong>Covariance, Pearson correlation coefficient and Regression coefficient</strong></h3><p>In this part, I will introduce three concepts which are covariance, pearson correlation coefficient and regression coefficient. I was quite confused with three concepts because they are many similarity and relationship between them. But it is not so completed as what I thought. Basically, covariance describes the three different relationships which are positive, negative and no relationship between independences and dependence. Pearson correlation coefficient formula develop from covariance. Pearson correlation coefficient also describes the relationship between independences and dependence. Regression coefficient is a part of regression model. </p>
+<h4 id="Covariance"><a href="#Covariance" class="headerlink" title="Covariance:"></a><strong>Covariance</strong>:</h4><h5 id="1-Definition-In-probability-theory-and-statistics-covariance-is-a-measure-of-the-joint-variability-of-two-random-variables"><a href="#1-Definition-In-probability-theory-and-statistics-covariance-is-a-measure-of-the-joint-variability-of-two-random-variables" class="headerlink" title="1. Definition:  In probability theory and statistics, covariance is a measure of the joint variability of two random variables."></a>1. <strong>Definition</strong>:  In probability theory and statistics, covariance is a measure of the joint variability of two random variables.</h5><p>If you want to know more about covariance, you could take a look at the video from StatQuest with Josh Starmer which is <a href="https://www.youtube.com/watch?v=qtaqvPAeEJY" target="_blank" rel="noopener">Covariance and Correlation Part 1: Covariance</a>. </p>
+<h5 id="2-General-Formula"><a href="#2-General-Formula" class="headerlink" title="2. General Formula:"></a>2. <strong>General Formula</strong>:</h5><p><img src="/images/inferential_statistics_4/6-4-1-1.png" alt=""> </p>
+<h5 id="3-Types"><a href="#3-Types" class="headerlink" title="3. Types:"></a>3. <strong>Types</strong>:</h5><p><img src="/images/inferential_statistics_4/6-4-1-2.png" alt=""> </p>
+<h5 id="4-Example-for-discrete-random-variables"><a href="#4-Example-for-discrete-random-variables" class="headerlink" title="4. Example for discrete random variables:"></a>4. <strong>Example for discrete random variables</strong>:</h5><p><img src="/images/inferential_statistics_4/6-4-1-3.png" alt=""> </p>
+<h5 id="5-Purpose-of-covariance"><a href="#5-Purpose-of-covariance" class="headerlink" title="5. Purpose of covariance:"></a>5. <strong>Purpose of covariance</strong>:</h5><p>Basically, covariance value will only tell you three different relationships which are positive, negative and no relationship between the X and Y. Covariance will not tell you the relationship between X and Y is strong or weak because the covariance is sensitive to scale. Although the correlation between X and Y is the same for two group of data, the covariance for these two groups is different. But pearson correlation coefficient will solve this problem!</p>
+<p><img src="/images/inferential_statistics_4/6-4-1-4.png" alt=""> </p>
+<h4 id="Pearson-correlation-coefficient"><a href="#Pearson-correlation-coefficient" class="headerlink" title="Pearson correlation coefficient:"></a><strong>Pearson correlation coefficient</strong>:</h4><h5 id="1-Definition-Pearson-correlation-coefficient-is-statistic-that-measures-linear-correlation-between-two-variables-X-and-Y-It-has-a-value-between-1-and-Where-1-is-total-positive-linear-correlation-0-is-no-linear-correlation-and-1-is-total-negative-linear-correlation"><a href="#1-Definition-Pearson-correlation-coefficient-is-statistic-that-measures-linear-correlation-between-two-variables-X-and-Y-It-has-a-value-between-1-and-Where-1-is-total-positive-linear-correlation-0-is-no-linear-correlation-and-1-is-total-negative-linear-correlation" class="headerlink" title="1. Definition: Pearson correlation coefficient is statistic that measures linear correlation between two variables X and Y. It has a value between +1 and -. Where +1 is total positive linear correlation, 0 is no linear correlation, and -1 is total negative linear correlation."></a>1. <strong>Definition</strong>: Pearson correlation coefficient is statistic that measures linear correlation between two variables X and Y. It has a value between +1 and -. Where +1 is total positive linear correlation, 0 is no linear correlation, and -1 is total negative linear correlation.</h5><p>Pearson correlation coefficient could not only tell you positive, negative or no relationship between X and Y, but also solve the problem that covariance has which could describe the weak or strong relationship between X and Y.</p>
+<p>If you want to know more about covariance, you could take a look at the video from StatQuest with Josh Starmer which is <a href="https://www.youtube.com/watch?v=xZ_z8KWkhXE&t=646s" target="_blank" rel="noopener">Covariance and Correlation Part 2: Pearson’s Correlation</a>. </p>
+<h5 id="2-Formula"><a href="#2-Formula" class="headerlink" title="2. Formula:"></a>2. <strong>Formula</strong>:</h5><p><img src="/images/inferential_statistics_4/6-4-2-1.png" alt=""> </p>
+<h5 id="3-P-value-for-correlation"><a href="#3-P-value-for-correlation" class="headerlink" title="3. P value for correlation:"></a>3. <strong>P value for correlation</strong>:</h5><h6 id="1-Why-we-need-P-value-for-correlation"><a href="#1-Why-we-need-P-value-for-correlation" class="headerlink" title="1. Why we need P value for correlation?"></a>1. Why we need P value for correlation?</h6><p>The correlation coefficient, r, tells us about the strength and direction of the linear relationship between x and y. However, the reliability of the linear model also depends on how many observed data points are in the sample. We need to look at both the value of the correlation coefficient r and the sample size n, together.</p>
+<p>We perform a hypothesis test of the “significance of the correlation coefficient” (<a href="https://en.wikipedia.org/wiki/Fisher_transformation" target="_blank" rel="noopener">Fisher transformation</a>) to decide whether the linear relationship in the sample data is strong enough to use to model the relationship in the population.</p>
+<p>The sample data are used to compute r, the correlation coefficient for the sample. If we had data for the entire population, we could find the population correlation coefficient. But because we have only had sample data, we cannot calculate the population correlation coefficient. The sample correlation coefficient, r, is our estimate of the unknown population correlation coefficient.</p>
+<h6 id="2-Hypothesis-for-correlation-coefficient"><a href="#2-Hypothesis-for-correlation-coefficient" class="headerlink" title="2. Hypothesis for correlation coefficient."></a>2. Hypothesis for correlation coefficient.</h6><ol>
+<li><strong>Sample data – calculate by Fisher z-transformation</strong>: In statistics, the Fisher transformation (aka Fisher z-transformation) can be used to test hypotheses about the value of the population correlation coefficient ρ between variables X and Y. This is because, when the transformation is applied to the sample correlation coefficient, the sampling distribution of the resulting variable is approximately normal, with a variance that is stable over different values of the underlying true correlation.</li>
+</ol>
+<ol start="2">
+<li><p><strong>Test</strong>: one sample T-test (by using sample data to infer the whole population)</p>
+</li>
+<li><p><strong>Hypothesis</strong>:</p>
+</li>
+</ol>
+<p>Null Hypothesis: H0: ρ = 0 </p>
+<p>Alternate Hypothesis: Ha: ρ ≠ 0</p>
+<p>ρ = population correlation coefficient (unknown)</p>
+<ol start="4">
+<li><strong>Conclusion</strong>:</li>
+</ol>
+<p><strong>P-value ≤ α</strong>: The correlation is statistically significant<br>If the p-value is less than or equal to the significance level, then you can conclude that the correlation is different from 0.</p>
+<p><strong>P-value &gt; α</strong>: The correlation is not statistically significant<br>If the p-value is greater than the significance level, then you cannot conclude that the correlation is different from 0.</p>
+<p>You could take a look at <a href="https://courses.lumenlearning.com/introstats1/chapter/testing-the-significance-of-the-correlation-coefficient/" target="_blank" rel="noopener">Testing the Significance of the Correlation Coefficient</a> and <a href="https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/how-to/correlation/interpret-the-results/" target="_blank" rel="noopener">Interpret the key results for Correlation</a> to know more detail. </p>
+<h5 id="4-Example"><a href="#4-Example" class="headerlink" title="4. Example:"></a>4. <strong>Example</strong>:</h5><p><img src="/images/inferential_statistics_4/6-4-4.png" alt=""> </p>
+<h5 id="5-purpose-for-pearson-correlation-coefficient"><a href="#5-purpose-for-pearson-correlation-coefficient" class="headerlink" title="5. purpose for pearson correlation coefficient:"></a>5. <strong>purpose for pearson correlation coefficient</strong>:</h5><p>Pearson correlation coefficient will tell you:</p>
+<p>•    The strength and direction of the linear relationship between X and Y.</p>
+<p>•    Whether the relationship between X and Y is statistically significant or not.</p>
+<p>However, it will not quantify the relationship between X and Y. But this problem could be solved by R-squared.</p>
+<p><img src="/images/inferential_statistics_4/6-4-5-1.png" alt=""> </p>
+<h4 id="3-Regression-coefficient"><a href="#3-Regression-coefficient" class="headerlink" title="3. Regression coefficient:"></a>3. <strong>Regression coefficient</strong>:</h4><h5 id="1-Definition-Regression-coefficient-is-the-parameter-for-the-regression-model-This-coefficient-is-not-the-indicator-for-the-X-and-Y-like-covariance-and-correlation-It-is-a-part-of-the-regression-model"><a href="#1-Definition-Regression-coefficient-is-the-parameter-for-the-regression-model-This-coefficient-is-not-the-indicator-for-the-X-and-Y-like-covariance-and-correlation-It-is-a-part-of-the-regression-model" class="headerlink" title="1. Definition: Regression coefficient is the parameter for the regression model. This coefficient is not the indicator for the X and Y like covariance and correlation. It is a part of the regression model."></a>1. <strong>Definition</strong>: Regression coefficient is the parameter for the regression model. This coefficient is not the indicator for the X and Y like covariance and correlation. It is a part of the regression model.</h5><h5 id="2-Example"><a href="#2-Example" class="headerlink" title="2. Example:"></a>2. <strong>Example</strong>:</h5><p>y = -3.4 + 7.0X1 - 1.8X2 + 9X3</p>
+<p>The coefficient for this regression model is -3.4, 7.0, 1.8 and 9.</p>
+<h3 id="5-R-squared-Adjust-R-squared-and-Multiple-R-squared"><a href="#5-R-squared-Adjust-R-squared-and-Multiple-R-squared" class="headerlink" title="5. R-squared, Adjust R-squared and Multiple R-squared"></a>5. R-squared, Adjust R-squared and Multiple R-squared</h3><h4 id="1-R-square"><a href="#1-R-square" class="headerlink" title="1. R-square:"></a>1. <strong>R-square</strong>:</h4><h5 id="1-Definition-In-statistics-the-coefficient-of-determination-denoted-R2-and-pronounced-“R-squared”-is-the-proportion-of-the-variance-in-the-dependent-variable-that-is-predictable-from-the-independent-variable-s"><a href="#1-Definition-In-statistics-the-coefficient-of-determination-denoted-R2-and-pronounced-“R-squared”-is-the-proportion-of-the-variance-in-the-dependent-variable-that-is-predictable-from-the-independent-variable-s" class="headerlink" title="1. Definition: In statistics, the coefficient of determination, denoted R2 and pronounced “R squared”, is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)."></a>1. <strong>Definition</strong>: In statistics, the coefficient of determination, denoted R2 and pronounced “R squared”, is the <strong>proportion of the variance in the dependent variable that is predictable from the independent variable(s)</strong>.</h5><h5 id="2-Why-we-need-R-squared"><a href="#2-Why-we-need-R-squared" class="headerlink" title="2. Why we need R-squared:"></a>2. <strong>Why we need R-squared</strong>:</h5><p>To measure how close the data are to the fitted regression. </p>
+<p>R-squared is always between 0 and 100%:</p>
+<p>•    0% indicates that the model explains none of the variability of the response data around its mean.</p>
+<p>•    100% indicates that the model explains all the variability of the response data around its mean.</p>
+<h5 id="3-Equation"><a href="#3-Equation" class="headerlink" title="3. Equation:"></a>3. <strong>Equation</strong>:</h5><p><img src="/images/inferential_statistics_4/6-5-3-1.png" alt=""> </p>
+<p>You could take a look at <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination" target="_blank" rel="noopener">Wiki- Coefficient of determination</a> for more details.</p>
+<h4 id="2-Adjusted-R-square"><a href="#2-Adjusted-R-square" class="headerlink" title="2. Adjusted R-square:"></a>2. <strong>Adjusted R-square</strong>:</h4><h5 id="1-Definition-The-adjusted-R-squared-compares-the-explanatory-power-of-regression-models-that-contain-different-numbers-of-predictors"><a href="#1-Definition-The-adjusted-R-squared-compares-the-explanatory-power-of-regression-models-that-contain-different-numbers-of-predictors" class="headerlink" title="1. Definition: The adjusted R-squared compares the explanatory power of regression models that contain different numbers of predictors."></a>1. <strong>Definition</strong>: The adjusted R-squared compares the explanatory power of regression models that contain different numbers of predictors.</h5><h5 id="2-Why-we-need-Adjusted-R-square"><a href="#2-Why-we-need-Adjusted-R-square" class="headerlink" title="2. Why we need Adjusted R-square:"></a>2. <strong>Why we need Adjusted R-square</strong>:</h5><p>Adjusted R-squared is a modified version of R-squared that has been adjusted for the number of predictors in the model. For R-squared, every time we add a predictor to a model, the value increase and never decrease. <strong>That is the reason why we can’t compare two models with different predictors</strong>.</p>
+<h5 id="3-Why-R-squared-never-decrease"><a href="#3-Why-R-squared-never-decrease" class="headerlink" title="3. Why R-squared never decrease:"></a>3. <strong>Why R-squared never decrease</strong>:</h5><p>If you dig more into the last question, you must be curious about why R-squared never decrease with the new predictors add into the model.</p>
+<p>There are two main reasons:</p>
+<ol>
+<li><p>If new predictors have no correlation with the dependence, the model will be stuck with the previous minimum of the loss function (Least squares). Thus the model stays the same as the previous model. In this case, R-squared remains same.</p>
+</li>
+<li><p>If new predictors have correlation with the dependence, the model will achieve a better minimum of the loss function. In this case, R-squared will increase.</p>
+</li>
+</ol>
+<h5 id="4-Equation"><a href="#4-Equation" class="headerlink" title="4.Equation:"></a>4.<strong>Equation</strong>:</h5><p><img src="/images/inferential_statistics_4/6-5-2-1.png" alt=""> </p>
+<p>From the equation, you could observe that adjusted R squared includes the sample size with R-squared. That means that adjusted R-square will be different with models with different predictors included.</p>
+<h4 id="3-Multiple-R"><a href="#3-Multiple-R" class="headerlink" title="3. Multiple R:"></a>3. <strong>Multiple R</strong>:</h4><h5 id="Definition-If-you-calculate-the-correlation-coefficient-between-the-Predicted-house-values-and-actual-appraised-values-you-will-see-that-the-correlation-coefficient-is-exactly-equal-to-the-Multiple-R-which-is-the-positive-square-root-of-R-Square"><a href="#Definition-If-you-calculate-the-correlation-coefficient-between-the-Predicted-house-values-and-actual-appraised-values-you-will-see-that-the-correlation-coefficient-is-exactly-equal-to-the-Multiple-R-which-is-the-positive-square-root-of-R-Square" class="headerlink" title="Definition: If you calculate the correlation coefficient between the Predicted house values and actual appraised values, you will see that the correlation coefficient is exactly equal to the Multiple R which is the positive square root of R-Square."></a><strong>Definition</strong>: If you calculate the correlation coefficient between the Predicted house values and actual appraised values, you will see that the correlation coefficient is exactly equal to the Multiple R which is the positive square root of R-Square.</h5><h3 id="6-Other-indicators-for-regression-model-Residuals-error-standard-error-mean-absolute-error-and-mean-square-error"><a href="#6-Other-indicators-for-regression-model-Residuals-error-standard-error-mean-absolute-error-and-mean-square-error" class="headerlink" title="6. Other indicators for regression model - Residuals, error, standard error, mean absolute error and mean square error"></a>6. Other indicators for regression model - Residuals, error, standard error, mean absolute error and mean square error</h3><h4 id="Residuals"><a href="#Residuals" class="headerlink" title="Residuals:"></a><strong>Residuals</strong>:</h4><p><strong>Definition</strong>: A residual is the difference between the measured value and the predicted value of a regression model.</p>
+<p><strong>Example</strong>:</p>
+<p><img src="/images/inferential_statistics_4/6-6-1.png" alt=""> </p>
+<h4 id="Error"><a href="#Error" class="headerlink" title="Error:"></a><strong>Error</strong>:</h4><p><strong>Definition</strong>: An error term essentially means that the model is not completely accurate and results in differing results during real-world applications. The error term is the amount at which the equation may differ during empirical analysis. We could regard error as a bias in the regression model.</p>
+<p><strong>Example</strong>:</p>
+<p><img src="/images/inferential_statistics_4/6-6-2.png" alt=""> </p>
+<h4 id="Standard-error-SE"><a href="#Standard-error-SE" class="headerlink" title="Standard error (SE):"></a><strong>Standard error (SE)</strong>:</h4><p><strong>Definition</strong>: The standard error of estimate (or Root mean square error (RMSE)) is a measure of the accuracy of predictions. It is the <strong>variance between the predicted values and actual values</strong>. Recall that the regression line that minimizes the sum of squared deviations of prediction (also called sum of squares error). The standard error of the estimate is closely related to this quantity.</p>
+<p><strong>Why we need standard error</strong>:</p>
+<p>From standard error, we could know how far away of actual values from the predicted. If the standard error is large which means that the model is not good for the prediction.</p>
+<p><strong>Equation</strong>:</p>
+<p> <img src="/images/inferential_statistics_4/6-6-3.png" alt=""> </p>
+<h4 id="Mean-absolute-error-MAE"><a href="#Mean-absolute-error-MAE" class="headerlink" title="Mean absolute error (MAE):"></a><strong>Mean absolute error (MAE)</strong>:</h4><p><strong>Definition</strong>: MAE is also a measurement to evaluate the error between predicted values and actual values. But it is calculated by its average of the absolute error.</p>
+<p><strong>Why we need mean absolute error</strong>: The same with SE to evaluate prediction ability of model. </p>
+<p><strong>Equation</strong>:</p>
+<p> <img src="/images/inferential_statistics_4/6-6-4.png" alt=""> </p>
+<h4 id="Mean-square-error-MSE"><a href="#Mean-square-error-MSE" class="headerlink" title="Mean square error (MSE):"></a><strong>Mean square error (MSE)</strong>:</h4><p><strong>Definition</strong>: MSE is the average squared difference between the estimated values and the actual value. It is square of standard error.</p>
+<p><strong>Why we need mean absolute error</strong>: The same with SE to evaluate prediction ability of model.</p>
+<p><strong>Equation</strong>:</p>
+<p><img src="/images/inferential_statistics_4/6-6-5.png" alt=""> </p>
+<h2 id="7-Statistical-hypothesis-testing-for-the-regression-model"><a href="#7-Statistical-hypothesis-testing-for-the-regression-model" class="headerlink" title="7. Statistical hypothesis testing for the regression model"></a>7. Statistical hypothesis testing for the regression model</h2><h3 id="1-F-test"><a href="#1-F-test" class="headerlink" title="1. F test"></a>1. <strong>F test</strong></h3><h4 id="Why-we-need-F-test-for-regression-analysis"><a href="#Why-we-need-F-test-for-regression-analysis" class="headerlink" title="Why we need F test for regression analysis:"></a><strong>Why we need F test for regression analysis</strong>:</h4><p><img src="/images/inferential_statistics_4/7-1.png" alt="">  </p>
+<p>F test for regression analysis it to check is there any one or more predictors make this model is statistically significant. Which means that does predictors really generate impact to the regression model. It compares a model with no predictors to the model that you specify.</p>
+<h4 id="hypothesis-for-regression-model"><a href="#hypothesis-for-regression-model" class="headerlink" title="hypothesis for regression model:"></a><strong>hypothesis for regression model</strong>:</h4><p>H0: β1 = β2 = … = βp-1 = 0 (which means that that the model with no independent variables fits the data as well as your model.)</p>
+<p>Ha: βj ≠ 0, for at least one value of j (which means that your model fits the data better than the intercept-only model.)</p>
+<h4 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions:"></a><strong>Conclusions</strong>:</h4><p><strong>P-value ≤ α</strong>:  β1 = β2 = … = βp-1 = 0<br>If the p-value is less than or equal to the significance level, then you can conclude that these predictors in your model can’t predict your model well.</p>
+<p><strong>P-value &gt; α</strong>: The correlation is not statistically significant<br>If the p-value is greater than the significance level, then you cannot conclude that at least one predictor in the model make your model statistically significant.</p>
+<h3 id="2-T-test"><a href="#2-T-test" class="headerlink" title="2. T test"></a>2. <strong>T test</strong></h3><h4 id="Why-we-need-F-test-for-regression-analysis-1"><a href="#Why-we-need-F-test-for-regression-analysis-1" class="headerlink" title="Why we need F test for regression analysis:"></a><strong>Why we need F test for regression analysis</strong>:</h4><p>T test for regression analysis is to check </p>
+<p>After you conduct the F test for regression analysis, you know some of predictors make is valuable for your model. But you don’t know which one. A series of t-tests is to check if each of the independent variables are needed or not.</p>
+<h4 id="hypothesis-for-regression-model-1"><a href="#hypothesis-for-regression-model-1" class="headerlink" title="hypothesis for regression model:"></a><strong>hypothesis for regression model</strong>:</h4><p>H0: βi = 0</p>
+<p>H1: βi != 0</p>
+<p>For example, y = β0 + β1x1 + β2x2 + β3x3 + error. You want to check β1. Then the sample data for this hypothesis is the result come from y = β0 + β1x1 + β2x2 + β3x3 + error and y = β0 + β2x2 + β3x3 + error.</p>
+<h4 id="Conclusions-1"><a href="#Conclusions-1" class="headerlink" title="Conclusions:"></a><strong>Conclusions</strong>:</h4><p><strong>P-value ≤ α</strong>:  βi = 0</p>
+<p>If the p-value is less than or equal to the significance level, then you can conclude that parameter i dose not have statistically significant to the model.</p>
+<p><strong>P-value &gt; α</strong>: βi != 0</p>
+<p>If the p-value is greater than the significance level, then you cannot conclude that parameter i dose have statistically significant to the model.</p>
+<h2 id="8-Example"><a href="#8-Example" class="headerlink" title="8. Example"></a>8. Example</h2><p>The purpose for this example is to predict a house price. The predictors include Property Size, House Size, Age, Rooms and Garage. After conduct the regression analysis, we got the two results below which are <strong>regression statistics and Anova</strong>. If you don’t familiar with any indicators in these two chart, you could go through this post agian and find the indicators.</p>
+<p><img src="/images/inferential_statistics_4/8-1.png" alt="">  </p>
+<h2 id="9-The-process-to-evaluate-the-regression-model"><a href="#9-The-process-to-evaluate-the-regression-model" class="headerlink" title="9. The process to evaluate the regression model"></a>9. The process to evaluate the regression model</h2><p>I was so confused about how to evaluate the regression model by so many indicators. Actually, for different situations, you need to take different indicators for reference. And not all of the indicators are so that important.</p>
+<p>Here are two scenarios that you will use these indicators to evaluate regression model(s):</p>
+<p><strong>If you want to evaluate one regression model</strong>:</p>
+<p><img src="/images/inferential_statistics_4/9-1.png" alt="">  </p>
+<p><strong>If you want to compare two regression model</strong>:</p>
+<p><img src="/images/inferential_statistics_4/9-2.png" alt="">  </p>
+<h2 id="10-Summary"><a href="#10-Summary" class="headerlink" title="10. Summary"></a>10. Summary</h2><p>From this post, you basically will know basically all the important concepts relevant regression analysis. In the next post, I will introduce you more specific models about regression analysis.</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a href="https://www.statisticssolutions.com/multicollinearity/" target="_blank" rel="noopener">https://www.statisticssolutions.com/multicollinearity/</a><br><a href="https://www.algosome.com/articles/dummy-variable-trap-regression.html" target="_blank" rel="noopener">https://www.algosome.com/articles/dummy-variable-trap-regression.html</a><br><a href="https://online.stat.psu.edu/stat462/node/180/" target="_blank" rel="noopener">https://online.stat.psu.edu/stat462/node/180/</a><br><a href="https://zhuanlan.zhihu.com/p/72722146" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/72722146</a><br><a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Pearson_correlation_coefficient</a><br><a href="https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/how-to/correlation/interpret-the-results/" target="_blank" rel="noopener">https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/how-to/correlation/interpret-the-results/</a><br><a href="https://dataschool.com/fundamentals-of-analysis/correlation-and-p-value/" target="_blank" rel="noopener">https://dataschool.com/fundamentals-of-analysis/correlation-and-p-value/</a><br><a href="https://courses.lumenlearning.com/introstats1/chapter/testing-the-significance-of-the-correlation-coefficient/" target="_blank" rel="noopener">https://courses.lumenlearning.com/introstats1/chapter/testing-the-significance-of-the-correlation-coefficient/</a><br><a href="https://blog.csdn.net/wwangfabei1989/article/details/80656668" target="_blank" rel="noopener">https://blog.csdn.net/wwangfabei1989/article/details/80656668</a><br><a href="https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit" target="_blank" rel="noopener">https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit</a><br><a href="https://towardsdatascience.com/wth-are-r-squared-and-adjusted-r-squared-7b816eef90d9" target="_blank" rel="noopener">https://towardsdatascience.com/wth-are-r-squared-and-adjusted-r-squared-7b816eef90d9</a><br><a href="http://www.shodor.org/interactivate/discussions/FindingResiduals/" target="_blank" rel="noopener">http://www.shodor.org/interactivate/discussions/FindingResiduals/</a><br><a href="https://www.investopedia.com/terms/e/errorterm.asp" target="_blank" rel="noopener">https://www.investopedia.com/terms/e/errorterm.asp</a><br><a href="http://onlinestatbook.com/2/regression/accuracy.html" target="_blank" rel="noopener">http://onlinestatbook.com/2/regression/accuracy.html</a><br><a href="http://reliawiki.org/index.php/Multiple_Linear_Regression_Analysis#Test_on_Individual_Regression_Coefficients_.28t__Test.29" target="_blank" rel="noopener">http://reliawiki.org/index.php/Multiple_Linear_Regression_Analysis#Test_on_Individual_Regression_Coefficients_.28t__Test.29</a> </p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yilin</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2020/05/01/inferential%20statistics_4/">http://yoursite.com/2020/05/01/inferential%20statistics_4/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I love <strong>Data Science</strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Regression-analysis/"># Regression analysis</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/04/26/case-study/">Case Study 1 -  Introduction</a>
+            
+
+        </section>
+         <p>
+         <p>
+         <p>
+
+       <section class="post-copyright">
+         <p>
+         <p>
+         <p>
+         <div id="disqus_thread"></div>
+       </section>
+
+
+
+    </article>
+
+
+  
+</div>
+
+
+
+
+<section id="comments">
+
+<script>
+  var disqus_shortname = 'http-www-yilinhuang-cool';
+  
+  var disqus_url = 'http://yoursite.com/2020/05/01/inferential statistics_4/';
+  
+
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://http-www-yilinhuang-cool.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        
+<footer id="footer" class="footer">
+
+
+    <div class="copyright">
+        <span>© Yilin | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+  
+    </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
