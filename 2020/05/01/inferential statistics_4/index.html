@@ -249,7 +249,7 @@
 <p><strong>- 5. R-squared, Adjust R-squared and Multiple R-squared</strong></p>
 <p><strong>- 6. Other indicators for regression model - Residuals, error, standard error, mean absolute error and mean square error</strong></p>
 <p><strong>- 7. Statistical hypothesis testing for the regression model</strong></p>
-<p><strong>•    Example</strong></p>
+<p><strong>•    Example for regression model evaluation</strong></p>
 <p><strong>•    The process to evaluate the regression model</strong></p>
 <p><strong>•    Summary</strong></p>
 <h2 id="3-The-purposes-of-regression-analysis"><a href="#3-The-purposes-of-regression-analysis" class="headerlink" title="3. The purposes of regression analysis"></a>3. The purposes of regression analysis</h2><p>The regression analysis is primary used for two conceptually distinct purposes:</p>
@@ -267,12 +267,13 @@
 <p><strong>1. Identify problems for dataset</strong></p>
 <p>•    <a href="https://en.wikipedia.org/wiki/Noisy_data" target="_blank" rel="noopener">Noisy data</a>, <a href="https://en.wikipedia.org/wiki/Missing_data" target="_blank" rel="noopener">missing value</a> and <a href="https://en.wikipedia.org/wiki/Outlier" target="_blank" rel="noopener">outlier</a> problems.</p>
 <p>•    Multicollinearity problems between independences</p>
-<p><strong>2. Build Regression model</strong></p>
-<p><strong>3. Evaluate model by measurements</strong></p>
+<p><strong>2. Features Selection</strong></p>
+<p><strong>3. Build Regression model</strong></p>
+<p><strong>4. Evaluate model by measurements</strong></p>
 <p>•    Most important measurements: <em>R-square, Adjust R-square and Multiple R</em></p>
 <p>•    Measurements for reference: <em>residual, error, standard error, mean absolute error, mean square error, root mean square error</em></p>
-<p><strong>4. Determine the statistical significance of overall model by F test and T test</strong></p>
-<p><strong>5. Make conclusion according to the evaluation</strong></p>
+<p><strong>5. Determine the statistical significance of overall model by F test and T test</strong></p>
+<p><strong>6. Make conclusion according to the evaluation</strong></p>
 <h2 id="6-Theories-and-definitions-you-should-know-about-regression-analysis"><a href="#6-Theories-and-definitions-you-should-know-about-regression-analysis" class="headerlink" title="6. Theories and definitions you should know about regression analysis"></a>6. Theories and definitions you should know about regression analysis</h2><h3 id="1-Independent-and-dependent-variable"><a href="#1-Independent-and-dependent-variable" class="headerlink" title="1. Independent and dependent variable"></a>1. <strong>Independent and dependent variable</strong></h3><h4 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition:"></a>1. <strong>Definition</strong>:</h4><p>In statistical modeling, regression analysis is a set of statistical processes for estimating the relationships between one or more <strong>independent variables</strong> (often called ‘predictors’, ‘covariates’, or ‘features’) and a <strong>dependent variable</strong> (often called the ‘outcome variable’). </p>
 <p>Independent are controlled input. Dependent variables represent the output or outcome resulting from altering these inputs.</p>
 <h4 id="2-Independent-and-dependent-variables-for-regression-analysis"><a href="#2-Independent-and-dependent-variables-for-regression-analysis" class="headerlink" title="2. Independent and dependent variables for regression analysis"></a>2. <strong>Independent and dependent variables for regression analysis</strong></h4><p><strong>Dependent variables</strong>: Continuous (ps. If the independent variable is categorical variable, you need to change the model to logistic regression instead of linear regression)</p>
@@ -401,7 +402,7 @@
 <p>If the p-value is less than or equal to the significance level, then you can conclude that parameter i dose not have statistically significant to the model.</p>
 <p><strong>P-value &gt; α</strong>: βi != 0</p>
 <p>If the p-value is greater than the significance level, then you cannot conclude that parameter i dose have statistically significant to the model.</p>
-<h2 id="8-Example"><a href="#8-Example" class="headerlink" title="8. Example"></a>8. Example</h2><p>The purpose for this example is to predict a house price. The predictors include Property Size, House Size, Age, Rooms and Garage. After conduct the regression analysis, we got the two charts below which are <strong>regression statistics and Anova</strong>. If you don’t familiar with any indicators in these two chart, you could go through this post agian and find the indicators to see the details about them.</p>
+<h2 id="8-Example-for-regression-model-evaluation"><a href="#8-Example-for-regression-model-evaluation" class="headerlink" title="8. Example for regression model evaluation"></a>8. Example for regression model evaluation</h2><p>The purpose for this example is to predict a house price. The predictors include Property Size, House Size, Age, Rooms and Garage. After conduct the regression analysis, we got the two charts below which are <strong>regression statistics and Anova</strong>. If you don’t familiar with any indicators in these two chart, you could go through this post agian and find the indicators to see the details about them.</p>
 <p><img src="/images/inferential_statistics_4/8-1.png" alt="">  </p>
 <h2 id="9-The-process-to-evaluate-the-regression-model"><a href="#9-The-process-to-evaluate-the-regression-model" class="headerlink" title="9. The process to evaluate the regression model"></a>9. The process to evaluate the regression model</h2><p>I was so confused about how to evaluate the regression model by so many indicators. Actually, for different situations, you need to take different indicators for reference. And not all of the indicators are so that important and some of theirs function are overlapped.</p>
 <p>Here are two scenarios that you will use these indicators to evaluate regression model(s):</p>
@@ -461,6 +462,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/05/02/paper/">paper</a>
             
             
             <a class="next" rel="next" href="/2020/04/26/case-study/">Case Study 1 -  Introduction</a>
