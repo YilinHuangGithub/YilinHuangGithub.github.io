@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yilin">
+
+
+    <meta name="subtitle" content="I love data science">
+
+
+    <meta name="description" content="the blog used to share projects and focus on AI industry">
+
+
+    <meta name="keywords" content="machine learning,deep learning,statistics,data science">
+
+
+<title>Inferential Statistics 4 - Regression analysis 2 | Yilin&#39;s data science</title>
+
+
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yilin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yilin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Inferential Statistics 4 - Regression analysis 2</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yilin</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 4, 2020&nbsp;&nbsp;18:14:21</a>
+                        </span> 
+                        
+
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Statistics/">Statistics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>There are many regression models to solve different specific problems. I will introduce 10 classical models and their properties. For these 10 regression models, they are basically applied to solve different specific problems which are making prediction for continuous data and binary classification, selecting features and regularization. They are easily to be interpreted and understood. After you learn about these 10 common-used models, you could handle most of the problems need to be solved by regression methods.</p>
+<p>In this post, I will introduce 3 common regression models to make prediction for continuous data.</p>
+<h1 id="2-Table-of-Contents"><a href="#2-Table-of-Contents" class="headerlink" title="2. Table of Contents"></a>2. Table of Contents</h1><p><strong>Simple linear regression</strong></p>
+<p><strong>Multiple linear regression</strong></p>
+<p><strong>Polynomial regression</strong></p>
+<p><strong>Summary</strong></p>
+<h1 id="3-Simple-Linear-regression"><a href="#3-Simple-Linear-regression" class="headerlink" title="3. Simple Linear regression"></a>3. Simple Linear regression</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition:"></a>Definition:</h2><p>In statistics, simple linear regression is a linear regression model with a single exploratory variable. It contains only two-dimensional sample points which are one dependent variable and one independent variable.</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model:"></a>Model:</h2><p><img src="/images/inferential_statistics_5/3-1.png" alt=""></p>
+<h2 id="When-to-apply-linear-regression"><a href="#When-to-apply-linear-regression" class="headerlink" title="When to apply linear regression:"></a>When to apply linear regression:</h2><p>When there is only one predictor for the dependent variable and there is linear relationship between predictor and dependent variable.</p>
+<h2 id="Least-squares-–-find-the-best-fitting-regression-line"><a href="#Least-squares-–-find-the-best-fitting-regression-line" class="headerlink" title="Least-squares – find the best fitting regression line:"></a>Least-squares – find the best fitting regression line:</h2><p>Based on the simple regression model we could know that if we want to find the best fitting regression line, we need to minimize the error between the regression line and actual value.</p>
+<p><img src="/images/inferential_statistics_5/3-2.png" alt=""></p>
+<p>If you want to know more details about infer the final formula for least-squares for simple linear regression, you could take a look at the video <a href="https://www.youtube.com/watch?v=K_EH2abOp00" target="_blank" rel="noopener">Linear Regression and Multiple Regression</a>. </p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h2><h3 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario:"></a>Scenario:</h3><p>We have two columns of data which are LotArea (Lot size in square feet) and SalePrice. We want to use LotArea to predict SalePrice. </p>
+<h3 id="Sample-Data"><a href="#Sample-Data" class="headerlink" title="Sample Data:"></a>Sample Data:</h3><p>I got this sample data from <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques" target="_blank" rel="noopener">Kaggle - House Prices: Advanced Regression Techniques</a>. </p>
+<p>Based on the information below, there are 1459 data points, and I split them into 1300 rows for train data and 159 for test data.</p>
+<p>Independent value: LotArea</p>
+<p>Dependent value: SalePrice</p>
+<p><img src="/images/inferential_statistics_5/3-3.png" alt=""></p>
+<h3 id="Model-evaluation"><a href="#Model-evaluation" class="headerlink" title="Model evaluation:"></a>Model evaluation:</h3><p>There is the chart for the actual values and predicted values below:</p>
+<p><img src="/images/inferential_statistics_5/3-4.png" alt=""></p>
+<p>We could observe that there is an outlier in this chart. Maybe in the next step, in order to optimize the model, we need preprocess the sample data to observe whether there is noisy value, missing value or outlier in the dataset and filter or standardize the dataset. For the reason that the linear regression model is very sensitive to noisy values.</p>
+<p>Ps – Actually, I should do the preprocessing before building the model. But I want to show you that why linear regression is so that sensitive to the outliers. You could observe that if there is not data point in the very right part of the chart, the trend line will be steep based on the least squares. And model for the processed data could be more generalized to predict new data.</p>
+<p>After fit the linear regression to the model, I got the result summary below:</p>
+<p><img src="/images/inferential_statistics_5/3-5.png" alt=""></p>
+<p>Based on the result, you could get a simple linear regression model SalePrice = 1.87 + 0.06LotArea.</p>
+<p>We could observe that the R-squared is 0.069 which is pretty low which means that the variance of dependent value could only be described by 6.9% of the independent value. </p>
+<p>Now you much be confused about whether this model is significant. From F-test, we could observe that P value is lower than 0.05 which means that this model is statistically significant.</p>
+<p>We could also observe from T-test, the all the P value for parameter in the model are lower than 0.05 which means that LotArea is statistically significant to the model.</p>
+<p>We could conclude that the model and predictors are statistically significant. But the prediction performance may not very well since its R-squared is only 6.9%.</p>
+<h3 id="Prediction-result"><a href="#Prediction-result" class="headerlink" title="Prediction result:"></a>Prediction result:</h3><p>The plot below is the result for the model apply to the test data. </p>
+<p><img src="/images/inferential_statistics_5/3-6.png" alt=""></p>
+<p>There is the Standard error for the regression model apply to the Train data and Test data:</p>
+<p><img src="/images/inferential_statistics_5/3-7.png" alt=""></p>
+<p>We could observe that the SE for train data is 2021.45 and for test data is 1865.31. We could conclude that this model is predicted well in the test data than train data.</p>
+<h1 id="4-Multiple-Linear-regression"><a href="#4-Multiple-Linear-regression" class="headerlink" title="4. Multiple Linear regression"></a>4. Multiple Linear regression</h1><h2 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition:"></a>Definition:</h2><p>Multiple linear regression attempts to model the relationship between two or more explanatory variables and a response variable by fitting a linear equation to observed data. Every value of the independent variable x is associated with a value of the dependent variable y. </p>
+<h2 id="Model-1"><a href="#Model-1" class="headerlink" title="Model:"></a>Model:</h2><p><img src="/images/inferential_statistics_5/4-1.png" alt=""></p>
+<h2 id="When-to-apply-linear-regression-1"><a href="#When-to-apply-linear-regression-1" class="headerlink" title="When to apply linear regression:"></a>When to apply linear regression:</h2><p>There are more than one independent values to the dependent value.</p>
+<h2 id="Least-squares-–-find-the-best-fitting-regression-line-1"><a href="#Least-squares-–-find-the-best-fitting-regression-line-1" class="headerlink" title="Least-squares – find the best fitting regression line:"></a>Least-squares – find the best fitting regression line:</h2><p><img src="/images/inferential_statistics_5/4-2.png" alt=""></p>
+<p>If you want to know more details about infer the final formula for least-squares for multiple linear regression, you could take a look at the video <a href="https://www.youtube.com/watch?v=K_EH2abOp00" target="_blank" rel="noopener">Linear Regression and Multiple Regression</a>, <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" target="_blank" rel="noopener">Wiki - Ordinary least squares</a>. And you also could learn example to infer the least-square from <a href="http://mezeylab.cb.bscb.cornell.edu/labmembers/documents/supplement%205%20-%20multiple%20regression.pdf" target="_blank" rel="noopener">Multiple Linear Regression by M.Bremer</a>. </p>
+<h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example:"></a>Example:</h2><h3 id="Scenario-1"><a href="#Scenario-1" class="headerlink" title="Scenario:"></a>Scenario:</h3><p>We have two columns of data which are MSSubClass, LotFrontage, LotArea and SalePrice. We want to use MSSubClass, LotFrontage, LotArea to predict SalePrice. </p>
+<h3 id="Sample-Data-1"><a href="#Sample-Data-1" class="headerlink" title="Sample Data:"></a>Sample Data:</h3><p><img src="/images/inferential_statistics_5/4-3.png" alt=""></p>
+<h3 id="Preprocess-Data"><a href="#Preprocess-Data" class="headerlink" title="Preprocess Data:"></a>Preprocess Data:</h3><p>Before we build linear regression model, we need to preprocess the data to find missing values or outliers. </p>
+<p>For this dataset, there are some missing values that I give the mean value for each feature to them. After filling out missing values, we could observe boxplots for three features still have the outlier problem.</p>
+<p><img src="/images/inferential_statistics_5/4-4.png" alt=""></p>
+<p>After I give outliers mean value, we finally got clean data without missing values and outliers below.</p>
+<p><img src="/images/inferential_statistics_5/4-5.png" alt=""></p>
+<h3 id="Model-evaluation-1"><a href="#Model-evaluation-1" class="headerlink" title="Model evaluation:"></a>Model evaluation:</h3><p><img src="/images/inferential_statistics_5/4-6.png" alt=""></p>
+<p>We could observe from the result above that the adj.R-squared is 70% which not bad. And the P value for F-test is lower than 5% which means that this model is statistically significant. Also for P value for each features in the model is lower than 5% which means that all the features are significant to the model and we don’t have to remove the unnecessary features from the model.</p>
+<p>Finally, we got a model which is SalePrice = 7605.7754 + -15.9055LotFrontage + 16.8447LotArea which 95% confidence that there are linear relationship amond SalePrice, LotFrontage and LotArea.</p>
+<h3 id="Prediction-result-and-evaluation"><a href="#Prediction-result-and-evaluation" class="headerlink" title="Prediction result and evaluation:"></a>Prediction result and evaluation:</h3><p><img src="/images/inferential_statistics_5/4-7.png" alt=""></p>
+<p>We could observe that the SE for train data is 3014.37 and for test data is 1176.29. We could conclude that this model is predicted well in the test data than train data.</p>
+<h1 id="5-Polynomial-regression"><a href="#5-Polynomial-regression" class="headerlink" title="5.Polynomial regression"></a>5.Polynomial regression</h1><h2 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition:"></a>Definition:</h2><p><a href="http://home.iitk.ac.in/~shalab/regression/Chapter12-Regression-PolynomialRegression.pdf" target="_blank" rel="noopener">http://home.iitk.ac.in/~shalab/regression/Chapter12-Regression-PolynomialRegression.pdf</a><br>In statistics, polynomial regression is a form of regression analysis in which the relationship between the independent variable Xs and independent variable Y is modified as nth degree polynomial in X. Which means that relationship between Xs and y is non-linear.</p>
+<p><img src="/images/inferential_statistics_5/5-1.png" alt=""></p>
+<h2 id="Model-2"><a href="#Model-2" class="headerlink" title="Model:"></a>Model:</h2><p><img src="/images/inferential_statistics_5/5-2.png" alt=""></p>
+<h2 id="When-to-apply-linear-regression-2"><a href="#When-to-apply-linear-regression-2" class="headerlink" title="When to apply linear regression:"></a>When to apply linear regression:</h2><p>When the relationship between the independent variables and dependent variable are non-linear.<br>You must be curious about how to know the relationship is non-linear? When you try to build a linear regression, the R-square or the standard error is pretty low. You could build charts to inspect the relationship between the independent variables and dependent variable is linear or not? If not, you could try to build polynomial regression for this dataset.</p>
+<h2 id="Least-squares-–-find-the-best-fitting-regression-line-2"><a href="#Least-squares-–-find-the-best-fitting-regression-line-2" class="headerlink" title="Least-squares – find the best fitting regression line:"></a>Least-squares – find the best fitting regression line:</h2><p>The method to find the best line to fit the polynomial regression also the same with linear regression which is least-squares. </p>
+<p><img src="/images/inferential_statistics_5/5-3.png" alt=""></p>
+<h2 id="Example-2"><a href="#Example-2" class="headerlink" title="Example:"></a>Example:</h2><p>I find the post <a href="http://www.semspirit.com/artificial-intelligence/machine-learning/regression/polynomial-regression/polynomial-regression-in-python/" target="_blank" rel="noopener">Polynomial Regression in Python</a>. This post provides very excellent example about how to conduct the polynomial regression. You could know clearly about the process for polynomial regression and there is Python code inside for your reference.</p>
+<p>Basically, the process for polynomial regression is the same for linear regression:</p>
+<p><img src="/images/inferential_statistics_5/5-4.png" alt=""></p>
+<p>To dig more into the process for polynomial regression, you may have the question about:</p>
+<p><em>What degrees I should assign to the model?</em> </p>
+<p>You could do the cross validation to find the best degree, I will talk about the cross validation in the machine learning category in short future or you could find what is cross validation online. There are tons of great tutorials you could find on Google.</p>
+<p><em>How the model generates new features for multiple independent variables based on the higher degrees you assign?</em></p>
+<p>For example, you have three features in a dataset has features A, B and C. And you assign 3 degrees to generate new features. Then you got 26 features for this dataset:</p>
+<p>theta1A^0, theta2B^0, theta3C^0<br>theta1A^1, theta2B^1, theta3C^1<br>theta1A^2, theta2B^2, theta3C^2<br>theta1A^3, theta2B^3, theta3C^3</p>
+<p>theta1A^1<em>B^1, theta2A^1</em>B^2, thetaA^1<em>B^3<br>theta1A^1</em>C^1, theta2A^1<em>C^2, thetaA^1</em>C^3<br>theta1A^2<em>B^1, theta2A^2</em>B^2, thetaA^2<em>B^3<br>theta1A^2</em>C^1, theta2A^2<em>C^2, thetaA^2</em>C^3<br>theta1A^3<em>B^1, theta2A^3</em>B^2, thetaA^3<em>B^3<br>theta1A^3</em>C^1, theta2A^3<em>C^2, thetaA^3</em>C^3</p>
+<p>theta1B^1<em>C^1, theta2B^1</em>C^2, thetaB^1<em>C^3<br>theta1B^2</em>C^1, theta2B^2<em>C^2, thetaB^2</em>C^3<br>theta1B^3<em>C^1, theta2B^3</em>C^2, thetaB^3*C^3</p>
+<p>From the example above, I believe you could learn and to calculate the new features based on the same way.</p>
+<h1 id="6-Summary"><a href="#6-Summary" class="headerlink" title="6. Summary"></a>6. Summary</h1><p>Hope you learned and have a basic understanding about these three very common regression models. In the next post, I will introduce you a special regression model which is also very widely used. But it is somehow special compare with other regression models for the reason that it is used to solve classification problem.</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yilin</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2020/05/04/inferential%20statistics_5.md/">http://yoursite.com/2020/05/04/inferential%20statistics_5.md/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I love <strong>Data Science</strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Regression-analysis/"># Regression analysis</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/05/02/paper/">Paper</a>
+            
+
+        </section>
+         <p>
+         <p>
+         <p>
+
+       <section class="post-copyright">
+         <p>
+         <p>
+         <p>
+         <div id="disqus_thread"></div>
+       </section>
+
+
+
+    </article>
+
+
+  
+</div>
+
+
+
+
+<section id="comments">
+
+<script>
+  var disqus_shortname = 'http-www-yilinhuang-cool';
+  
+  var disqus_url = 'http://yoursite.com/2020/05/04/inferential statistics_5.md/';
+  
+
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://http-www-yilinhuang-cool.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        
+<footer id="footer" class="footer">
+
+
+    <div class="copyright">
+        <span>© Yilin | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+  
+    </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
