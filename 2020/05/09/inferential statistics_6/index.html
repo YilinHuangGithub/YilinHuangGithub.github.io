@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yilin">
+
+
+    <meta name="subtitle" content="I love data science">
+
+
+    <meta name="description" content="the blog used to share projects and focus on AI industry">
+
+
+    <meta name="keywords" content="machine learning,deep learning,statistics,data science">
+
+
+<title>Inferential Statistics 6 - Regression analysis 3 | Yilin&#39;s data science</title>
+
+
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yilin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yilin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/categories">Categories</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Inferential Statistics 6 - Regression analysis 3</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yilin</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 9, 2020&nbsp;&nbsp;11:43:44</a>
+                        </span> 
+                        
+
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Statistics/">Statistics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>In this post, I will introduce you a special regression model which could transfer results to the probabilities of a certain class and then to make classification. </p>
+<p><img src="/images/inferential_statistics_6/0-0.png" alt=""></p>
+<h2 id="2-Logistica-regression"><a href="#2-Logistica-regression" class="headerlink" title="2. Logistica regression"></a>2. Logistica regression</h2><h3 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition:"></a><strong>1. Definition</strong>:</h3><p>In statistics, the logistic model is used to model the probability of a certain class or event such as pass/fall, win/lose or alive/dead. It could be applied to solve classification problems based on the threshold you set for the logistic regression model. For example, to identify spam email (spam email (1) or not (0)) or to classify image contain dogs (1) or cats (0).</p>
+<p><img src="/images/inferential_statistics_6/2-1.png" alt=""></p>
+<h3 id="2-When-to-apply-logistic-regression"><a href="#2-When-to-apply-logistic-regression" class="headerlink" title="2. When to apply logistic regression:"></a><strong>2. When to apply logistic regression</strong>:</h3><p>To predict independence which is categorical variable (binary/ multinomial/ ordinal).</p>
+<h3 id="3-Types-of-logistic-regression"><a href="#3-Types-of-logistic-regression" class="headerlink" title="3. Types of logistic regression:"></a><strong>3. Types of logistic regression</strong>:</h3><p>There are <strong>three types of logistic regression</strong>:</p>
+<p><strong>Binary Logistic Regression</strong>: The target variable has only two possible outcomes such as Spam or Not Spam, Cancer or No Cancer.</p>
+<p><strong>Multinomial Logistic Regression</strong>: The target variable has three or more nominal categories such as predicting the type of Wine.</p>
+<p><strong>Ordinal Logistic Regression</strong>: the target variable has three or more ordinal categories such as restaurant or product rating from 1 to 5.</p>
+<p>In this post, I will focus on introducing the very basic logistic regression which is <strong>binary logistic regression</strong>.</p>
+<h3 id="4-Model"><a href="#4-Model" class="headerlink" title="4. Model:"></a><strong>4. Model</strong>:</h3><p><img src="/images/inferential_statistics_6/2-4.png" alt=""></p>
+<p>If the <strong>range for one classification is too large</strong> for the linear regression, it will cause the problem that the line and the threshold miss classify many dependent values like blue line above. That is the reason why we need a <strong>sigmoid function</strong> to transfer the line between 0 and 1 to solve this problem. </p>
+<p><img src="/images/inferential_statistics_6/2-4-2.png" alt=""></p>
+<h3 id="5-Log-likelihoods-J-0-1-cost-function-–-find-the-best-fitting-regression-line"><a href="#5-Log-likelihoods-J-0-1-cost-function-–-find-the-best-fitting-regression-line" class="headerlink" title="5. Log likelihoods / J (0-1) cost function – find the best fitting regression line:"></a><strong>5. Log likelihoods / J (0-1) cost function – find the best fitting regression line</strong>:</h3><p>There are two widely used methods to find the best fitting regression which are Log likelihoods and J (0-1) cost function. </p>
+<h4 id="Log-likelihoods"><a href="#Log-likelihoods" class="headerlink" title="Log likelihoods:"></a><strong>Log likelihoods</strong>:</h4><p>Basically, log likelihoods apply MLE to find model’s parameters to maximize probability for the sample data. </p>
+<p><img src="/images/inferential_statistics_6/5-1-1.png" alt=""></p>
+<p>You could learn very detailed about <strong>Log likelihood</strong> from <a href="https://www.youtube.com/watch?v=BfKanl1aSG0&t=283s" target="_blank" rel="noopener">Logistic Regression Details Pt 2: Maximum Likelihood by Josh Starmer</a>.</p>
+<p>You could learn about <strong>MLE</strong> from my <a href="http://www.yilinhuang.cool/2020/04/05/inferential%20statistics_2/" target="_blank" rel="noopener">past post - Inferential Statistics 2 - MLE/MAP/CI/CLT</a>.</p>
+<h4 id="J-0-1-for-logistic-regression"><a href="#J-0-1-for-logistic-regression" class="headerlink" title="J (0-1) for logistic regression:"></a><strong>J (0-1) for logistic regression</strong>:</h4><p>The cost function very similar to cost function for linear regression. </p>
+<p>For linear regression, the cost function is trying to find out the minimum residuals between actual values and predicted values. </p>
+<p>There are only two values for the dependent variable and range for the binomial logistic regression model is probability which is from 0 to 1. For binary logistic regression, we could think the cost function is also to find the minimum residuals between the predicted values based on which classification for the actual values are and probability values. For example, the actual classification (value) for data point A is 1 and predicted probability is 45%. Then the residual between them is 1 – 45% = 55%. But if the actual classification (value) for data point B is 0 and predicted probability is 45%. Then the residual is 45% - 0 = 45%.</p>
+<p><img src="/images/inferential_statistics_6/5-2-1.png" alt=""></p>
+<p>You could take a look at <a href="https://www.coursera.org/learn/machine-learning?" target="_blank" rel="noopener">Week3 - Machine Learning from Andrew Ng</a> to learn more details about Logistic regression and its cost function. </p>
+<h3 id="6-Evaluation-for-logistic-regression"><a href="#6-Evaluation-for-logistic-regression" class="headerlink" title="6. Evaluation for logistic regression:"></a><strong>6. Evaluation for logistic regression</strong>:</h3><p>A lot of people will be confused about the purpose for the logistics regression. Because of its name, people will think that logistic regression is used for predicting continuous data like house price. But it is for solving classification problems.</p>
+<p>Logistic regression is developed from linear regression and converted by sigmoid function to the range from 0 to 1 for probability result. It keeps some traits from linear regression like we could apply R squares to evaluate the logistic regression model as well. But the way we calculate R squares is a little different from linear regression. </p>
+<p>And logistic regression is used for solving classification problem based on the predicted probability and threshold and for that reason we could apply methods to evaluate classification model to evaluate logistic regression. </p>
+<h4 id="R-square"><a href="#R-square" class="headerlink" title="R square"></a><strong>R square</strong></h4><p>You could learn more details about R squares for logistic regression which is McFadden’s R squared from <a href="https://www.youtube.com/watch?v=xxFYro8QuXA" target="_blank" rel="noopener">Logistic Regression Details Pt 3: R-squared and p-value</a>. </p>
+<p><img src="/images/inferential_statistics_6/6-1-1.png" alt=""></p>
+<h4 id="Evaluation-for-classification-models"><a href="#Evaluation-for-classification-models" class="headerlink" title="Evaluation for classification models"></a><strong>Evaluation for classification models</strong></h4><p>•    Accuracy<br>•    Precision<br>•    Recall<br>•    F score<br>•    ROC<br>•    AUC<br>•    Log Loss</p>
+<h3 id="7-Tests-for-logistic-regression"><a href="#7-Tests-for-logistic-regression" class="headerlink" title="7. Tests for logistic regression:"></a><strong>7. Tests for logistic regression</strong>:</h3><h4 id="Tests-to-evaluate-the-model-significance"><a href="#Tests-to-evaluate-the-model-significance" class="headerlink" title="Tests to evaluate the model significance"></a><strong>Tests to evaluate the model significance</strong></h4><h5 id="Hosmer-Lemeshow-Test"><a href="#Hosmer-Lemeshow-Test" class="headerlink" title="Hosmer-Lemeshow Test:"></a><strong>Hosmer-Lemeshow Test</strong>:</h5><p><strong>Definition</strong>: </p>
+<p>The hosmer-Lemeshow test is a statistical test for goodness of fit for logistic regression model. The output returns a <strong>chi-square value</strong>.</p>
+<p>Like F test for the linear regression, Hosmer-Lemeshow is used for test whether this model is statistically significant. But Hosmer_lemeshow is a <strong>Pearson-like chi-squared</strong> that is computed after data are grouped by having similar predicted probabilities. It is to evaluate whether this model is useful when there is more than one predictor.</p>
+<p><strong>Equation</strong>:</p>
+<p><img src="/images/inferential_statistics_6/7-1.png" alt=""></p>
+<p><strong>Hypothesis</strong>:</p>
+<p>•    H0: the current model fits well </p>
+<p>•    HA: the current model does not fit well</p>
+<p><strong>Result</strong>:</p>
+<p><strong>P-value ≤ α</strong>: The model is statistically significant.</p>
+<p><strong>P-value &gt; α</strong>: The model is not statistically significant.</p>
+<p><strong>Example</strong>:</p>
+<p>I got the example below from <a href="https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test" target="_blank" rel="noopener">Wiki - Hosmer–Lemeshow test</a>. </p>
+<p><strong>Scenario</strong>:</p>
+<p>Al research wished to know if caffeine improve performance on a memory test. Volunteers consume different amount of caffeine from 0 to 500mg, and their score on the memory test is recorded. The results are shown in the table below.</p>
+<p><strong>Sample data</strong>:</p>
+<p><img src="/images/inferential_statistics_6/7-2.png" alt=""></p>
+<p>The table has the following columns.<br>•    group: identifier for the 11 treatment groups, each receiving a different dose<br>•    caffeine: mg of caffeine for volunteers in a treatment group<br>•    n.volunteers: number of volunteers in a treatment group<br>•    A.grade: the number of volunteers who achieved an A grade in the memory test (success)<br>•    proportion.A: the proportion of volunteers who achieved an A grade</p>
+<p><strong>Calculation</strong>:</p>
+<p>After you get the logistic regression model, you could use the model to make prediction about data and you want to inspect if the differences between observed and expected proportions are significant.</p>
+<p>We could know that chi-square test is used for determining whether there is a statistical difference between the <strong>expected frequencies and the observed frequencies</strong>. Hosmer-Lemeshow is similar to chi-square test. For hosmer-Lemeshow test, the expected frequencies are come from calculating expected (mean) values and the observed frequencies is come from logistic regression model.</p>
+<p><img src="/images/inferential_statistics_6/7-3.png" alt=""></p>
+<p>Based on the result H, we could get p value from chi-square distribution.</p>
+<p><strong>Hypothesis</strong>:</p>
+<p>•    H0: The observed and expected proportions are the same across all doses which means that the model is not significant.</p>
+<p>•    HA: The observed and expected proportions are not the same which means that the model is significant.</p>
+<p><strong>Result</strong>:</p>
+<p><strong>P-value ≤ α</strong>: The model is statistically significant.</p>
+<p><strong>P-value &gt; α</strong>: The model is not statistically significant.</p>
+<h5 id="Likelihood-ratio-test"><a href="#Likelihood-ratio-test" class="headerlink" title="Likelihood ratio test:"></a><strong>Likelihood ratio test</strong>:</h5><p>Definition:</p>
+<p>In statistics, the likelihood-ratio test assesses the goodness of fit of two competing statistical models based on the ratio of their likelihoods. Basically, Likelihood ratio test is quite like hosmer-Lemeshow test to test whether parameters (predictors) is will generate impact to the model. And you could also get the p value for the test from the <strong>chi-square distribution</strong>.</p>
+<p>Equation:</p>
+<p><img src="/images/inferential_statistics_6/7-4.png" alt=""></p>
+<p><strong>Hypothesis</strong>:</p>
+<p>•    H0:  Model from the numerator of the equation is more significant.</p>
+<p>Usually, the model from the numerator is without any parameters for the model. All thetas are 0.</p>
+<p>The parameters for the model for numerator are <strong>β1 = β2 = … = βp-1 = 0</strong>.</p>
+<p>•    HA: Model from the denominator of the equation is more significant.</p>
+<p>The alternative for the hypothesis is the model with all the parameter.</p>
+<p>The parameters for the model from denominator are <strong>βj ≠ 0</strong>.</p>
+<p><strong>Result</strong>:</p>
+<p><strong>P-value ≤ α</strong>: Model from the numerator of the equation is more significant.</p>
+<p><strong>P-value &gt; α</strong>: Model from the denominator of the equation is more significant.</p>
+<p><strong>Example</strong>:</p>
+<p>Basically, likelihood-ratio test is very similar to hosmer-Lemeshow test. You could take the example from hosmer-Lemeshow test for reference. But you need to change the expected values to values come from another model.</p>
+<p>If you want to know very detailed about how to calculate for likelihood-ratio test to get P value, you could take a look at <a href="https://www.youtube.com/watch?v=xxFYro8QuXA" target="_blank" rel="noopener">Logistic Regression Details Pt 3: R-squared and p-value</a>. </p>
+<h4 id="Tests-to-evaluate-the-predictors-significance"><a href="#Tests-to-evaluate-the-predictors-significance" class="headerlink" title="Tests to evaluate the predictors significance"></a><strong>Tests to evaluate the predictors significance</strong></h4><p>** Wald test to evaluate each predictor**:</p>
+<p>Definition: </p>
+<p>In statistics the Wald test assesses constrains on statistical parameters based on the weighted distance between the unrestricted estimate and its hypothesized values under the null hypothesis. The Wald test follows an asymptotic <strong>z distribution</strong>.</p>
+<p>Equation:</p>
+<p><img src="/images/inferential_statistics_6/7-5.png" alt=""></p>
+<p><strong>Hypothesis</strong>:</p>
+<p>•    H0:  Model without βi is not significant. (βi = 0)</p>
+<p>•    HA: Model without βi is significant. (βi ! = 0)</p>
+<p><strong>Result</strong>:</p>
+<p><strong>P-value ≤ α</strong>: Model without βi is significant.</p>
+<p><strong>P-value &gt; α</strong>: Model without βi is not significant.</p>
+<h2 id="3-Differences-between-logistic-regression-and-linear-regression"><a href="#3-Differences-between-logistic-regression-and-linear-regression" class="headerlink" title="3. Differences between logistic regression and linear regression"></a>3. Differences between logistic regression and linear regression</h2><p><strong>The dependent variable is binary.</strong></p>
+<p><strong>Outcomes are probability values from 0 to 1 (you could set threshold I order to make classification)</strong></p>
+<p><strong>Treat the dependent variable in the binomial case as the outcome of a Bernoulli trail instead of continuous outcomes</strong></p>
+<p><strong>Equation</strong></p>
+<p>Logistic regression developed from linear regression, but need a sigmoid function to convert the linear regression model. </p>
+<p>•    Linear regression:</p>
+<p><img src="/images/inferential_statistics_6/3-1.png" alt=""></p>
+<p>•    Logistic regression:</p>
+<p><img src="/images/inferential_statistics_6/3-2.png" alt=""></p>
+<p><strong>Techniques to test get best fitting model</strong></p>
+<p>•    For linear regression, least squares to find the line with minimum residuals.</p>
+<p>•    For logistic regression, apply Log likelihoods or J (0-1) cost function to find the best fitting regression line.</p>
+<p><strong>Hypothesis tests to test the model and parameters.</strong></p>
+<p>•    For linear regression, F test to test the model and T test to test each parameter.</p>
+<p>•    For logistic regression, Hosmer-Lemeshow test or Likelihood ratio test to test the model and Wald test to test each parameter.</p>
+<h2 id="4-Example"><a href="#4-Example" class="headerlink" title="4. Example"></a>4. Example</h2><p><strong>Scenario</strong>:</p>
+<p>The purpose for this project is to predict the gender for Twitter based on these predictors which are ‘_trusted_judgments’,’profile_yn:confidence’,’fav_number’,’retweet_count’. In this example, I will build a Logistic regression to make prediction.</p>
+<p><strong>Sample data</strong>:</p>
+<p>I got the dataset for this example from <a href="https://www.kaggle.com/crowdflower/twitter-user-gender-classification" target="_blank" rel="noopener">Kaggle - Twitter User Gender Classification</a>. </p>
+<p><img src="/images/inferential_statistics_6/4-1.png" alt=""></p>
+<p><strong>Independent variables</strong>:</p>
+<p>•    trustedjudgments: number of trusted judgments (int); always 3 for non-golden, and what may be a unique id for gold standard observations.<br>•    profile_yn:confidence: confidence in the existence/non-existence of the profile.<br>•    fav_number: number of tweets the user has favorited.<br>•    retweet_count: number of times the user has retweeted (or possibly, been retweeted).</p>
+<p><strong>Dependent variables</strong>: </p>
+<p>•    gender: 1 for female and 0 for male.</p>
+<p><img src="/images/inferential_statistics_6/4-2.png" alt=""></p>
+<p><strong>Evaluation</strong>:</p>
+<p>After I fit the dataset to the Logistic regression model, I got a summary for the model’s result below.</p>
+<p><img src="/images/inferential_statistics_6/4-3.png" alt=""></p>
+<p>We could observe that the Pseudo R-squared is inf which is so small for this model. We could also observe that p – value from Log-Likelihood test is 1 which means that this model is extremely insignificant. From the second part of this chart, we could observe that p value for ‘_trusted_judgments’ and  ‘retweet_count’ are higher than 0.05 and that means we these two features have no so that significant impact to the model.</p>
+<p>This model is very bad model based on these important indicators. But that is not so that important. The main purpose for this example is to walk you through the process to build a logistic regression model for a project and how to evaluate the model.</p>
+<h2 id="5-Summary"><a href="#5-Summary" class="headerlink" title="5.Summary"></a>5.Summary</h2><p>Hope you will master Logistic regression from this post. Basically you learn what is the equation for Logistic regression, how to get the best fitting line, how to evaluate LR model and what are differences between Logistic regression and linear regression. </p>
+<h6 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h6><p><a href="https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python" target="_blank" rel="noopener">https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python</a><br><a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning</a>?<br><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/</a><br><a href="https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test</a><br><a href="https://online.stat.psu.edu/stat504/node/220/" target="_blank" rel="noopener">https://online.stat.psu.edu/stat504/node/220/</a><br><a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Likelihood-ratio_test</a><br><a href="https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee" target="_blank" rel="noopener">https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee</a> </p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yilin</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2020/05/09/inferential%20statistics_6/">http://yoursite.com/2020/05/09/inferential%20statistics_6/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I love <strong>Data Science</strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Regression-analysis/"># Regression analysis</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/05/04/inferential%20statistics_5/">Inferential Statistics 5 - Regression analysis 2</a>
+            
+
+        </section>
+         <p>
+         <p>
+         <p>
+
+       <section class="post-copyright">
+         <p>
+         <p>
+         <p>
+         <div id="disqus_thread"></div>
+       </section>
+
+
+
+    </article>
+
+
+  
+</div>
+
+
+
+
+<section id="comments">
+
+<script>
+  var disqus_shortname = 'http-www-yilinhuang-cool';
+  
+  var disqus_url = 'http://yoursite.com/2020/05/09/inferential statistics_6/';
+  
+
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://http-www-yilinhuang-cool.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        
+<footer id="footer" class="footer">
+
+
+    <div class="copyright">
+        <span>© Yilin | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+  
+    </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
