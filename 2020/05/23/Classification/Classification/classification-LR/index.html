@@ -18,7 +18,7 @@
     <meta name="keywords" content="machine learning,deep learning,statistics,data science">
 
 
-<title>Classification Introduction | Yilin&#39;s data science</title>
+<title>classification-LR | Yilin&#39;s data science</title>
 
 
 
@@ -143,73 +143,11 @@
             <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Classification Introduction</h1>
+            <h1 class="post-title">classification-LR</h1>
             
                 <div class="post-meta">
                     
@@ -218,7 +156,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 23, 2020&nbsp;&nbsp;22:19:54</a>
+                        Date: <a href="#">May 23, 2020&nbsp;&nbsp;21:40:36</a>
                         </span> 
                         
 
@@ -227,7 +165,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/ML-Classification/">ML-Classification</a>
+                                <a href="/categories/Classification/">Classification</a>
                             
                         </span>
                     
@@ -236,20 +174,7 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In machine learning and statistics, classification is the problem of identifying which category of a new data point belongs to. For example, to identify an email is a ‘spam’ or ‘non-spam’ based on features which could be contents of email, sender and sending time.</p>
-<p>The terminology of machine learning, classification is considered an instance of supervised learning for the reason that the dataset for classification has labeled data or target. For the unsupervised learning, the model group data into categories based on some measure of inherent similarity of distance.</p>
-<p><img src="/images/classfication_1/1-1.png" alt=""></p>
-<p>There are many classification models. In next a few of posts, I will introduce six most widely used classification models which are <strong>Logistic Regression, Support Vector Machine, Naïve Bayes, K Nearest Neighbor, Decision Tree and Ensemble classifier</strong>.</p>
-<p><img src="/images/classfication_1/1-2.png" alt=""></p>
-<p>For these classification models that I introduced above, they belong to different types. There are four main types of classification task you may encounter, they are:</p>
-<p>•    Binary Classification</p>
-<p>•    Multi-Classification Classification</p>
-<p>•    Multi-Label Classification</p>
-<p>•    Imbalanced Classification</p>
-<p>After you learned about six most widely used classification models and which task they are belong to, you will tackle most of the classification problems.</p>
-<p>Hope you gain a basic understanding of which is classification from this post. In next a few of posts, I will introduce more details of 6 most widely used classification models and 4 main classification types.</p>
-<h5 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h5><p><a href="https://en.wikipedia.org/wiki/Statistical_classification" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Statistical_classification</a><br><a href="https://machinelearningmastery.com/types-of-classification-in-machine-learning/" target="_blank" rel="noopener">https://machinelearningmastery.com/types-of-classification-in-machine-learning/</a> </p>
-
+            
         </div>
 
         
@@ -263,7 +188,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://yoursite.com/2020/05/23/ML_Classification/classification-Introduction/">http://yoursite.com/2020/05/23/ML_Classification/classification-Introduction/</a></span>
+                        <span><a href="http://yoursite.com/2020/05/23/Classification/Classification/classification-LR/">http://yoursite.com/2020/05/23/Classification/Classification/classification-LR/</a></span>
                     </p>
                 
                 
@@ -287,7 +212,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/ML-Classification/"># ML-Classification</a>
+                        <a href="/tags/Classification/"># Classification</a>
                     
                         
                 </span>
@@ -299,6 +224,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/05/23/Classification/Classification/classification-Introduction/">Classification Introduction</a>
             
             
             <a class="next" rel="next" href="/2020/05/18/Projects/projects/">projects</a>
@@ -332,7 +259,7 @@
 <script>
   var disqus_shortname = 'http-www-yilinhuang-cool';
   
-  var disqus_url = 'http://yoursite.com/2020/05/23/ML_Classification/classification-Introduction/';
+  var disqus_url = 'http://yoursite.com/2020/05/23/Classification/Classification/classification-LR/';
   
 
 (function() {
