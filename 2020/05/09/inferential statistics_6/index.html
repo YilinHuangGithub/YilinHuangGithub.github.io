@@ -322,19 +322,19 @@
 <p><strong>Result</strong>:</p>
 <p><strong>P-value ≤ α</strong>: Model without βi is significant.</p>
 <p><strong>P-value &gt; α</strong>: Model without βi is not significant.</p>
-<h2 id="3-Differences-between-logistic-regression-and-linear-regression"><a href="#3-Differences-between-logistic-regression-and-linear-regression" class="headerlink" title="3. Differences between logistic regression and linear regression"></a>3. Differences between logistic regression and linear regression</h2><p><strong>The dependent variable is binary.</strong></p>
-<p><strong>Outcomes are probability values from 0 to 1 (you could set threshold I order to make classification)</strong></p>
-<p><strong>Treat the dependent variable in the binomial case as the outcome of a Bernoulli trail instead of continuous outcomes</strong></p>
-<p><strong>Equation</strong></p>
+<h2 id="3-Differences-between-logistic-regression-and-linear-regression"><a href="#3-Differences-between-logistic-regression-and-linear-regression" class="headerlink" title="3. Differences between logistic regression and linear regression"></a>3. Differences between logistic regression and linear regression</h2><p><strong>1. The dependent variable is binary.</strong></p>
+<p><strong>2. Outcomes are probability values from 0 to 1 (you could set threshold I order to make classification)</strong></p>
+<p><strong>3. Treat the dependent variable in the binomial case as the outcome of a Bernoulli trail instead of continuous outcomes</strong></p>
+<p><strong>4. Equation</strong></p>
 <p>Logistic regression developed from linear regression, but need a sigmoid function to convert the linear regression model. </p>
 <p>•    Linear regression:</p>
 <p><img src="/images/inferential_statistics_6/3-1.png" alt=""></p>
 <p>•    Logistic regression:</p>
 <p><img src="/images/inferential_statistics_6/3-2.png" alt=""></p>
-<p><strong>Techniques to test get best fitting model</strong></p>
+<p><strong>5. Techniques to test get best fitting model</strong></p>
 <p>•    For linear regression, least squares to find the line with minimum residuals.</p>
 <p>•    For logistic regression, apply Log likelihoods or J (0-1) cost function to find the best fitting regression line.</p>
-<p><strong>Hypothesis tests to test the model and parameters.</strong></p>
+<p><strong>6. Hypothesis tests to test the model and parameters.</strong></p>
 <p>•    For linear regression, F test to test the model and T test to test each parameter.</p>
 <p>•    For logistic regression, Hosmer-Lemeshow test or Likelihood ratio test to test the model and Wald test to test each parameter.</p>
 <h2 id="4-Example"><a href="#4-Example" class="headerlink" title="4. Example"></a>4. Example</h2><p><strong>Scenario</strong>:</p>
@@ -353,7 +353,7 @@
 <p>We could observe that the Pseudo R-squared is inf which is so small for this model. We could also observe that p – value from Log-Likelihood test is 1 which means that this model is extremely insignificant. From the second part of this chart, we could observe that p value for ‘_trusted_judgments’ and  ‘retweet_count’ are higher than 0.05 and that means we these two features have no so that significant impact to the model.</p>
 <p>This model is very bad model based on these important indicators. But that is not so that important. The main purpose for this example is to walk you through the process to build a logistic regression model for a project and how to evaluate the model.</p>
 <h2 id="5-Summary"><a href="#5-Summary" class="headerlink" title="5.Summary"></a>5.Summary</h2><p>Hope you will master Logistic regression from this post. Basically you learn what is the equation for Logistic regression, how to get the best fitting line, how to evaluate LR model and what are differences between Logistic regression and linear regression. </p>
-<h6 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h6><p><a href="https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python" target="_blank" rel="noopener">https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python</a><br><a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning</a>?<br><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/</a><br><a href="https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test</a><br><a href="https://online.stat.psu.edu/stat504/node/220/" target="_blank" rel="noopener">https://online.stat.psu.edu/stat504/node/220/</a><br><a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Likelihood-ratio_test</a><br><a href="https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee" target="_blank" rel="noopener">https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee</a> </p>
+<h6 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h6><p><a href="https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python" target="_blank" rel="noopener">https://www.datacamp.com/community/tutorials/understanding-logistic-regression-python</a><br><a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning</a><br><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1065119/</a><br><a href="https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Hosmer–Lemeshow_test</a><br><a href="https://online.stat.psu.edu/stat504/node/220/" target="_blank" rel="noopener">https://online.stat.psu.edu/stat504/node/220/</a><br><a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Likelihood-ratio_test</a><br><a href="https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee" target="_blank" rel="noopener">https://medium.com/@hpsuresh12345/logistic-regression-60694a973bee</a> </p>
 
         </div>
 
@@ -404,6 +404,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/05/18/projects/">projects</a>
             
             
             <a class="next" rel="next" href="/2020/05/04/inferential%20statistics_5/">Inferential Statistics 5 - Regression analysis 2</a>
