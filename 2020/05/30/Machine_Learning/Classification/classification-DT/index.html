@@ -252,11 +252,11 @@
 <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Decision tree learning is one of the predictive modelling approaches used in statistics, data mining and machine learning. It uses a decision tree (as a predictive model) to go from the observation about training dataset and figure out the rules to split trees by different methods, for example, ID3 by using information gain to split trees, C4.5 by using gain ratio and CART by using Gini impurity.</p>
 <p>There are two main types of decision trees. Tree models for the target which is discrete variable is <strong>Decision Tree</strong> and tree models for the target which is continuous variable is <strong>Regression Tree</strong>.</p>
 <h2 id="Data-types-of-inputs-and-outputs"><a href="#Data-types-of-inputs-and-outputs" class="headerlink" title="Data types of inputs and outputs"></a>Data types of inputs and outputs</h2><p><strong>Inputs</strong>: Decision tree could handle both numerical and categorical data for input variables. And you don’t have to transfer the multiple categorical data into dummy variables. For example, you have a categorical feature which is color and this feature has three values which are red (0), green (1) and blue (2). For logistic regression and other models which are not tree models, you need to transfer this variable into dummy variables or three more columns which are Red, Green and Blue. And for each column only has two values which are 0 and 1.</p>
-<p><strong>Output</strong>: The target for decision tree could be numerical and categorical as well. But for different data type for the output, it will generate different tree models. Numerical target is regression trees and categorical target is decision trees.</p>
-<h2 id="Two-main-types-of-decision-trees-classification-trees-and-regression-trees"><a href="#Two-main-types-of-decision-trees-classification-trees-and-regression-trees" class="headerlink" title="Two main types of decision trees (classification trees and regression trees)"></a>Two main types of decision trees (classification trees and regression trees)</h2><h3 id="Decision-trees-ID3-C4-5-CART"><a href="#Decision-trees-ID3-C4-5-CART" class="headerlink" title="Decision trees: ID3/C4.5/CART"></a>Decision trees: ID3/C4.5/CART</h3><h4 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h4><h5 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h5><p>In decision tree learning, ID3(Iterative Dichotomiser 3) is an algorithm invented by Ross Quinlan used to generate a decision tree from a dataset. ID3 is the precursor to the C4.5 algorithm, and it is typically used in the machine learning and natural language processing domains.</p>
-<h5 id="Inputs-and-outputs"><a href="#Inputs-and-outputs" class="headerlink" title="Inputs and outputs"></a>Inputs and outputs</h5><p><strong>Input</strong>: The input for ID3 could be numerical and categorical data.</p>
+<p><strong>Output</strong>: The target for decision tree could be numerical and categorical as well. But for different data type for the output, it will generate different tree models. Numerical target is <strong>regression tree</strong> and categorical target is <strong>decision tree</strong>.</p>
+<h2 id="Two-main-types-of-decision-trees-classification-trees-and-regression-trees"><a href="#Two-main-types-of-decision-trees-classification-trees-and-regression-trees" class="headerlink" title="Two main types of decision trees (classification trees and regression trees)"></a>Two main types of decision trees (classification trees and regression trees)</h2><h3 id="Decision-trees-ID3-C4-5-CART"><a href="#Decision-trees-ID3-C4-5-CART" class="headerlink" title="Decision trees: ID3/C4.5/CART"></a>Decision trees: ID3/C4.5/CART</h3><h4 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a><strong>ID3</strong></h4><h5 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a><strong>Definition</strong></h5><p>In decision tree learning, ID3 (Iterative Dichotomiser 3) is an algorithm invented by Ross Quinlan used to generate a decision tree from a dataset. ID3 is the precursor to the C4.5 algorithm, and it is typically used in the machine learning and natural language processing domains.</p>
+<h5 id="Inputs-and-outputs"><a href="#Inputs-and-outputs" class="headerlink" title="Inputs and outputs"></a><strong>Inputs and outputs</strong></h5><p><strong>Input</strong>: The input for ID3 could be numerical and categorical data.</p>
 <p><strong>Output</strong>: The output for ID3 could be numerical and categorical data. But if the output for the ID3 is numerical data which means the tree model is regression tree, it will consume large computation power. For that reason, ID3 is usually used for classification trees.</p>
-<h5 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a>Formula</h5><p>There are two concepts you need to know for ID3 which are <strong>Entropy and Information Gain</strong>. </p>
+<h5 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a><strong>Formula</strong></h5><p>There are two concepts you need to know for ID3 which are <strong>Entropy and Information Gain</strong>. </p>
 <p>And there are four steps to build an ID3 tree by calculating Entropy and information gain:</p>
 <ol>
 <li>calculate <strong>Entropy</strong> for target and each feature.</li>
@@ -271,7 +271,7 @@
 <p><strong>2. Information Gain</strong></p>
 <p>Definition:</p>
 <p><img src="/images/classification_3/3.png" alt=""> </p>
-<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h5><p>I got the example for Entropy below from <a href="https://www.saedsayad.com/decision_tree.htm" target="_blank" rel="noopener">Decision Tree – Classification</a> </p>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a><strong>Example</strong></h5><p>I got the example for Entropy below from <a href="https://www.saedsayad.com/decision_tree.htm" target="_blank" rel="noopener">Decision Tree – Classification</a> </p>
 <p>We have the dataset with features Outlook, Temp, Humidity and Windy. And we want to build an ID3 tree to make a prediction that whether we could go out to play golf or not.</p>
 <p><img src="/images/classification_3/4.png" alt=""> </p>
 <p><strong>Step1</strong>: calculate <strong>Entropy</strong> for target and each feature</p>
@@ -288,10 +288,10 @@
 <p><img src="/images/classification_3/9.png" alt="">   </p>
 <p><strong>Final ID3 tree for this example</strong>.</p>
 <p><img src="/images/classification_3/10.png" alt="">   </p>
-<h4 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h4><h5 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a>Definition</h5><p>C4.5 is an algorithm used to generate decision tree developed by Ross Quinlan. C4.5 is an extension of Quinlan’s earlier ID3 algorithm. The decision trees generated by C4.5 can be used for classification. Actually C4.5 and ID3 is quite similar. For C4.5, it also needs to calculate Entropy and Information Gain for each feature. But after you got Entropy and Information gain, you need to calculate information gain ratio for each feature to reduce a bias towards multi-valued attributes by taking the number and size of branches into account when choosing an attribute. You may be confused about why we need to take the number and size of branches into account. No worries, I will explain more details in the example.</p>
-<h5 id="Inputs-and-outputs-1"><a href="#Inputs-and-outputs-1" class="headerlink" title="Inputs and outputs"></a>Inputs and outputs</h5><p><strong>Input</strong>: The input for ID3 could be numerical and categorical data.</p>
+<h4 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a><strong>C4.5</strong></h4><h5 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a><strong>Definition</strong></h5><p>C4.5 is an algorithm used to generate decision tree developed by Ross Quinlan. C4.5 is an extension of Quinlan’s earlier ID3 algorithm. The decision trees generated by C4.5 can be used for classification. Actually C4.5 and ID3 is quite similar. For C4.5, it also needs to calculate Entropy and Information Gain for each feature. But after you got Entropy and Information gain, you need to calculate information gain ratio for each feature to reduce a bias towards multi-valued attributes by taking the number and size of branches into account when choosing an attribute. You may be confused about why we need to take the number and size of branches into account. No worries, I will explain more details in the example.</p>
+<h5 id="Inputs-and-outputs-1"><a href="#Inputs-and-outputs-1" class="headerlink" title="Inputs and outputs"></a><strong>Inputs and outputs</strong></h5><p><strong>Input</strong>: The input for ID3 could be numerical and categorical data.</p>
 <p><strong>Output</strong>: The output for C4.5 could be numerical and categorical data. But if the output for the C4.5 is numerical data which means the tree model is regression tree, it will consume large computation power. For that reason, C4.5 is usually used for classification trees just like ID3.</p>
-<h5 id="Formula-1"><a href="#Formula-1" class="headerlink" title="Formula"></a>Formula</h5><p>There are three concepts you need to know for C4.5 which are <strong>Entropy, Information Gain and Information Gain Ratio</strong>. </p>
+<h5 id="Formula-1"><a href="#Formula-1" class="headerlink" title="Formula"></a><strong>Formula</strong></h5><p>There are three concepts you need to know for C4.5 which are <strong>Entropy, Information Gain and Information Gain Ratio</strong>. </p>
 <p>And there are five steps to build an C4.5 tree by calculating Entropy and information gain:</p>
 <ol>
 <li>calculate <strong>Entropy</strong> for target and each feature.</li>
@@ -303,8 +303,7 @@
 <p>You have already known what are entropy and information gain or splitinfo. What you need to know for C4.5 is intrinsic value for information gain ratio.</p>
 <p><strong>Information Gain Ratio</strong></p>
 <p><img src="/images/classification_3/11.png" alt="">   </p>
-<p><strong>Example/ Why we need gain ratio for C4.5</strong></p>
-<p>C4.5 is very similar to the ID3. In this part, I will introduce an example and why we need gain ratio for C4.5.</p>
+<h5 id="Example-Why-we-need-gain-ratio-for-C4-5"><a href="#Example-Why-we-need-gain-ratio-for-C4-5" class="headerlink" title="Example/ Why we need gain ratio for C4.5"></a><strong>Example/ Why we need gain ratio for C4.5</strong></h5><p>C4.5 is very similar to the ID3. In this part, I will introduce an example and why we need gain ratio for C4.5.</p>
 <p>We have the dataset with features PlayTime and Humidity. And we want to build an C4.5 tree to make a prediction that whether we could go out to play golf or not.</p>
 <p><img src="/images/classification_3/12.png" alt="">   </p>
 <p><strong>Step1</strong>: calculate <strong>Entropy</strong> for target and each feature.</p>
@@ -322,14 +321,11 @@
 <p><strong>Step4</strong>: select the feature with largest information gain ratio as the first node for C4.5 tree.</p>
 <p>In this case, we select Humidity as the first.</p>
 <p><strong>Step5</strong>: repeat the process above for each node to form a tree.</p>
-<h4 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h4><p><strong>Definition</strong></p>
-<p>CART (classification and Regression Trees) is introduced by Leo Breiman to refer to decision tree algorithms that can be used for classification or regression predictive modeling problems. Used by CART algorithm for classification trees, <strong>Gini impurity</strong> is a measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset. </p>
+<h4 id="CART"><a href="#CART" class="headerlink" title="CART"></a><strong>CART</strong></h4><h5 id="Definition-3"><a href="#Definition-3" class="headerlink" title="Definition"></a><strong>Definition</strong></h5><p>CART (classification and Regression Trees) is introduced by Leo Breiman to refer to decision tree algorithms that can be used for classification or regression predictive modeling problems. Used by CART algorithm for classification trees, <strong>Gini impurity</strong> is a measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset. </p>
 <p><strong>Note</strong>: Unlike ID3 and C4.5, CART is a binary classification tree. (each feature with value YES/NO).</p>
-<p><strong>Inputs and outputs</strong></p>
-<p><strong>Input</strong>: The input for CART could be numerical and categorical data.</p>
+<h5 id="Inputs-and-outputs-2"><a href="#Inputs-and-outputs-2" class="headerlink" title="Inputs and outputs"></a><strong>Inputs and outputs</strong></h5><p><strong>Input</strong>: The input for CART could be numerical and categorical data.</p>
 <p><strong>Output</strong>: The output for CART could be numerical and categorical data. Unlike ID3 and C4.5 need to consume large computational power, CART could deal with continuous output very well. CART could be used to build classification tree and also regression tree based on the different types of outputs. I will introduce about CART regression tree more detail in the second part which is Regression Trees.</p>
-<p><strong>Formula</strong></p>
-<p><img src="/images/classification_3/16.png" alt="">  </p>
+<h5 id="Formula-2"><a href="#Formula-2" class="headerlink" title="Formula"></a><strong>Formula</strong></h5><p><img src="/images/classification_3/16.png" alt="">  </p>
 <p>There is one concept you need to know for CART which is <strong>Gini Impurity</strong>. </p>
 <p>And there are three steps to build a CART classification tree by calculating Gini impurity:</p>
 <ol>
@@ -338,17 +334,16 @@
 <li>repeat the process above for each node to form a CART tree until there is no point in separating the features anymore and it becomes a leaf node.</li>
 </ol>
 <p>I found the blog <a href="https://victorzhou.com/blog/gini-impurity/" target="_blank" rel="noopener">A Simple Explanation of Gini Impurity</a> by Victor Zhou explain the Gini impurity very well if you want to know more details about Gini Impurity.</p>
-<p><strong>Examples/ How to calculate Gini impurity for different inputs</strong></p>
-<p>There are four main different data type for input value which are binary categorical variable, multiple categorical variable, ranked variable and continuous variable. For different data type, there are different ways to calculate Gini impurity.</p>
+<h5 id="Examples-How-to-calculate-Gini-impurity-for-different-inputs"><a href="#Examples-How-to-calculate-Gini-impurity-for-different-inputs" class="headerlink" title="Examples/ How to calculate Gini impurity for different inputs"></a><strong>Examples/ How to calculate Gini impurity for different inputs</strong></h5><p>There are four main different data type for input value which are binary categorical variable, multiple categorical variable, ranked variable and continuous variable. For different data type, there are different ways to calculate Gini impurity.</p>
 <p>I got screenshots below in this part from <a href="https://www.youtube.com/watch?v=7VeUPuFGJHk" target="_blank" rel="noopener">StatQuest: Decision Trees</a>.</p>
 <p> <em>Gini impurity for binary categorical variable</em></p>
 <p>The sample data for this example has the features which are Chest Pain, Good Blood Circulation and Blocked Arteries. The target is Heart Disease.</p>
 <p><img src="/images/classification_3/17.png" alt="">  </p>
 <p><strong>Step1</strong>: calculate <strong>Gini Impurity</strong> for each feature.</p>
 <p>a) Example - Gini impurity for Chest Pain (Yes/No)</p>
-<p>*<em>Gini impurity for “Yes” *</em></p>
+<p><strong>Gini impurity for “Yes”</strong></p>
 <p><img src="/images/classification_3/18.png" alt="">  </p>
-<p>*<em>Gini impurity for “No” *</em></p>
+<p><strong>Gini impurity for “No”</strong></p>
 <p><img src="/images/classification_3/19.png" alt="">  </p>
 <p><strong>Gini impurity for Chest Pain</strong></p>
 <p><img src="/images/classification_3/20.png" alt="">  </p>
@@ -382,18 +377,13 @@
 <p>*Gini impurity for ranked variable *</p>
 <p>The way to calculate ranked variable is basically same to the continuous variable. Assume that we have a ranked variable with four values which are 1,2,3,4. </p>
 <p><img src="/images/classification_3/27.png" alt="">  </p>
-<h4 id="Differences-among-ID3-C4-5-and-CART"><a href="#Differences-among-ID3-C4-5-and-CART" class="headerlink" title="Differences among ID3, C4.5 and CART"></a>Differences among ID3, C4.5 and CART</h4><p><strong>Algorithms to split the tree</strong>:</p>
-<p>ID3: Information Gain<br>C4.5: Gain Ratio<br>CART: Gini Impurity</p>
-<p><strong>Inputs and outputs</strong>:</p>
-<p>a) Input:<br>ID3: suggested to be categorical variable.<br>C4.5: categorical variable and continuous variable (because C4.5 solve the problem of ID3 that ID3 has the bias to the continuous variable).<br>CART: categorical variable and continuous variable. (there has different way to calculate different input data type: binary categorical variable, multiple categorical variable, ranked variable and continuous variables).</p>
+<h4 id="Differences-among-ID3-C4-5-and-CART"><a href="#Differences-among-ID3-C4-5-and-CART" class="headerlink" title="Differences among ID3, C4.5 and CART"></a><strong>Differences among ID3, C4.5 and CART</strong></h4><h5 id="Algorithms-to-split-the-tree"><a href="#Algorithms-to-split-the-tree" class="headerlink" title="Algorithms to split the tree:"></a><strong>Algorithms to split the tree</strong>:</h5><p>ID3: Information Gain<br>C4.5: Gain Ratio<br>CART: Gini Impurity</p>
+<h5 id="Inputs-and-outputs-3"><a href="#Inputs-and-outputs-3" class="headerlink" title="Inputs and outputs:"></a><strong>Inputs and outputs</strong>:</h5><p>a) Input:<br>ID3: suggested to be categorical variable.<br>C4.5: categorical variable and continuous variable (because C4.5 solve the problem of ID3 that ID3 has the bias to the continuous variable).<br>CART: categorical variable and continuous variable. (there has different way to calculate different input data type: binary categorical variable, multiple categorical variable, ranked variable and continuous variables).</p>
 <p>b) Output:<br>ID3: suggested to be categorical variable (computationally expensive to calculate continuous variable).<br>C4.5: suggested to be categorical variable (computationally expensive to calculate continuous variable).<br>CART: categorical variable (classification tree) and continuous variable (regression tree).</p>
-<h3 id="Regression-Trees"><a href="#Regression-Trees" class="headerlink" title="Regression Trees"></a>Regression Trees</h3><p><strong>Definition</strong></p>
-<p>CART could not only apply to build a classification tree, but also to build a regression tree which with the target is continuous variable. Instead calculate Gini Impurity, CART calculates the variance reduction for each feature to decide which node is chosen to split the tree.</p>
-<p><strong>Inputs and outputs</strong></p>
-<p><strong>Input</strong>: The input for CART could be numerical and categorical data.</p>
+<h3 id="Regression-Trees"><a href="#Regression-Trees" class="headerlink" title="Regression Trees"></a>Regression Trees</h3><h5 id="Definition-4"><a href="#Definition-4" class="headerlink" title="Definition"></a><strong>Definition</strong></h5><p>CART could not only apply to build a classification tree, but also to build a regression tree which with the target is continuous variable. Instead calculate Gini Impurity, CART calculates the variance reduction for each feature to decide which node is chosen to split the tree.</p>
+<h5 id="Inputs-and-outputs-4"><a href="#Inputs-and-outputs-4" class="headerlink" title="Inputs and outputs"></a><strong>Inputs and outputs</strong></h5><p><strong>Input</strong>: The input for CART could be numerical and categorical data.</p>
 <p><strong>Output</strong>: The output for CART regression is continuous variable.</p>
-<p><strong>Formula</strong></p>
-<p><img src="/images/classification_3/28.png" alt="">  </p>
+<h5 id="Formula-3"><a href="#Formula-3" class="headerlink" title="Formula"></a><strong>Formula</strong></h5><p><img src="/images/classification_3/28.png" alt="">  </p>
 <p>There is one concept you need to know for CART regression tree which is <strong>variance reduction</strong> instead of Gini impurity for CART classification tree.</p>
 <p>And there are three steps to build a CART regression tree by variance reduction:</p>
 <ol>
@@ -401,8 +391,7 @@
 <li>compare variance reduction for each feature and select the feature with minimum value as the first node for the CART regression tree.</li>
 <li>repeat the process above for each node to form a CART regression tree until there is no point in separating the features anymore and it becomes a leaf node.</li>
 </ol>
-<p><strong>Examples/ How to calculate variance reduction for different inputs</strong></p>
-<p>I got screenshots below in this part from <a href="https://www.youtube.com/watch?v=g9c66TUylZ4" target="_blank" rel="noopener">Regression Trees, Clearly Explained!!!</a>. </p>
+<h5 id="Examples-How-to-calculate-variance-reduction-for-different-inputs"><a href="#Examples-How-to-calculate-variance-reduction-for-different-inputs" class="headerlink" title="Examples/ How to calculate variance reduction for different inputs"></a><strong>Examples/ How to calculate variance reduction for different inputs</strong></h5><p>I got screenshots below in this part from <a href="https://www.youtube.com/watch?v=g9c66TUylZ4" target="_blank" rel="noopener">Regression Trees, Clearly Explained!!!</a>. </p>
 <p><strong>Step1</strong>: calculate <strong>variance reduction</strong> for each feature.</p>
 <p>The sample data for this example has the features which are Dosage, Age and Sex. The target is continuous variable which is Drug Effect.</p>
 <p><img src="/images/classification_3/29.png" alt=""> </p>
@@ -418,11 +407,9 @@
 <h2 id="Decision-tree-pruning"><a href="#Decision-tree-pruning" class="headerlink" title="Decision tree pruning"></a>Decision tree pruning</h2><p><a href="https://benalexkeen.com/wp-content/uploads/2017/05/tree.png" target="_blank" rel="noopener">https://benalexkeen.com/wp-content/uploads/2017/05/tree.png</a> </p>
 <p>If we have multiple of features and we don’t set limitation to the decision tree, the decision tree will be too complex like the image below and will cause <strong>overfitting problem</strong>.</p>
 <p><img src="/images/classification_3/32.png" alt=""> </p>
-<p><strong>Definition</strong></p>
-<p>Pruning is a technique in machine learning and search algorithms that reduces the size of decision trees by removing sections of the tree that provide little power to classify instances. Pruning reduces the complexity of the final classifier, and hence improve accuracy by reduction of overfitting. </p>
+<h5 id="Definition-5"><a href="#Definition-5" class="headerlink" title="Definition"></a><strong>Definition</strong></h5><p>Pruning is a technique in machine learning and search algorithms that reduces the size of decision trees by removing sections of the tree that provide little power to classify instances. Pruning reduces the complexity of the final classifier, and hence improve accuracy by reduction of overfitting. </p>
 <p>And pruning should reduce the size of a learning tree without reducing predictive accuracy as measured by a cross-validation set.</p>
-<p><strong>Techniques</strong></p>
-<p>Pruning can occur in a top down or bottom up fashion. A top down pruning (pre-pruning) will traverse nodes and trim subtrees starting at the root, while bottom up pruning (post pruning) will start at the leaf nodes.</p>
+<h5 id="Techniques"><a href="#Techniques" class="headerlink" title="Techniques"></a><strong>Techniques</strong></h5><p>Pruning can occur in a top down or bottom up fashion. A top down pruning (pre-pruning) will traverse nodes and trim subtrees starting at the root, while bottom up pruning (post pruning) will start at the leaf nodes.</p>
 <ol>
 <li>pre-pruning</li>
 </ol>
