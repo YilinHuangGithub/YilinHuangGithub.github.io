@@ -336,8 +336,7 @@
 <p>I found the blog <a href="https://victorzhou.com/blog/gini-impurity/" target="_blank" rel="noopener">A Simple Explanation of Gini Impurity</a> by Victor Zhou explain the Gini impurity very well if you want to know more details about Gini Impurity.</p>
 <h5 id="Examples-How-to-calculate-Gini-impurity-for-different-inputs"><a href="#Examples-How-to-calculate-Gini-impurity-for-different-inputs" class="headerlink" title="Examples/ How to calculate Gini impurity for different inputs"></a><strong>Examples/ How to calculate Gini impurity for different inputs</strong></h5><p>There are four main different data type for input value which are binary categorical variable, multiple categorical variable, ranked variable and continuous variable. For different data type, there are different ways to calculate Gini impurity.</p>
 <p>I got screenshots below in this part from <a href="https://www.youtube.com/watch?v=7VeUPuFGJHk" target="_blank" rel="noopener">StatQuest: Decision Trees</a>.</p>
-<p> <em>Gini impurity for binary categorical variable</em></p>
-<p>The sample data for this example has the features which are Chest Pain, Good Blood Circulation and Blocked Arteries. The target is Heart Disease.</p>
+<h6 id="Gini-impurity-for-binary-categorical-variable"><a href="#Gini-impurity-for-binary-categorical-variable" class="headerlink" title="Gini impurity for binary categorical variable"></a><strong>Gini impurity for binary categorical variable</strong></h6><p>The sample data for this example has the features which are Chest Pain, Good Blood Circulation and Blocked Arteries. The target is Heart Disease.</p>
 <p><img src="/images/classification_3/17.png" alt="">  </p>
 <p><strong>Step1</strong>: calculate <strong>Gini Impurity</strong> for each feature.</p>
 <p>a) Example - Gini impurity for Chest Pain (Yes/No)</p>
@@ -354,8 +353,7 @@
 <p><strong>Step3</strong>: repeat the process above for each node to form a CART tree.</p>
 <p>After you split the tree by the first node which is Good Blood Circulation, we need to repeat the step1 for each split. From the screenshot below, we could observe that the Blocked Arteries will be the next node for the left split of Good Blood Circulation. For the reason that Blocked Arteries has the lowest Gini impurity compares with Chest Pain.</p>
 <p><img src="/images/classification_3/22.png" alt="">  </p>
-<p><em>Gini impurity for multiple categorical variable</em></p>
-<p>Assume we have a multiple variable with values like Green, Blue, Red and Green. We need to split the value into multiple group. </p>
+<h6 id="Gini-impurity-for-multiple-categorical-variable"><a href="#Gini-impurity-for-multiple-categorical-variable" class="headerlink" title="Gini impurity for multiple categorical variable"></a><strong>Gini impurity for multiple categorical variable</strong></h6><p>Assume we have a multiple variable with values like Green, Blue, Red and Green. We need to split the value into multiple group. </p>
 <ol>
 <li>Color Choice: Blue (is Blue or not)</li>
 <li>Color Choice: Green (is Green or not)</li>
@@ -366,16 +364,14 @@
 </ol>
 <p><strong>Note</strong>: we don’t need to calculate an impurity score for “Color Choice: Blue or Green or Red” since that includes everyone.</p>
 <p><img src="/images/classification_3/23.png" alt="">  </p>
-<p>*Gini impurity for continuous variable *</p>
-<p>There have three steps to calculate the Gini impurity for continuous variable.</p>
+<h6 id="Gini-impurity-for-continuous-variable"><a href="#Gini-impurity-for-continuous-variable" class="headerlink" title="Gini impurity for continuous variable"></a><strong>Gini impurity for continuous variable</strong></h6><p>There have three steps to calculate the Gini impurity for continuous variable.</p>
 <p>a) sort the patients by the feature which is weight in this example from lowest to highest.</p>
 <p><img src="/images/classification_3/24.png" alt="">  </p>
 <p>b) calculate the average weight for all adjacent patient.</p>
 <p><img src="/images/classification_3/25.png" alt="">  </p>
 <p>c) calculate the impurity values for each average weight.</p>
 <p><img src="/images/classification_3/26.png" alt="">  </p>
-<p>*Gini impurity for ranked variable *</p>
-<p>The way to calculate ranked variable is basically same to the continuous variable. Assume that we have a ranked variable with four values which are 1,2,3,4. </p>
+<h6 id="Gini-impurity-for-ranked-variable"><a href="#Gini-impurity-for-ranked-variable" class="headerlink" title="Gini impurity for ranked variable"></a><strong>Gini impurity for ranked variable</strong></h6><p>The way to calculate ranked variable is basically same to the continuous variable. Assume that we have a ranked variable with four values which are 1,2,3,4. </p>
 <p><img src="/images/classification_3/27.png" alt="">  </p>
 <h4 id="Differences-among-ID3-C4-5-and-CART"><a href="#Differences-among-ID3-C4-5-and-CART" class="headerlink" title="Differences among ID3, C4.5 and CART"></a><strong>Differences among ID3, C4.5 and CART</strong></h4><h5 id="Algorithms-to-split-the-tree"><a href="#Algorithms-to-split-the-tree" class="headerlink" title="Algorithms to split the tree:"></a><strong>Algorithms to split the tree</strong>:</h5><p>ID3: Information Gain<br>C4.5: Gain Ratio<br>CART: Gini Impurity</p>
 <h5 id="Inputs-and-outputs-3"><a href="#Inputs-and-outputs-3" class="headerlink" title="Inputs and outputs:"></a><strong>Inputs and outputs</strong>:</h5><p>a) Input:<br>ID3: suggested to be categorical variable.<br>C4.5: categorical variable and continuous variable (because C4.5 solve the problem of ID3 that ID3 has the bias to the continuous variable).<br>CART: categorical variable and continuous variable. (there has different way to calculate different input data type: binary categorical variable, multiple categorical variable, ranked variable and continuous variables).</p>
